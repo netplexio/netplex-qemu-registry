@@ -2,7 +2,7 @@
 
 **Community-maintained default launch parameters for network & appliance QEMU images — so any image you drop into [netplex](https://netplex.io) boots with sensible defaults out of the box.**
 
-This registry maps a device name to its QEMU **defaults** — console type, machine type, NIC model, vCPU, RAM, arch — in one simple JSON file: [`registry/qemu-defaults.json`](registry/qemu-defaults.json). It currently ships **178 devices**.
+This registry maps a device name to its QEMU **defaults** — console type, machine type, NIC model, vCPU, RAM, arch — in one simple JSON file: [`registry/qemu-defaults.json`](registry/qemu-defaults.json). It currently ships **343 devices**.
 
 > Every value here is a **default, not a lock.** netplex applies these when you add a matching image, and you can override any parameter per node. Curated, hand-verified profiles inside netplex always take precedence over this registry.
 
