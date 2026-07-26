@@ -50,4 +50,15 @@ These are community-contributed **defaults**. Only a subset have been live-boot-
 
 ## License
 
-The data in this repository is released under [CC0-1.0](LICENSE) (public domain dedication) — use it, fork it, ship it, anywhere, no attribution required. We *ask* for contributions back, but never require it.
+Released under **[GPL v3](LICENSE)** — the same copyleft license as the community sources this
+draws on, so contributions and forks stay free and open for everyone. Fork it, improve it, ship
+it; keep it GPL and pass the freedom on.
+
+## A note on the data
+
+This is a **blended, independently-reformatted** dataset of *factual* QEMU launch parameters
+(console type, machine type, NIC model, vCPU, RAM) — the kind of "how does this image boot"
+facts that aren't anyone's private property. It's merged from multiple public community
+catalogues into netplex's own schema and normalized, then grown by our own testing and by your
+contributions. Where a value has been confirmed by actually booting the image, all the better;
+where it hasn't, it's a community best-guess you can improve.
