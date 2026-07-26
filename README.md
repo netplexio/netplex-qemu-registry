@@ -2,7 +2,7 @@
 
 **Community-maintained default launch parameters for network & appliance QEMU images — so any image you drop into [netplex](https://netplex.io) boots with sensible defaults out of the box.**
 
-This registry maps a device name to its QEMU **defaults** — console type, machine type, NIC model, vCPU, RAM, arch — in one simple JSON file: [`registry/qemu-defaults.json`](registry/qemu-defaults.json). It currently ships **343 devices**.
+This registry maps a device name to its QEMU **defaults** — console type, machine type, NIC model, vCPU, RAM, arch — in one simple JSON file: [`registry/qemu-defaults.json`](registry/qemu-defaults.json). It currently ships **178 devices**.
 
 > Every value here is a **default, not a lock.** netplex applies these when you add a matching image, and you can override any parameter per node. Curated, hand-verified profiles inside netplex always take precedence over this registry.
 
@@ -37,12 +37,15 @@ Full field reference: [SCHEMA.md](SCHEMA.md).
 
 ## 🙏 Credits & thanks
 
-netplex stands on the shoulders of the open networking-emulation community. The initial seed of default parameters was informed by the outstanding, hard-won device knowledge published by:
+netplex stands on the shoulders of the open networking-emulation community. This registry's
+initial device set was built from the outstanding public work of:
 
-- **[EVE-NG](https://www.eve-ng.net/)** — for their extensive vendor device templates.
-- **[GNS3](https://gns3.com/)** and the **[GNS3 appliance registry](https://github.com/GNS3/gns3-registry)** — for their public appliance definitions.
+- **[GNS3](https://gns3.com/)** and the **[GNS3 appliance registry](https://github.com/GNS3/gns3-registry)** — for their open, GPL-licensed appliance definitions.
 
-Thank you to both projects and their communities for the immense effort that goes into cataloguing how these images boot. This registry is netplex's own, independently-formatted data, and we hope it gives back to the same community.
+Thank you to the GNS3 project and its community for the immense effort behind cataloguing how
+these images boot. This registry is netplex's own, independently-formatted data, released under
+the same license, and we hope it gives back to the same community.
+
 
 ## ✅ Honesty note
 
@@ -58,7 +61,6 @@ it; keep it GPL and pass the freedom on.
 
 This is a **blended, independently-reformatted** dataset of *factual* QEMU launch parameters
 (console type, machine type, NIC model, vCPU, RAM) — the kind of "how does this image boot"
-facts that aren't anyone's private property. It's merged from multiple public community
-catalogues into netplex's own schema and normalized, then grown by our own testing and by your
+facts that aren't anyone's private property. It's built from the public GNS3 appliance registry into netplex's own schema and normalized, then grown by our own testing and by your
 contributions. Where a value has been confirmed by actually booting the image, all the better;
 where it hasn't, it's a community best-guess you can improve.

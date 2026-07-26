@@ -1,14 +1,4 @@
 {
- "128t": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 8,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 8192
- },
  "6wind-turbo-router": {
   "arch": "x86_64",
   "category": "router",
@@ -19,16 +9,6 @@
   "ram_mb": 4096,
   "vendor": "6wind"
  },
- "a10": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 3,
-  "machine": "pc-1.0",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
  "a10-vthunder": {
   "arch": "x86_64",
   "category": "router",
@@ -38,15 +18,6 @@
   "ram_mb": 4096,
   "vendor": "a10"
  },
- "acs": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc-1.0",
-  "ram_mb": 4096
- },
  "alcatel-7750": {
   "arch": "x86_64",
   "category": "router",
@@ -55,16 +26,6 @@
   "nic_model": "e1000",
   "ram_mb": 2048,
   "vendor": "alcatel"
- },
- "alienvault": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 6144
  },
  "almalinux": {
   "arch": "x86_64",
@@ -93,74 +54,6 @@
   "ram_mb": 128,
   "vendor": "alpine-linux-development-team"
  },
- "alteon": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc-1.0",
-  "ram_mb": 6144
- },
- "ampcloud": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "ram_mb": 8192
- },
- "android": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 4096
- },
- "aos": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 8,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 16384
- },
- "apicem": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 6,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 32768
- },
- "apstra-aos": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 8,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 32768
- },
- "apstra-ztp": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
  "arista-veos": {
   "arch": "x86_64",
   "category": "multilayer_switch",
@@ -169,15 +62,6 @@
   "nic_model": "e1000",
   "ram_mb": 2048,
   "vendor": "arista"
- },
- "aruba": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 3,
-  "display": "serial",
-  "interfaces": 7,
-  "machine": "pc",
-  "ram_mb": 4096
  },
  "aruba-vgw": {
   "arch": "x86_64",
@@ -199,46 +83,6 @@
   "ram_mb": 6144,
   "vendor": "hpe-aruba"
  },
- "arubaamp": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 8,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "vmxnet3",
-  "ram_mb": 32768
- },
- "arubacx": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 7,
-  "machine": "pc-1.0",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "arubafc": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
- "arubanet": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
  "arubaos-cx-simulation-software": {
   "arch": "x86_64",
   "category": "multilayer_switch",
@@ -248,26 +92,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 4096,
   "vendor": "hpe-aruba"
- },
- "asa": {
-  "arch": "i386",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "i82559er",
-  "ram_mb": 2048
- },
- "asav": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 8,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
  },
  "asterfusion-asternos-vpp": {
   "arch": "x86_64",
@@ -308,16 +132,6 @@
   "ram_mb": 1024,
   "vendor": "digium"
  },
- "barracuda": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
  "big-cloud-fabric": {
   "arch": "x86_64",
   "category": "router",
@@ -326,15 +140,6 @@
   "nic_model": "e1000",
   "ram_mb": 256,
   "vendor": "big-switch-networks"
- },
- "bigip": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "ram_mb": 4096
  },
  "bird": {
   "arch": "x86_64",
@@ -354,15 +159,6 @@
   "ram_mb": 2048,
   "vendor": "brocade"
  },
- "brocadevadx": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "ram_mb": 2048
- },
  "bsdrp": {
   "arch": "x86_64",
   "category": "router",
@@ -371,125 +167,6 @@
   "nic_model": "e1000",
   "ram_mb": 256,
   "vendor": "olivier-cochard-labbe"
- },
- "c8000v": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "vmxnet3",
-  "ram_mb": 8192
- },
- "c9800cl": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "vmxnet3",
-  "ram_mb": 4096
- },
- "cat9kv": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 9,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 18432
- },
- "cat9kvq200": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 25,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 12288
- },
- "cat9kvuadp": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 25,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 18432
- },
- "catc1k": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 8,
-  "machine": "pc",
-  "nic_model": "vmxnet3",
-  "ram_mb": 8192
- },
- "catc8k": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 8,
-  "machine": "pc",
-  "nic_model": "vmxnet3",
-  "ram_mb": 8192
- },
- "catcontrol": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "catmanager": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 8,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 24756
- },
- "catvalid": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "catvedge": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 5,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 2048
- },
- "cda": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc-1.0",
-  "ram_mb": 2048
  },
  "centos": {
   "arch": "x86_64",
@@ -509,16 +186,6 @@
   "ram_mb": 1024,
   "vendor": "the-centos-project"
  },
- "cexpresw": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 3,
-  "display": "serial",
-  "interfaces": 3,
-  "machine": "pc-1.0",
-  "nic_model": "e1000",
-  "ram_mb": 6144
- },
  "checkpoint-gaia": {
   "arch": "x86_64",
   "category": "firewall",
@@ -528,15 +195,6 @@
   "nic_model": "e1000",
   "ram_mb": 4096,
   "vendor": "checkpoint"
- },
- "cips": {
-  "arch": "i386",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 5,
-  "machine": "pc-1.0",
-  "ram_mb": 2048
  },
  "cisco-alpine-linux-trex": {
   "arch": "x86_64",
@@ -785,16 +443,6 @@
   "ram_mb": 512,
   "vendor": "clavister"
  },
- "clavisterc": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
  "clearos-ce": {
   "arch": "x86_64",
   "category": "firewall",
@@ -803,15 +451,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 1024,
   "vendor": "clearcenter-corp"
- },
- "clearpass": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
-  "ram_mb": 6144
  },
  "cloudrouter": {
   "arch": "x86_64",
@@ -822,25 +461,6 @@
   "ram_mb": 2048,
   "vendor": "cloudrouter-community"
  },
- "cms": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "coeus": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 3,
-  "machine": "pc",
-  "ram_mb": 4096
- },
  "coreos": {
   "arch": "x86_64",
   "category": "guest",
@@ -849,84 +469,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 1024,
   "vendor": "coreos-inc"
- },
- "cpsg": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "ram_mb": 6144
- },
- "csr1000v": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "ram_mb": 3072
- },
- "csr1000vng": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "vmxnet3",
-  "ram_mb": 4096
- },
- "ctxsdw": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "cuc": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc-1.0",
-  "nic_model": "vmxnet3",
-  "ram_mb": 4096
- },
- "cucm": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc-1.0",
-  "nic_model": "vmxnet3",
-  "ram_mb": 4096
- },
- "cue": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 4096
- },
- "cumulus": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 8,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 1024
  },
  "cumulus-vx": {
   "arch": "x86_64",
@@ -937,36 +479,6 @@
   "ram_mb": 1024,
   "vendor": "cumulus-network"
  },
- "cup": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "vmxnet3",
-  "ram_mb": 4096
- },
- "cvp": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 8,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 22528
- },
- "cyberoam": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 1024
- },
  "danos": {
   "arch": "x86_64",
   "category": "router",
@@ -976,16 +488,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 4096,
   "vendor": "linux"
- },
- "dcnm": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
  },
  "debian": {
   "arch": "x86_64",
@@ -1014,24 +516,6 @@
   "ram_mb": 1024,
   "vendor": "dell-inc"
  },
- "dellos10": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 16,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 4096
- },
- "esxi": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 4,
-  "ram_mb": 4096
- },
  "exos-vm": {
   "arch": "x86_64",
   "category": "multilayer_switch",
@@ -1040,25 +524,6 @@
   "nic_model": "rtl8139",
   "ram_mb": 1024,
   "vendor": "extreme-networks"
- },
- "extremevoss": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 9,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 2048
- },
- "extremexos": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 3,
-  "machine": "pc",
-  "ram_mb": 2048
  },
  "f5-big-ip-ltm-ve": {
   "arch": "x86_64",
@@ -1087,16 +552,6 @@
   "ram_mb": 1024,
   "vendor": "the-fedora-project"
  },
- "fips7": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 8192
- },
  "firefox": {
   "arch": "i386",
   "category": "guest",
@@ -1105,44 +560,6 @@
   "nic_model": "e1000",
   "ram_mb": 256,
   "vendor": "mozilla-foundation"
- },
- "firepower": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc-1.0",
-  "ram_mb": 4096
- },
- "firepower6": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 5,
-  "machine": "pc",
-  "ram_mb": 8192
- },
- "fmc7": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 28762
- },
- "forescout": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
  },
  "fortiadc": {
   "arch": "x86_64",
@@ -1218,16 +635,6 @@
   "ram_mb": 8192,
   "vendor": "fortinet"
  },
- "fortinet": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 1024
- },
  "fortiproxy": {
   "arch": "x86_64",
   "category": "firewall",
@@ -1273,47 +680,21 @@
   "ram_mb": 2048,
   "vendor": "fortinet"
  },
- "fpfw": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "fpsmc": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
  "freebsd": {
   "arch": "x86_64",
   "category": "guest",
   "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
+  "interfaces": 4,
   "nic_model": "virtio-net-pci",
-  "ram_mb": 4092,
+  "ram_mb": 256,
   "vendor": "freebsd"
  },
  "freenas": {
   "arch": "x86_64",
   "category": "guest",
   "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
+  "interfaces": 1,
+  "nic_model": "e1000",
   "ram_mb": 8192,
   "vendor": "ixsystems"
  },
@@ -1335,16 +716,6 @@
   "ram_mb": 256,
   "vendor": "frrouting-project"
  },
- "ftd7": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
  "hbcd-pe": {
   "arch": "x86_64",
   "category": "guest",
@@ -1354,16 +725,6 @@
   "ram_mb": 4096,
   "vendor": "hirensbootcd-org"
  },
- "hillstone": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 2048
- },
  "hpe-vsr1001": {
   "arch": "x86_64",
   "category": "router",
@@ -1372,15 +733,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 1024,
   "vendor": "hpe"
- },
- "hpvsr": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
-  "ram_mb": 4096
  },
  "huawei-ar1000v": {
   "arch": "x86_64",
@@ -1422,36 +774,6 @@
   "ram_mb": 4096,
   "vendor": "huawei"
  },
- "huaweiar1k": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
- "huaweine40": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 12,
-  "machine": "pc",
-  "nic_model": "vmxnet3",
-  "ram_mb": 2048
- },
- "huaweiusg6kv": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
  "ims-va": {
   "arch": "x86_64",
   "category": "firewall",
@@ -1470,16 +792,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 512,
   "vendor": "kernelkit"
- },
- "infoblox": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
  },
  "innovaphone-app-platform": {
   "arch": "x86_64",
@@ -1528,25 +840,6 @@
   "ram_mb": 1024,
   "vendor": "linux"
  },
- "ise": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc",
-  "ram_mb": 8192
- },
- "isrv": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "vmxnet3",
-  "ram_mb": 4096
- },
  "iws-va": {
   "arch": "x86_64",
   "category": "firewall",
@@ -1555,56 +848,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 4096,
   "vendor": "trend-micro-inc"
- },
- "ixiavb": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
- "ixiavc": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 8,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
- "jspace": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
- "jspacelogcollector": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc-1.0",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 16384
- },
- "jspacepolicy": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
  },
  "juniper-vmx": {
   "arch": "x86_64",
@@ -1662,16 +905,6 @@
   "ram_mb": 8192,
   "vendor": "juniper"
  },
- "junipervrr": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
  "junos-space": {
   "arch": "x86_64",
   "category": "guest",
@@ -1692,16 +925,6 @@
   "ram_mb": 2048,
   "vendor": "kali-linux"
  },
- "kemp": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 5,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
  "kemp-free-vlm": {
   "arch": "x86_64",
   "category": "router",
@@ -1710,16 +933,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 2048,
   "vendor": "kemp"
- },
- "kerio": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
  },
  "kerio-connect": {
   "arch": "x86_64",
@@ -1757,16 +970,6 @@
   "ram_mb": 1024,
   "vendor": "lancom-systems-gmbh"
  },
- "linux": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
  "loadbalancer-org-enterprise-va": {
   "arch": "x86_64",
   "category": "router",
@@ -1775,16 +978,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 2048,
   "vendor": "loadbalancer-org"
- },
- "logzilla": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 8,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
  },
  "macos": {
   "arch": "x86_64",
@@ -1796,14 +989,6 @@
   "ram_mb": 4096,
   "vendor": "apple"
  },
- "macos-simple-kvm": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "interfaces": 1,
-  "nic_model": "e1000-82545em",
-  "ram_mb": 4096
- },
  "micro-core-linux": {
   "arch": "i386",
   "category": "guest",
@@ -1812,16 +997,6 @@
   "nic_model": "e1000",
   "ram_mb": 64,
   "vendor": "team-tiny-core"
- },
- "mikrotik": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "e1000-82545em",
-  "ram_mb": 256
  },
  "mikrotik-ccr1036-8g-2s": {
   "arch": "x86_64",
@@ -1941,16 +1116,6 @@
   "ram_mb": 2048,
   "vendor": "mininet-team"
  },
- "nd": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 16,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 49152
- },
  "netem": {
   "arch": "i386",
   "category": "guest",
@@ -1969,16 +1134,6 @@
   "ram_mb": 1024,
   "vendor": "nethesis"
  },
- "netropy": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
  "netscaler-vpx": {
   "arch": "x86_64",
   "category": "router",
@@ -1987,16 +1142,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 2048,
   "vendor": "citrix"
- },
- "newimage": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
  },
  "nixos": {
   "arch": "x86_64",
@@ -2017,44 +1162,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 4096,
   "vendor": "nokia"
- },
- "nsvpx": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
- "nsx": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 16384
- },
- "nxosv9k": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 8,
-  "machine": "pc",
-  "ram_mb": 8192
- },
- "olive": {
-  "arch": "i386",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc-1.0",
-  "ram_mb": 4096
  },
  "ontap-simulator": {
   "arch": "x86_64",
@@ -2132,13 +1239,10 @@
  "opnsense": {
   "arch": "x86_64",
   "category": "firewall",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "serial",
+  "console": "telnet",
   "interfaces": 4,
-  "machine": "pc",
   "nic_model": "virtio-net-pci",
-  "ram_mb": 2048,
+  "ram_mb": 1024,
   "vendor": "deciso-b-v"
  },
  "oracle-linux-cloud-guest": {
@@ -2151,23 +1255,14 @@
   "vendor": "oracle-corporation"
  },
  "ostinato": {
-  "arch": "x86_64",
+  "arch": "i386",
   "category": "guest",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
-  "ram_mb": 512,
-  "vendor": "ostinato"
- },
- "osx": {
-  "arch": "x86_64",
   "console": "vnc",
-  "cpu": 4,
-  "interfaces": 1,
-  "nic_model": "e1000-82545em",
-  "ram_mb": 3072
+  "cpu": 2,
+  "interfaces": 4,
+  "nic_model": "e1000",
+  "ram_mb": 256,
+  "vendor": "ostinato"
  },
  "pa-vm": {
   "arch": "x86_64",
@@ -2187,34 +1282,6 @@
   "ram_mb": 8192,
   "vendor": "inverse-inc"
  },
- "paloalto": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "ram_mb": 8192
- },
- "paloion": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
- "panorama": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc",
-  "ram_mb": 16384
- },
  "parrotos": {
   "arch": "x86_64",
   "category": "guest",
@@ -2227,32 +1294,11 @@
  "pfsense": {
   "arch": "x86_64",
   "category": "firewall",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
+  "console": "vnc",
+  "interfaces": 6,
+  "nic_model": "e1000",
   "ram_mb": 2048,
   "vendor": "rubicon-communications-llc-netgate"
- },
- "phoebe": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 3,
-  "machine": "pc",
-  "ram_mb": 4096
- },
- "prime": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 12288
  },
  "proxmox-mg": {
   "arch": "x86_64",
@@ -2262,16 +1308,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 4096,
   "vendor": "proxmox-server-solutions-gmbh"
- },
- "pulse": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
  },
  "puppy-linux": {
   "arch": "x86_64",
@@ -2309,16 +1345,6 @@
   "ram_mb": 1536,
   "vendor": "red-hat"
  },
- "riverbed": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
  "rockylinux": {
   "arch": "x86_64",
   "category": "guest",
@@ -2327,44 +1353,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 1536,
   "vendor": "rocky-enterprise-software-foundation"
- },
- "rsaam": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 8192
- },
- "ruijierouter": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 10,
-  "machine": "pc",
-  "ram_mb": 1024
- },
- "ruijieswitch": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 10,
-  "machine": "pc",
-  "ram_mb": 1024
- },
- "scrutinizer": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 6144
  },
  "security-onion": {
   "arch": "x86_64",
@@ -2375,26 +1363,6 @@
   "ram_mb": 4096,
   "vendor": "security-onion-solutions-llc"
  },
- "silveredge": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "silverorch": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
  "smoothwall-express": {
   "arch": "x86_64",
   "category": "firewall",
@@ -2403,26 +1371,6 @@
   "nic_model": "e1000",
   "ram_mb": 256,
   "vendor": "smoothwall-ltd"
- },
- "sonicsw": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 10,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 4096
- },
- "sonicwall": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 8,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 6144
  },
  "sophos-iview": {
   "arch": "x86_64",
@@ -2451,36 +1399,6 @@
   "ram_mb": 1024,
   "vendor": "sophos"
  },
- "sophosutm": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "sophosxg": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
- "stealth": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 3,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
  "steelhead": {
   "arch": "x86_64",
   "category": "guest",
@@ -2489,15 +1407,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 2048,
   "vendor": "riverbed-technology"
- },
- "sterra": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc-1.0",
-  "ram_mb": 2048
  },
  "stormshield-eva": {
   "arch": "x86_64",
@@ -2518,63 +1427,6 @@
   "ram_mb": 4096,
   "vendor": "tacacsgui"
  },
- "timos": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 6,
-  "machine": "pc-1.0",
-  "ram_mb": 2048
- },
- "timos-ng": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 10,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 6144
- },
- "timoscpm": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
-  "ram_mb": 2048
- },
- "timoscpm-ng": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "timosiom": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 10,
-  "machine": "pc",
-  "ram_mb": 2048
- },
- "timosiom-ng": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 10,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
  "tiny-core-linux": {
   "arch": "i386",
   "category": "guest",
@@ -2583,25 +1435,6 @@
   "nic_model": "e1000",
   "ram_mb": 128,
   "vendor": "team-tiny-core"
- },
- "titanium": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "ram_mb": 4096
- },
- "trendmivtps": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
  },
  "truenas": {
   "arch": "x86_64",
@@ -2630,35 +1463,6 @@
   "ram_mb": 1024,
   "vendor": "canonical-inc"
  },
- "uccx": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 1,
-  "machine": "pc-1.0",
-  "nic_model": "vmxnet3",
-  "ram_mb": 10240
- },
- "ucspe": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc-1.0",
-  "ram_mb": 2048
- },
- "untangle": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 5,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
  "untangle-ng": {
   "arch": "x86_64",
   "category": "firewall",
@@ -2668,24 +1472,6 @@
   "ram_mb": 1024,
   "vendor": "untangle"
  },
- "utm": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "vcenter": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 1,
-  "ram_mb": 10240
- },
  "vedgecloud": {
   "arch": "x86_64",
   "category": "router",
@@ -2694,103 +1480,6 @@
   "nic_model": "vmxnet3",
   "ram_mb": 2048,
   "vendor": "cisco"
- },
- "veloedge": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "velogw": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
- "veloorch": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 16384
- },
- "veos": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 9,
-  "machine": "pc",
-  "ram_mb": 6144
- },
- "veosr": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 6144
- },
- "versaana": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "versadir": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
- "versafvnf": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "vios": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "ram_mb": 1024
- },
- "viosl2": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 8,
-  "machine": "pc",
-  "ram_mb": 1024
  },
  "vjunos-router": {
   "arch": "x86_64",
@@ -2802,76 +1491,6 @@
   "ram_mb": 5120,
   "vendor": "juniper"
  },
- "vjunosevo": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 17,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
- "vjunosevo23": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 13,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
- "vjunosevoefi": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 13,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 8192
- },
- "vjunosrouter": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 11,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 6144
- },
- "vjunossr": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 8,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 8192
- },
- "vjunosswitch": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 11,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 16384
- },
- "vjunosswitch25": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 25,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 16384
- },
  "vmanage": {
   "arch": "x86_64",
   "category": "router",
@@ -2880,45 +1499,6 @@
   "nic_model": "vmxnet3",
   "ram_mb": 32768,
   "vendor": "cisco"
- },
- "vmx": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 6,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
- "vmxvcp": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
- "vmxvfp": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 3,
-  "display": "serial",
-  "interfaces": 12,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "vnam": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc-1.0",
-  "ram_mb": 4096
  },
  "voss-vm": {
   "arch": "x86_64",
@@ -2937,26 +1517,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 4096,
   "vendor": "fd-io-vpp-router"
- },
- "vqfxpfe": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 2048
- },
- "vqfxre": {
-  "arch": "i386",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 15,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 3072
  },
  "vrin": {
   "arch": "x86_64",
@@ -2990,50 +1550,10 @@
   "category": "firewall",
   "console": "telnet",
   "cpu": 2,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "ram_mb": 2048,
+  "interfaces": 6,
+  "nic_model": "vmxnet3",
+  "ram_mb": 4096,
   "vendor": "juniper"
- },
- "vsrx30": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "interfaces": 8,
-  "machine": "pc-1.0",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "vsrxng": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 4096
- },
- "vtbond": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 1024
- },
- "vtedge": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 5,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 1024
  },
  "vtm-de": {
   "arch": "x86_64",
@@ -3043,63 +1563,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 2048,
   "vendor": "brocade"
- },
- "vtmgmt": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 16384
- },
- "vtsmart": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
- "vwaas": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "interfaces": 2,
-  "machine": "pc",
-  "ram_mb": 4096
- },
- "vwlc": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 2,
-  "machine": "pc",
-  "ram_mb": 2048
- },
- "vyos": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 512
- },
- "watchguard": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 2,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 1024
  },
  "watchguard-fireboxv": {
   "arch": "x86_64",
@@ -3138,14 +1601,6 @@
   "ram_mb": 512,
   "vendor": "westermo"
  },
- "win": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "interfaces": 1,
-  "machine": "pc",
-  "ram_mb": 4096
- },
  "windows": {
   "arch": "x86_64",
   "category": "guest",
@@ -3183,53 +1638,6 @@
   "ram_mb": 512,
   "vendor": "microsoft"
  },
- "winserver": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "ram_mb": 8192
- },
- "xrv": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "display": "serial",
-  "interfaces": 4,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 3072
- },
- "xrv8102": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 8,
-  "display": "serial",
-  "interfaces": 8,
-  "machine": "pc-q35-4.2",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 12288
- },
- "xrv9k": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "interfaces": 7,
-  "nic_model": "e1000",
-  "ram_mb": 16384
- },
- "zabbix": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 2,
-  "display": "vga",
-  "interfaces": 1,
-  "machine": "pc",
-  "nic_model": "virtio-net-pci",
-  "ram_mb": 2048
- },
  "zentyal-server": {
   "arch": "x86_64",
   "category": "guest",
@@ -3247,25 +1655,5 @@
   "nic_model": "e1000",
   "ram_mb": 256,
   "vendor": "fulvio-ricciardi"
- },
- "zeus": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 1,
-  "display": "vga",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 4096
- },
- "zscaler": {
-  "arch": "x86_64",
-  "console": "vnc",
-  "cpu": 4,
-  "display": "serial",
-  "interfaces": 3,
-  "machine": "pc",
-  "nic_model": "e1000",
-  "ram_mb": 8192
  }
 }
