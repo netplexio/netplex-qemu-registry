@@ -1,8 +1,4 @@
 {
- "": {
-  "arch": "x86_64",
-  "console": "telnet"
- },
  "128t": {
   "arch": "x86_64",
   "console": "telnet",
@@ -41,12 +37,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 4096,
   "vendor": "a10"
- },
- "aaa": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "ubuntu"
  },
  "acs": {
   "arch": "x86_64",
@@ -94,12 +84,6 @@
   "ram_mb": 1024,
   "vendor": "alpine-linux-development-team"
  },
- "alpine-linux": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "alpine-linux-development-team"
- },
  "alpine-linux-virt": {
   "arch": "x86_64",
   "category": "guest",
@@ -108,12 +92,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 128,
   "vendor": "alpine-linux-development-team"
- },
- "alpinet": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "alpinet-project"
  },
  "alteon": {
   "arch": "x86_64",
@@ -394,21 +372,6 @@
   "ram_mb": 256,
   "vendor": "olivier-cochard-labbe"
  },
- "c1710": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "ram_mb": 96
- },
- "c3725": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "ram_mb": 256
- },
- "c7200": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "ram_mb": 256
- },
  "c8000v": {
   "arch": "x86_64",
   "console": "telnet",
@@ -546,15 +509,6 @@
   "ram_mb": 1024,
   "vendor": "the-centos-project"
  },
- "ceos": {
-  "arch": "x86_64",
-  "category": "multilayer_switch",
-  "console": "telnet",
-  "cpu": 0,
-  "interfaces": 4,
-  "ram_mb": 4096,
-  "vendor": "arista"
- },
  "cexpresw": {
   "arch": "x86_64",
   "console": "vnc",
@@ -575,12 +529,6 @@
   "ram_mb": 4096,
   "vendor": "checkpoint"
  },
- "chromium": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "chromium"
- },
  "cips": {
   "arch": "i386",
   "console": "telnet",
@@ -589,60 +537,6 @@
   "interfaces": 5,
   "machine": "pc-1.0",
   "ram_mb": 2048
- },
- "cisco-1700": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "cisco"
- },
- "cisco-2600": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "cisco"
- },
- "cisco-2691": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "cisco"
- },
- "cisco-3620": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "cisco"
- },
- "cisco-3640": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "cisco"
- },
- "cisco-3660": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "cisco"
- },
- "cisco-3725": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "cisco"
- },
- "cisco-3745": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "cisco"
- },
- "cisco-7200": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "cisco"
  },
  "cisco-alpine-linux-trex": {
   "arch": "x86_64",
@@ -785,18 +679,6 @@
   "ram_mb": 768,
   "vendor": "cisco"
  },
- "cisco-iou-l2": {
-  "arch": "x86_64",
-  "category": "multilayer_switch",
-  "console": "telnet",
-  "vendor": "cisco"
- },
- "cisco-iou-l3": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "cisco"
- },
  "cisco-ise": {
   "arch": "x86_64",
   "category": "firewall",
@@ -844,12 +726,6 @@
   "interfaces": 10,
   "nic_model": "e1000",
   "ram_mb": 6144,
-  "vendor": "cisco"
- },
- "cisco-pyats": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
   "vendor": "cisco"
  },
  "cisco-stealthwatch-management-console": {
@@ -1148,25 +1024,6 @@
   "nic_model": "e1000",
   "ram_mb": 4096
  },
- "dns": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "ubuntu"
- },
- "docker": {
-  "arch": "x86_64",
-  "console": "rdp",
-  "cpu": 1,
-  "interfaces": 1,
-  "ram_mb": 1024
- },
- "endhost": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "endhost"
- },
  "esxi": {
   "arch": "x86_64",
   "console": "vnc",
@@ -1174,55 +1031,6 @@
   "display": "serial",
   "interfaces": 4,
   "ram_mb": 4096
- },
- "eve-ansible": {
-  "arch": "x86_64",
-  "console": "rdp",
-  "cpu": 1,
-  "interfaces": 1,
-  "ram_mb": 1024
- },
- "eve-chrome": {
-  "arch": "x86_64",
-  "console": "rdp",
-  "cpu": 1,
-  "interfaces": 1,
-  "ram_mb": 1024
- },
- "eve-dind": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 1,
-  "interfaces": 1,
-  "ram_mb": 1024
- },
- "eve-firefox": {
-  "arch": "x86_64",
-  "console": "rdp",
-  "cpu": 1,
-  "interfaces": 1,
-  "ram_mb": 1024
- },
- "eve-gui-server": {
-  "arch": "x86_64",
-  "console": "rdp",
-  "cpu": 1,
-  "interfaces": 1,
-  "ram_mb": 1024
- },
- "eve-ostinato": {
-  "arch": "x86_64",
-  "console": "rdp",
-  "cpu": 1,
-  "interfaces": 1,
-  "ram_mb": 1024
- },
- "eve-wireshark": {
-  "arch": "x86_64",
-  "console": "rdp",
-  "cpu": 1,
-  "interfaces": 1,
-  "ram_mb": 1024
  },
  "exos-vm": {
   "arch": "x86_64",
@@ -1537,12 +1345,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 8192
  },
- "haproxy": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "haproxy"
- },
  "hbcd-pe": {
   "arch": "x86_64",
   "category": "guest",
@@ -1561,12 +1363,6 @@
   "machine": "pc",
   "nic_model": "e1000",
   "ram_mb": 2048
- },
- "home-assistant": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "open-home-foundation"
  },
  "hpe-vsr1001": {
   "arch": "x86_64",
@@ -1705,12 +1501,6 @@
   "ram_mb": 256,
   "vendor": "innovaphone"
  },
- "iol": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "interfaces": 1,
-  "ram_mb": 1024
- },
  "ip-cop": {
   "arch": "x86_64",
   "category": "firewall",
@@ -1728,12 +1518,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 1024,
   "vendor": "ipfire-project"
- },
- "ipterm": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "ipterm"
  },
  "ipxe": {
   "arch": "x86_64",
@@ -1898,18 +1682,6 @@
   "ram_mb": 16384,
   "vendor": "juniper"
  },
- "jupyter": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "project-jupyter"
- },
- "jupyter-2-7": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "project-jupyter"
- },
  "kali-linux": {
   "arch": "x86_64",
   "category": "guest",
@@ -1918,12 +1690,6 @@
   "interfaces": 8,
   "nic_model": "e1000",
   "ram_mb": 2048,
-  "vendor": "kali-linux"
- },
- "kali-linux-cli": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
   "vendor": "kali-linux"
  },
  "kemp": {
@@ -2037,12 +1803,6 @@
   "interfaces": 1,
   "nic_model": "e1000-82545em",
   "ram_mb": 4096
- },
- "mcjoin": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "joachim-nilsson"
  },
  "micro-core-linux": {
   "arch": "i386",
@@ -2172,18 +1932,6 @@
   "ram_mb": 1024,
   "vendor": "mikrotik"
  },
- "mikrotik-winbox": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "mikrotik"
- },
- "mikrotik-winbox-2026": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "mikrotik"
- },
  "mininet": {
   "arch": "x86_64",
   "category": "guest",
@@ -2290,12 +2038,6 @@
   "nic_model": "e1000",
   "ram_mb": 16384
  },
- "ntopng": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "ntop"
- },
  "nxosv9k": {
   "arch": "x86_64",
   "console": "telnet",
@@ -2313,12 +2055,6 @@
   "interfaces": 4,
   "machine": "pc-1.0",
   "ram_mb": 4096
- },
- "onos": {
-  "arch": "x86_64",
-  "category": "multilayer_switch",
-  "console": "telnet",
-  "vendor": "onos"
  },
  "ontap-simulator": {
   "arch": "x86_64",
@@ -2338,24 +2074,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 1024,
   "vendor": "op5"
- },
- "open-vswitch": {
-  "arch": "x86_64",
-  "category": "multilayer_switch",
-  "console": "telnet",
-  "vendor": "open-vswitch"
- },
- "open-vswitch-management": {
-  "arch": "x86_64",
-  "category": "multilayer_switch",
-  "console": "telnet",
-  "vendor": "open-vswitch"
- },
- "open-vswitch-with-snmp": {
-  "arch": "x86_64",
-  "category": "multilayer_switch",
-  "console": "telnet",
-  "vendor": "open-vswitch"
  },
  "openbsd": {
   "arch": "x86_64",
@@ -2442,12 +2160,6 @@
   "machine": "pc",
   "ram_mb": 512,
   "vendor": "ostinato"
- },
- "ostinato-wireshark": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "ostinato-wireshark"
  },
  "osx": {
   "arch": "x86_64",
@@ -2759,27 +2471,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 2048
  },
- "srlinux-ixr-d2l": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "interfaces": 8,
-  "ram_mb": 4096
- },
- "srlinux-ixr-d3": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "interfaces": 8,
-  "ram_mb": 4096
- },
- "srlinux-ixr-d3l": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 4,
-  "interfaces": 8,
-  "ram_mb": 4096
- },
  "stealth": {
   "arch": "x86_64",
   "console": "vnc",
@@ -2807,12 +2498,6 @@
   "interfaces": 1,
   "machine": "pc-1.0",
   "ram_mb": 2048
- },
- "stonework": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "pantheon-tech-stonework-router"
  },
  "stormshield-eva": {
   "arch": "x86_64",
@@ -2908,12 +2593,6 @@
   "machine": "pc",
   "ram_mb": 4096
  },
- "toolbox": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "ubuntu"
- },
  "trendmivtps": {
   "arch": "x86_64",
   "console": "vnc",
@@ -2950,12 +2629,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 1024,
   "vendor": "canonical-inc"
- },
- "ubuntu-docker-guest": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "canonical"
  },
  "uccx": {
   "arch": "x86_64",
@@ -3256,11 +2929,6 @@
   "ram_mb": 2048,
   "vendor": "extreme-networks"
  },
- "vpcs": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "interfaces": 1
- },
  "vpp": {
   "arch": "x86_64",
   "category": "router",
@@ -3423,12 +3091,6 @@
   "nic_model": "e1000",
   "ram_mb": 512
  },
- "vyos-universal-router": {
-  "arch": "x86_64",
-  "category": "router",
-  "console": "telnet",
-  "vendor": "vyos-inc"
- },
  "watchguard": {
   "arch": "x86_64",
   "console": "telnet",
@@ -3465,12 +3127,6 @@
   "nic_model": "virtio-net-pci",
   "ram_mb": 4096,
   "vendor": "cisco"
- },
- "webterm": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "webterm"
  },
  "westermo-weos": {
   "arch": "x86_64",
@@ -3535,19 +3191,6 @@
   "interfaces": 1,
   "machine": "pc",
   "ram_mb": 8192
- },
- "wordpress": {
-  "arch": "x86_64",
-  "category": "guest",
-  "console": "telnet",
-  "vendor": "turnkey-linux"
- },
- "xrd": {
-  "arch": "x86_64",
-  "console": "telnet",
-  "cpu": 0,
-  "interfaces": 4,
-  "ram_mb": 4096
  },
  "xrv": {
   "arch": "x86_64",
