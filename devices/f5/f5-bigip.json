@@ -1,0 +1,23 @@
+{
+ "key": "f5-bigip",
+ "source": "netplex-tested",
+ "tested": "F5 BIG-IP + BIG-IQ - no EVE-NG template exists for either (EVE-NG covers\nneither product); sourced from GNS3's own real templates instead\n(catalog-diff/gns3-catalog.md rows 65-66) - same \"pull the real template\nfirst\" rule applied to GNS3 as the source of last resort, same as the\nFortinet block above. GNS3's own schema specifies no explicit vCPU for\neither (defaults to 1 in GNS3) - kept at cpu=1 rather than invented higher.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 420,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "description": "F5 BIG-IP LTM VE ADC. No netplex-held image yet - hardware defaults only (kvm required), NOT live-boot-verified.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "loadbalancer",
+  "role": "load_balancer",
+  "vendor": "f5"
+ }
+}

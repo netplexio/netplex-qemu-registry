@@ -1,0 +1,30 @@
+{
+ "key": "zabbix",
+ "source": "netplex-tested",
+ "tested": "openmediavault / proxmox-mg / digium-asterisk (NAS, mail-gateway, PBX\nappliances) deliberately REMOVED 2026-09-17 (the project owner, verbatim: \"we don't\nmention those unknown devices! ... The ISO image installation stuff and\nthe QEMU scenarios stuff are generic and must apply to any image whether\nit's proxmox or openmediavalue. These are unknown and we mustn't care\nabout them. We care about major network vendors... Everything else is\nstandard qemu or ISO generic management.\") - netplex does not maintain\nnamed device support for generic, non-network server software. Once the\ngeneric \"install any OS from an ISO\" + golden-image workflow (NPX-1222,\nWave 39) exists, a user can bring any of these themselves with no\nbespoke profile needed. See NPX-1167's tracker row for the full account.",
+ "reasons": {
+  "vendor": "EVE-NG zabbix.yml (catalog-diff/eveng-catalog.md row 193): no\nexplicit -cpu flag - kept qemu64 per row 38.9's rule.",
+  "description": "58): reaches the real Rocky Linux 8.10 'appliance login:' prompt with nginx and the Zabbix Agent both started - no profile drift needed, this device already matched the vendor reference template. Wave 38.12/NPX-1167.\","
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 2048,
+  "description": "Zabbix (monitoring - included since several labs use it as a network-monitoring target, not network gear itself). Real image sourced 2026-09-17 from Zabbix's own official appliance download page (cdn.zabbix.com/zabbix/appliances/stable/7.0/7.0.30/zabbix_appliance-7.0.30-qcow2.tar.gz, sha256-verified against Zabbix's own published checksum) - free, no vendor account needed (Community Edition). Live-boot-verified through netplex's real platform (rule #58): reaches the real Rocky Linux 8.10 'appliance login:' prompt with nginx and the Zabbix Agent both started - no profile drift needed, this device already matched the vendor reference template. Wave 38.12/NPX-1167.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "server",
+  "vendor": "zabbix"
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "key": "juniper-vex",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "EVE-NG vjunosswitch.yml pins a much more specific CPU than a plain model\nname: \"-cpu IvyBridge,ibpb=on,md-clear=on,spec-ctrl=on,ssbd=on,vmx=on\".\nnetplex's cpu_model field only carries a base model name (qemu.py's\n<model fallback='forbid'>{model}</model> - no per-flag passthrough for a\nprofile-level pin), so the base model (IvyBridge, a real QEMU CPU model)\nis set here and the extra security/virtualization feature flags are\nnamed here rather than silently dropped - a real, disclosed schema\nlimitation (rule #31), not an oversight."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "IvyBridge",
+  "default_ram_mb": 16384,
+  "description": "Juniper vJunos Switch (vEX). No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 16384,
+  "nic": "virtio-net-pci",
+  "node_class": "switch",
+  "qemu_version_compatible": [
+   "5.2.0"
+  ],
+  "qemu_version_default": "5.2.0",
+  "role": "switchL3",
+  "vendor": "juniper"
+ }
+}

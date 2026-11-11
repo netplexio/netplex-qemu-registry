@@ -1,0 +1,25 @@
+{
+ "key": "cisco-catc",
+ "source": "netplex-tested",
+ "tested": "── Cisco Catalyst SD-WAN (catc* image folder naming) ────────────────────────",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "Catalyst SD-WAN Edge requires minimum 4 GB RAM and 2 vCPUs",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "recommended_ram_mb": 8192,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

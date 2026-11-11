@@ -1,0 +1,16 @@
+{
+ "key": "xrv8102",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "console": "telnet",
+  "cpu": 8,
+  "default_ram_mb": 12288,
+  "emulator": "qemu",
+  "interfaces": 8,
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64"
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "key": "silveredge",
+ "source": "netplex-tested",
+ "tested": "── Silver Peak / Aruba EdgeConnect (SilverEdge / VXOA) ────────────────────────\nNo profile existed for this vendor before 2026-07-18 - \"silveredge\"/\"silver_peak\"\nmatched no PROFILES key, so get_profile() fell back to GENERIC_KVM_PROFILE\n(512MB/1 vCPU). Live-reproduced: the real image (silveredge-8.1.9.6.tar,\nVXOA 8.1.9.6) booted with a raw `qemu-system-x86_64 -m 512 -smp 1` never got\npast the GRUB menu after 5.5+ minutes (0 bytes of further serial output,\nQEMU process alive the whole time - not a crash, a boot that never progresses\nunder memory pressure). The identical image at -m 4096 -smp 2 reached a full\n\"silverpeak login:\" VXOA prompt in under 4 minutes. Same \"unknown vendor\nsilently gets the 512MB generic floor\" failure class already fixed for isrv/\nNX-OS/FortiGate above (see those comments) - min/default set from the PROVEN\n4096MB/2-vCPU boot, not a vendor-doc guess.",
+ "reasons": {
+  "nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/silveredge.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "router",
+  "vendor": "silver_peak"
+ }
+}

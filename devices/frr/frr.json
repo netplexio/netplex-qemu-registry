@@ -1,0 +1,19 @@
+{
+ "key": "frr",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 5,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 1,
+  "default_ram_mb": 256,
+  "emulator": "docker",
+  "image": "frrouting/frr:latest",
+  "min_ram_mb": 32,
+  "node_class": "router",
+  "role": "router",
+  "vendor": "frr"
+ }
+}

@@ -1,0 +1,5 @@
+{
+ "key": "paloalto",
+ "source": "netplex-tested",
+ "alias_of": "paloalto-panos"
+}

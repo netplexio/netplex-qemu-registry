@@ -1,0 +1,25 @@
+{
+ "key": "c3745",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 120,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 256,
+  "description": "Cisco 3745 router (Dynamips) - most popular for labs.",
+  "disk_bus": null,
+  "emulator": "dynamips",
+  "max_cpu": 1,
+  "max_ram_mb": 256,
+  "min_ram_mb": 128,
+  "nic": "gt96100-fe",
+  "node_class": "router",
+  "platform": "c3745",
+  "recommended_ram_mb": 256,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

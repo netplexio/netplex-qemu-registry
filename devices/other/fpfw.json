@@ -1,0 +1,17 @@
+{
+ "key": "fpfw",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "console": "vnc",
+  "cpu": 4,
+  "default_ram_mb": 4096,
+  "emulator": "qemu",
+  "interfaces": 4,
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64"
+ }
+}

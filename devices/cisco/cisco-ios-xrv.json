@@ -1,0 +1,17 @@
+{
+ "key": "cisco-ios-xrv",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "router",
+  "console": "telnet",
+  "default_ram_mb": 3072,
+  "emulator": "qemu",
+  "interfaces": 9,
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "imported-default",
+  "qemu_arch": "i386",
+  "vendor": "cisco"
+ }
+}

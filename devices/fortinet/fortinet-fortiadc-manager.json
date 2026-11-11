@@ -1,0 +1,23 @@
+{
+ "key": "fortinet-fortiadc-manager",
+ "source": "netplex-tested",
+ "tested": "── Fortinet - beyond FortiGate (Wave 38.12/NPX-1167, 2026-09-16) ──────────────\n10 Fortinet products confirmed as real, in-scope coverage gaps by NPX-1167's\nphase 1b audit (docs/reference/gns3-implementation/catalog-diff/\nfinal-gap-classification.md, \"Fortinet\" group). No EVE-NG template exists for\nany of these 10 (EVE-NG only ships FortiGate/FortiManager/FortiAnalyzer,\nalready covered above) - RAM/NIC/disk sourced from GNS3's own real installed\n`.gns3a` templates instead (docs/reference/gns3-implementation/catalog-diff/\ngns3-catalog.md, rows 104-116), same \"pull the real template first\" rule\n(#33/#59) applied to GNS3 instead of EVE-NG since GNS3 is the only source that\nships these. GNS3's own template schema specifies no explicit vCPU count for\nany of the 10 (defaults to 1 in GNS3 itself) - kept at cpu=1 here rather than\ninvented higher, per rule #59 (no unjustified drift from the real template).\ncpu_model \"host\" matches this file's own existing FortiGate/FortiManager\nconvention (GNS3's extracted catalog doesn't capture a per-template `-cpu`\nflag to cross-reference, unlike EVE-NG's YAML). No netplex-held image exists\nfor any of these 10 (checked <vendor-box>'s vendor library and this fleet's\n`/netplex/images` - no match) - NOT live-boot-verified, same honest-\nplaceholder convention as row 38.12's first 6 profiles (xrd/cat9kv/etc).",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 2048,
+  "description": "Fortinet FortiADC Manager - NOT live-boot-verified (no netplex-held image; RAM/NIC/disk from the vendor reference template)",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "role": "server",
+  "vendor": "fortinet"
+ }
+}

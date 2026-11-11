@@ -1,0 +1,23 @@
+{
+ "key": "junipercrpd",
+ "source": "netplex-tested",
+ "tested": "ROOT CAUSE (2026-09-07, Wave 21 U6 confirmation experiment): no profile entry\nexisted for \"junipercrpd\" under any spelling (confirmed by a case-insensitive\ngrep of this whole file for \"crpd\") - every junipercrpd image silently fell\nthrough to the generic \"juniper\" vendor profile (2048 MB RAM, 1 vCPU, 180s\nboot_timeout), nowhere near enough for a Junos cRPD control-plane VM. The fleet\nrun's own attempt log showed it timing out fastest of all 5 confirmation-\nexperiment devices (\"no recognized prompt; deadline 180.0s at attempt 3\") - the\nsame 180s. Live-booted with 4096 MB/2 vCPU (still using the generic juniper\nprofile's e1000/virtio/pc device settings, only RAM/CPU overridden): reached a\nreal \"crpd login:\" Alpine Linux 3.12 prompt at t=220.5s (`repro_crpd.log`). 400s\ngives real margin over that.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 400,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "description": "Juniper cRPD (containerized Routing Protocol Daemon) control plane.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "e1000",
+  "node_class": "router",
+  "role": "router",
+  "vendor": "juniper"
+ }
+}

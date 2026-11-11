@@ -1,0 +1,5 @@
+{
+ "key": "mikrotik",
+ "source": "netplex-tested",
+ "alias_of": "mikrotik-chr"
+}

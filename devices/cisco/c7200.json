@@ -1,0 +1,27 @@
+{
+ "key": "c7200",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "min_ram_mb": "512/1024 previously here mis-set default/recommended RAM ABOVE the real NPE-400\nhardware ceiling this platform actually emulates (dynamips defaults to npe-400\nsince the provider never passes `-t`) - see DYNAMIPS_MAX_RAM_MB comment above for\nthe live-bisected evidence (2026-07-18). 256 is the real max for this NPE."
+ },
+ "settings": {
+  "boot_timeout_sec": 180,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 256,
+  "description": "Cisco 7200 router (Dynamips, NPE-400 emulation, 256MB RAM ceiling) - use idle-PC.",
+  "disk_bus": null,
+  "emulator": "dynamips",
+  "max_cpu": 1,
+  "max_ram_mb": 256,
+  "min_ram_mb": 256,
+  "nic": "c7200-io-fe",
+  "node_class": "router",
+  "platform": "c7200",
+  "recommended_ram_mb": 256,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "key": "xrd",
+ "source": "netplex-tested",
+ "tested": "── Cisco - Wave 38.12 gap fill (NPX-1167, catalog-diff §1 \"Cisco\" group) ────\nNone of these 5 profiles has a netplex-held image yet (checked the <vendor-box>\nvendor library and this fleet's own /netplex/images - no match for any of\nthem) - hardware defaults only, sourced directly from EVE-NG's own real\nproduction templates (root@<eveng-box>:/opt/unetlab/html/templates/intel/\n{xrd,cat9kv,cat9kvuadp,cat9kvq200,c9800cl}.yml, read live this session), NOT\ninvented. Matches this file's own existing honest-placeholder convention\n(see e.g. several vrnetlab entries below) - not yet live-boot-verified, say\nso plainly rather than claim a DoD pass that wasn't done (rule #14/#31).",
+ "reasons": {
+  "vendor": "Containerized IOS XR control-plane (Cisco's own open-source XRd Control\nPlane image) - docker, not qemu. EVE-NG's own xrd.yml: ram 4096, needs\n/dev/fuse + SYS_ADMIN/NET_ADMIN + --net=none (netplex's own DockerProvider\nalready does network_mode=none by default per HARD rule #2, so no\nnetplex-specific change needed there) and a large MTU (9500) for its\ninternal linux-networking datapath."
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 2,
+  "default_ram_mb": 4096,
+  "description": "Cisco XRd (containerized IOS XR control plane). No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "emulator": "docker",
+  "image": "ios-xr/xrd-control-plane:latest",
+  "min_ram_mb": 2048,
+  "node_class": "router",
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

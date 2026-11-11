@@ -1,0 +1,17 @@
+{
+ "key": "netem",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "guest",
+  "console": "telnet",
+  "default_ram_mb": 96,
+  "emulator": "qemu",
+  "interfaces": 2,
+  "min_ram_mb": 96,
+  "nic": "e1000",
+  "node_class": "imported-default",
+  "qemu_arch": "i386",
+  "vendor": "linux"
+ }
+}

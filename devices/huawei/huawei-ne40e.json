@@ -1,0 +1,18 @@
+{
+ "key": "huawei-ne40e",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "router",
+  "console": "telnet",
+  "cpu": 2,
+  "default_ram_mb": 2048,
+  "emulator": "qemu",
+  "interfaces": 12,
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "huawei"
+ }
+}

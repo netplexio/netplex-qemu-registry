@@ -1,0 +1,5 @@
+{
+ "key": "pa-vm",
+ "source": "netplex-tested",
+ "alias_of": "paloalto-panos"
+}

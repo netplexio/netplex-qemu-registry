@@ -1,0 +1,25 @@
+{
+ "key": "extreme-xos",
+ "source": "netplex-tested",
+ "tested": "── Extreme Networks ─────────────────────────────────────────────────────────",
+ "reasons": {
+  "emulator": "VERIFIED 2026-06-01: ExtremeXOS 21.1 boots with IDE bus (hda.qcow2).\nDespite vendor docs saying sata, the kernel mounts /dev/hda* → must use ide.",
+  "console": "NPX-821 (Wave 21 U3): console changed telnet -> vnc. ExtremeXOS never writes a\nlogin prompt to the serial port; it is a framebuffer-console guest. Measured on\nthis host 2026-09-05 by booting the shipped images in an isolated scratchpad QEMU\nthat mirrors the pre-libvirt-lanes raw-QEMU argv (NPX-825 PR2 later replaced that launch path with libvirt lanes; this comment describes the 2026-09-05 probe as it was actually run), across five variants (21.1.1.4 and 15.3.2 x\nQEMU 4.1.0/2.12.0 x -cpu host/Nehalem x 512/2048 MB x with/without a VGA device\nx with/without NICs). In every single run:\n* the GRUB entry the image auto-selects is literally titled \".. using VGA\nconsole\", and the kernel cmdline it builds ends \"console=tty0\" with \"quiet\";\nthe LAST console= on a Linux cmdline is the one that becomes /dev/console, so\nuserland's stdout goes to the framebuffer, and \"quiet\" drops everything below\nKERN_ERR from the serial port too;\n* userland output is visible ON SCREEN (e.g. \"ifconfig: ioctl 0x8913 failed: No\nsuch device\") while the serial log holds exactly 1 byte - 0xff, which is\nQEMU's own telnet IAC negotiation, i.e. ZERO bytes from the guest.\nRemoving the VGA card (-vga none) does not redirect anything to serial; it only\nblinds the guest (the hypothesis that -nographic drops the VGA device was tested\nand is false: qtree shows the VGA present under both -nographic and -vga std).\nSo a \"telnet\" console here promised a text console that cannot exist, and both\nconfig doors then tried to converse with silence. With console: \"vnc\" the user\ngets the working screen, and refuse_if_no_config_channel() answers\nGraphicalConsoleOnly - whose message (\"a serial port IS attached and reachable,\nthe guest just never writes to it\") is a verbatim description of what was\nmeasured. This is why the wave classes these images B (graphical), not A or D."
+ },
+ "settings": {
+  "boot_timeout_sec": 180,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 2048,
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 512,
+  "nic": "e1000",
+  "node_class": "switch",
+  "role": "switchL3",
+  "vendor": "extreme"
+ }
+}

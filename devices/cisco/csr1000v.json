@@ -1,0 +1,33 @@
+{
+ "key": "csr1000v",
+ "source": "netplex-tested",
+ "tested": "\"csr1000v-*\" and \"csr1000vng-*\" image folders both map here",
+ "reasons": {
+  "vendor": "rule #59 reason: ram 6144 vs EVE 3072 - live-observed 2026-07-21 (config-lifecycle sweep round 7): 3 instances hung at 100% of a 4096MB cap under memory pressure; 6144 gives margin (see comment below). Do not lower.",
+  "min_ram_mb": "min_ram_mb=4096 matches Cisco's own documented CSR1000v IOS-XE 17.3 minimum (1/2/4\nvCPU configs all list 4GB RAM as the floor - Cisco CSR1000v release notes). But\ndefault_ram_mb was set equal to that floor, giving the launched VM zero headroom\nabove the bare minimum - live-observed 2026-07-21 (config-lifecycle sweep, round 7):\n3 different csr1000vng-universalk9 instances all climbed to 100% of the 4096MB cap\nand sat there for 3+ minutes before host-guard's hang-watchdog killed them for 0%\nCPU (a real hang under memory pressure, not a slow-but-progressing boot - the\nwatchdog only fires on zero forward progress). 3 OTHER csr1000v/csr1000vng\ninstances in the same catalog HAD already passed earlier under lighter host load -\nconsistent with a device running exactly at its bare floor tipping over under real\nhypervisor overhead + host contention, not a deterministic per-image failure.\ndefault_ram_mb raised to 6144 (1.5x the floor) for real working margin, matching\nthis file's own pattern elsewhere (default set meaningfully above min, e.g.\nbarracuda/pfsense) - min_ram_mb stays at Cisco's documented 4096 floor, unchanged.",
+  "nic": "NPX-1812: e1000 = EVE csr1000v.yml (no nic set); no live evidence virtio was needed",
+  "boot_timeout_sec": "NPX-5053C: same IOS-XE as cisco-csr1000vng above (IOS up at 2717 s on run csr5, live VM .68)",
+  "day0_channel": "Phase 3 day-0 (2026-07-23, NPX-306): Cisco's own CVAC day-0 auto-install -\nsee providers/day0_channels.py's CvacChannel docstring for the public,\nvendor-documented convention this implements (ios_config.txt on an attached\nISO, watches for %CVAC-4-CONFIG_DONE). Explicit opt-in per device_profiles.py's\nown convention - never inferred from vendor name."
+ },
+ "settings": {
+  "boot_timeout_sec": 3600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "day0_channel": "cvac",
+  "default_ram_mb": 6144,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "e1000",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "key": "watchguard-xtmv",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "firewall",
+  "default_ram_mb": 1024,
+  "emulator": "qemu",
+  "interfaces": 2,
+  "min_ram_mb": 256,
+  "nic": "vmxnet3",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "watchguard"
+ }
+}

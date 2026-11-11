@@ -1,0 +1,27 @@
+{
+ "key": "versa-vcg",
+ "source": "netplex-tested",
+ "tested": "── Versa Networks (Wave 38.12/NPX-1167, 2026-09-16) ────────────────────────\nEntire SD-WAN/orchestration suite confirmed as a real, in-scope gap by\nNPX-1167's phase 1b audit (final-gap-classification.md, \"Versa Networks\"\ngroup) - netplex had zero Versa coverage before this pass. Sourced from\nEVE-NG's own real templates (catalog-diff/eveng-catalog.md rows 179-183,\nrule #33/#59: pull the real template first) - all 5 pin qemu_version 2.12.0\n(already a netplex QEMU_BUILT_VERSIONS entry) and explicit `-cpu host` in\ntheir real qemu_options. disk_bus \"ide\" matches this file's own established\ndefault-when-unspecified convention for other EVE-NG-2.12.0-pinned profiles\n(see cat9kv's own comment above for the same reasoning) - EVE-NG's extracted\ndisk_interface field is \"n/a\" (not captured) for all 5, so this is the same\nhonest fallback, not an invented bus. nic \"e1000\" likewise matches EVE-NG's\nreal default when its own adapter_type field reads \"unknown\"/\"ethernet\"\n(generic, unmodeled adapter) rather than a specific model like virtio/\nvmxnet3. No netplex-held image for any of these 5 - NOT live-boot-verified.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 420,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "host",
+  "default_ram_mb": 8192,
+  "description": "Versa Networks VCG (Cloud Gateway) - NOT live-boot-verified (no netplex-held image; RAM/CPU/NIC from the vendor reference template)",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "e1000",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "gateway",
+  "vendor": "versa"
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "key": "nokia-timoscpm",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "qemu_version_default": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu/ram trimmed to EVE-NG's\ntimoscpm.yml (Nokia 7750 CPM: cpu 1, ram 2048) - the previous 4/4096 was 4x CPU\nand 2x RAM above EVE's real value with no comment justifying the over-provision.\nqemu_version_default added (found while fixing this row, per rule #60 - the\nprofile had none at all, so it silently used the platform's un-pinned default\ninstead of EVE-NG's vendor-verified 2.12.0 build)."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 2048,
+  "disk_bus": "virtide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "router",
+  "vendor": "nokia"
+ }
+}

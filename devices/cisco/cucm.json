@@ -1,0 +1,29 @@
+{
+ "key": "cucm",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\ncucm.yml (\"-cpu host\"). machine also aligned to EVE's \"pc-1.0\" (found while\nfixing the cpu_model drift, per rule #60 - was silently \"pc\"). Profile is still\nmarked \"not yet boot-verified\" below - this only removes unjustified drift, it\ndoes not itself boot-verify the device."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "description": "Cisco Unified Communications Manager (Call Manager) - not yet boot-verified (no netplex-held image); defaults from vendor-published specs.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc-1.0",
+  "min_ram_mb": 4096,
+  "nic": "vmxnet3",
+  "node_class": "appliance",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "appliance",
+  "vendor": "cisco"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "key": "openwrt-realview",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "router",
+  "console": "telnet",
+  "default_ram_mb": 128,
+  "emulator": "qemu",
+  "interfaces": 2,
+  "min_ram_mb": 128,
+  "nic": "e1000",
+  "node_class": "imported-default",
+  "vendor": "openwrt"
+ }
+}

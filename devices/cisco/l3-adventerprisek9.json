@@ -1,0 +1,27 @@
+{
+ "key": "l3-adventerprisek9",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "min_ram_mb": "default_ram_mb 512 -> 1024 (NPX-1527 PROFILES-TOOLS pass-3, rule #59): EVE-NG's\nreal iol.yml sets ram: 1024 with no separate default/floor split - the old 512\nhere had no written reason, matching EVE exactly now.",
+  "nic": "NPX-1527 review (Wave 38): IolProvider.get_console returns ConsoleType.SERIAL (raw PTY bridge), so the profile must say \"serial\" - not EVE's \"telnet\" label; verified in iol_provider.py get_console. No consumer treats the two differently today."
+ },
+ "settings": {
+  "boot_timeout_sec": 60,
+  "console": "serial",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 1024,
+  "description": "Cisco IOL L3 router (bare-named build) - requires 32-bit userspace libc.",
+  "disk_bus": null,
+  "emulator": "iol",
+  "max_cpu": 1,
+  "min_ram_mb": 256,
+  "nic": null,
+  "node_class": "router",
+  "platform": "i86bi",
+  "recommended_ram_mb": 1024,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

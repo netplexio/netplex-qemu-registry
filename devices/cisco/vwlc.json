@@ -1,0 +1,30 @@
+{
+ "key": "vwlc",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "emulator": "STATUS (2026-07-12): vWLC (AireOS) ships a 3.10.0 kernel that hits a\ndivide-error kernel panic in clockevents_config() under KVM\nhost-passthrough CPU mode - confirmed via live serial probe across\nmultiple releases (8.0.152/8.3.141/8.7.102). Pinning cpu_model away\nfrom \"host\" (the platform default) avoids whatever host-passthrough\nexposes that this old kernel's clock calibration can't handle -\nqemu64 is the same conservative baseline this codebase already uses\nfor other legacy/32-bit-era guests.\ndisk_bus corrected virtio -> megasas (2026-09-01, NPX-154): the real runtime\nbus comes from shared/image_profiles.py's disk_bus_for() table (\"vwlc\":\n\"megasas\"), matching the actual shipped file name (megasasa.qcow2) - this\nfield only feeds the UI Inspector's displayed hardware-defaults dropdown, but\nleaving it wrong here was a live footgun of the exact same class already\nfixed once for \"titanium\" above (see that entry's own comment): a user who\nedited a vWLC node's disk bus in the Inspector and saved would write\nconfig.disk_bus=\"virtio\", which DOES override the runtime default and would\nattach the real megasas-formatted disk over the wrong controller.\nconfig_dialect=\"aireos\" (2026-09-01, NPX-154): AireOS is not IOS-family and\nhas no enable/config CLI - see node_config.py's VENDOR_CLI[\"aireos\"] and\n_dismiss_aireos_wizard() for the full live-verified writeup (real wizard\ndriven end to end, real save+reboot confirmed to skip the wizard on the next\nboot, real login reaching \"(Cisco Controller) >\").\nboot_timeout_sec raised 300 -> 480: the wizard alone is ~28 sequential\nprompts: node_config.py's own _retry_deadline_s derives its console-exchange\nbudget from this field (minus an 80s margin), and 300 - 80 = 220s measured too\ntight against the live probe's real wall-clock run (needed comfortably more\nthan that for boot + the full wizard + save + reboot + login).",
+  "qemu_version_default": "rule #59 (2026-09-21, NPX-1266): Reverted to EVE-NG's pin (2.4.0). The old 2.12.0 was only a fallback from before QEMU 2.4.0 could be built (NPX-457/NPX-1139, built+lane-verified 2026-09-16); that reason no longer exists."
+ },
+ "settings": {
+  "boot_timeout_sec": 480,
+  "config_dialect": "aireos",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 2048,
+  "disk_bus": "megasas",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "e1000",
+  "node_class": "wlc",
+  "qemu_version_compatible": [
+   "2.4.0"
+  ],
+  "qemu_version_default": "2.4.0",
+  "role": "wlc",
+  "vendor": "cisco"
+ }
+}

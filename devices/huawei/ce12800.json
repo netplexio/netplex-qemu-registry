@@ -1,0 +1,25 @@
+{
+ "key": "ce12800",
+ "source": "netplex-tested",
+ "tested": "── Huawei CloudEngine (Wave 21 U2, NPX-820) ─────────────────────────────\nBuilt from a LIVE BOOT, not from a template: EVE-NG ships no CloudEngine template at\nall (its only Huawei ones are huaweiar1k / huaweine40 / huaweiusg6kv), so rule #33's\n\"pull the real template first\" has nothing to pull and rule #22 forbids guessing the\nrest. Everything below is what actually booted on this host 2026-09-05.\nProbe argv, mirroring raw_qemu.py's own construction: -machine pc -cpu host -m 4096\n-smp 2, virtio disk (the shipped file is virtioa.qcow2), 4 x e1000 NICs, system QEMU\n10.2.1. Both images then ran their platform bring-up to completion and dropped to a\nreal VRP prompt on the first serial port:\n[01:23:35] Step01: CHK-USERRIGHT .....Finish   ...   Step07: CHK-SVR ......Finish\n[01:24:55] Step08: START-BOARD ........Finish   [01:24:55] Step09: START-ROUTER ...Finish\n<HUAWEI>\nVRP (R) software, Version 8.180 (CE6800 V200R005C10SPC607B607)\n~80 s from the first bring-up step to the prompt on an idle-ish host; boot_timeout_sec\nis set to 300 to leave real headroom on this shared box rather than to describe a\nbest case.\nTHE NIC COUNT IS A BOOT REQUIREMENT, not a preference (root-caused from the guest's\nown log, not inferred): with a single NIC the bring-up fails at\nStep06: CHK-MULTICAST ....Error   Step07: START-ROUTER ....Error   reason=246\nand drops to the underlying Debian shell (root@debian:/opt/svrp#) instead of VRP. The\nguest's /opt/svrp/start_svrp.sh line 789 logs \"addMutiCastRoute: route add 225.1.0.1\ndev eth1 failed, reason code=7\" - it hard-codes eth1, so the VM must have at least\nTWO interfaces. Re-run with 4 NICs, both images reached <HUAWEI> first try. A node\ndrawn from the palette gets 4 NICs, and Wave 21's own harness creates 2, so this\nholds on both real paths; the general \"a vendor can require a minimum NIC count and\nnothing enforces it\" gap is NPX-154 (already logged against vwlc for the same\nreason) and is not re-fixed here.\nInterface names come from the running device's own configuration, not from docs:\nMEth0/0/0 is management and GE1/0/0.. are data ports on BOTH images (see MGMT_INFO\nand DATA_IFACE_NAMING below). CLI verbs live in node-manager's VENDOR_CLI[\"huawei\"],\nwhich carries its own console transcript.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "huawei",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "description": "Huawei CloudEngine CE12800 (VRP 8.180) - data-centre switch.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "e1000",
+  "node_class": "switch",
+  "qemu_arch": "x86_64",
+  "role": "switchL3",
+  "vendor": "huawei"
+ }
+}

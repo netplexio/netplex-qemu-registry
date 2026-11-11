@@ -1,0 +1,23 @@
+{
+ "key": "bigswitch-bcf",
+ "source": "netplex-tested",
+ "tested": "The remaining 9 have no EVE-NG template - sourced from GNS3's own real\ntemplates instead (catalog-diff/gns3-catalog.md, rows named per entry).\nNone names an explicit -cpu flag or a specific vCPU count beyond what's\nnoted - kept at cpu_model \"host\" (this file's established default absent\ncounter-evidence, same as the Fortinet/Checkpoint blocks above) and\ncpu=1 unless GNS3's own template gives a real number.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 256,
+  "description": "Big Switch Networks Big Cloud Fabric (SDN). No netplex-held image yet - hardware defaults only (kvm required), NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "router",
+  "role": "router",
+  "vendor": "bigswitch"
+ }
+}

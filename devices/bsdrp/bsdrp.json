@@ -1,0 +1,26 @@
+{
+ "key": "bsdrp",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "nic": "rule #59: no EVE template for BSDRP (EVE freebsd.yml is a different product, 2.12.0/virtio); e1000/ide chosen by NPX-1167 (GNS3), live-booted, no qemu pin",
+  "description": "58): reaches the real 'FreeBSD/amd64 (router.bsdrp.net) (ttyu0) login:' banner on the console (a first check at ~20s wrongly looked like a hang - real console output was already flowing, just slower than that first check allowed; a longer, patient poll confirmed it). Wave 38.12/NPX-1167.\","
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 256,
+  "description": "BSDRP (BSD Router Project). Real image sourced 2026-09-17 from the project's own official SourceForge mirror (BSDRP-2.2-full-amd64.img.xz, sha256-verified against BSDRP's own published .sha256 sidecar) - free/open-source, no vendor account needed. Live-boot-verified through netplex's real platform (rule #58): reaches the real 'FreeBSD/amd64 (router.bsdrp.net) (ttyu0) login:' banner on the console (a first check at ~20s wrongly looked like a hang - real console output was already flowing, just slower than that first check allowed; a longer, patient poll confirmed it). Wave 38.12/NPX-1167.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "router",
+  "role": "router",
+  "vendor": "bsdrp"
+ }
+}

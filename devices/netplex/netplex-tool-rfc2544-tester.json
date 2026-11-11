@@ -1,0 +1,28 @@
+{
+ "key": "netplex-tool-rfc2544-tester",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 10,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 2,
+  "default_ram_mb": 256,
+  "emulator": "docker",
+  "image": "netplex-tool-rfc2544-tester:latest",
+  "interfaces": 3,
+  "min_ram_mb": 128,
+  "node_class": "host",
+  "reserved_interfaces": [
+   {
+    "label": "Web access",
+    "name": "eth2",
+    "role": "oob-web"
+   }
+  ],
+  "role": "host",
+  "vendor": "netplex"
+ },
+ "group": "tool-node"
+}

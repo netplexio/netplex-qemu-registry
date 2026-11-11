@@ -1,0 +1,29 @@
+{
+ "key": "sophosxg",
+ "source": "netplex-tested",
+ "tested": "── Sophos XG Firewall ──────────────────────────────────────────────────────",
+ "reasons": {
+  "vendor": "rule #59 reason: cpu 4 vs EVE 1 - VERIFIED 2026-07-18 by live repro: the guest firstboot enforces its vendor-documented minimum (1024 MB, 4 vCPU per docs/platform/node-emulation.md); below it drops to FailSafe Mode. Do not lower.",
+  "emulator": "VERIFIED 2026-07-18 via live repro: with both required disks present (see\nshared/image_profiles.py \"sophosxg\": disks=2) the guest's own firstboot\nscript enforces \"RAM size lower than minimum required: 1024 MB\" and\n\"Network Interfaces lower than minimum required: 2\" - dropping to FailSafe\nMode below these floors. 1024 MB / 4 vCPU matches the vendor-documented\nminimum (docs/platform/node-emulation.md \"Sophos XG Firewall\")."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 2048,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "firewall",
+  "vendor": "sophos"
+ }
+}

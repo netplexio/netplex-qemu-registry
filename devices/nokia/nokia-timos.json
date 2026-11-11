@@ -1,0 +1,31 @@
+{
+ "key": "nokia-timos",
+ "source": "netplex-tested",
+ "tested": "── Nokia ────────────────────────────────────────────────────────────────────",
+ "reasons": {
+  "vendor": "rule #59 reason: ram 4096 / cpu 2 vs EVE 2048 / 1 - live A/B NPX-1245 (VM .83): EVE hardware reaches TiMOS Login only after ~1268 s vs ~636 s at 4096/2 (12.0.R6). See NPX-1245 comment below.",
+  "qemu_version_default": "VERIFIED 2026-06-01: Nokia SR OS 21.10.R1 boots on virtio/x86_64 pc.\nNPX-1811 disk_bus=ide: the project owner observed a real TiMOS boot with the image_profiles.py ide override, relayed by netplex-2f 2026-09-26.\nEVE timos.yml sets no bus (qemu_options only), so ide is not a rule-#59 deviation; EVE box unreachable to re-confirm.\nNPX-1245 / rule #59: EVE-NG timos.yml says `-machine type=pc-1.0`; netplex keeps plain \"pc\" ON PURPOSE.\nNPX-1792 (supersedes the old \"keeps plain pc\" note; on system QEMU 10.2.1 pc-1.0 gave a 422):\npinned to the 2.12.0 lane (pc-1.0 exists only in QEMU <6.2); timos-21.10.R1 live-booted THROUGH the\nplatform on VM 701 (lab API + node start, `-machine pc-1.0`): serial `Login:` within ~12 min.\nNPX-1792 rule #59: pc-1.0 exists only in QEMU <6.2; live-booted to a login prompt through the platform 2026-09-25 (VM 701)",
+  "min_ram_mb": "NPX-1245 / rule #59 (RAM + vCPU): EVE-NG timos.yml says 2048 MB / 1 vCPU; netplex keeps 4096 / 2.\nMeasured live THROUGH the platform on VM .83 (lab API + node start, console relay, timos-12.0.R6):\nwith EVE's 2048/1 (qemu argv -m 2097152k -smp 1) TiMOS reaches \"Login:\" only after ~1268 s; with\n4096/2 it reaches it at ~636 s (Wave 21 U6). So EVE's value boots but is 2x slower and lands\npast this profile's 750 s boot_timeout_sec. NOT tested: timos-21.10.R1 at 2048/1 (this key also\nserves 21.x and that image could not be registered on the test VM this session) - so 4096 stays.",
+  "boot_timeout_sec": "Live-booted 2026-09-07 (Wave 21 U6 confirmation experiment, timos-12.0.R6):\ngiven this profile's own 4096 MB/2 vCPU (now correctly matched thanks to\nNPX-817's path-separator fix), a real TiMOS \"Login: \" prompt was reached at\nt=636.2s (`repro_timos.log`) - past the previous 600s boot_timeout_sec,\nwhich would still have flagged this genuine successful boot as a failure.\n750s keeps real margin over the observed time."
+ },
+ "settings": {
+  "boot_timeout_sec": 750,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc-1.0",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "router",
+  "vendor": "nokia"
+ }
+}

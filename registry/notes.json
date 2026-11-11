@@ -1,0 +1,940 @@
+{
+"128t": {
+"reasons": {
+"nic": "rule #59 (2026-09-21, NPX-1266): nic reverted to EVE-NG 128t.yml (e1000); the old virtio value came from the 2026-07-22 bulk catalog fill with no boot evidence."
+},
+"tested": ""
+},
+"a10-vthunder": {
+"reasons": {},
+"tested": "── Load balancers / ADCs (Wave 38.12/NPX-1167, 2026-09-16) ─────────────────\nA10 vThunder + Radware Alteon confirmed real gaps by NPX-1167's phase 1b\naudit (final-gap-classification.md, \"Load balancers / ADCs\" group). Sourced\nfrom EVE-NG's own real templates (catalog-diff/eveng-catalog.md rows 8/10) -\nboth leave qemu_version unpinned (\"n/a\") and use the old \"pc-1.0\" machine\nalias; per this file's own established convention (every OTHER profile\nnormalizes machine to plain \"pc\", not a literal EVE-NG machine-type string -\nconfirmed no profile in this whole file uses \"pc-1.0\"), kept at \"pc\" here\ntoo rather than an unverified old alias that may not exist in netplex's\nbuilt QEMU binaries. Defaulted to qemu_version 2.12.0 (this file's own\ndominant, well-verified pin for old-but-common appliances) since EVE-NG\nitself gives no specific pin to follow - disclosed honestly, not guessed as\n\"verified\". Neither template passes an explicit -cpu flag, so kept at\nqemu64 per row 38.9's rule (no forced host passthrough without evidence).\nNo netplex-held image for either - NOT live-boot-verified."
+},
+"acs": {
+"reasons": {
+"qemu_version_default": "rule #59: acs.yml has no EVE qemu_version pin; 2.12.0 = netplex no-pin fallback (csp-vpn-gate/NPX-1792)"
+},
+"tested": "=========================================================================\nEVE-NG PARITY WAVE 4 (2026-07-21) - hardware defaults for the 73 EVE-NG-template\ngaps (docs/reference/eveng-template-coverage-matrix-2026-07-21.md). RAM/CPU are the\nvendor-recommended specs from EVE-NG's own live template YAMLs (pulled 2026-07-21),\nnot guessed. NOT boot-verified against a real image (netplex holds none of these\nyet) - machine/cpu_model/nic/disk_bus/console/boot_timeout_sec are the same safe\ngeneric QEMU-appliance defaults every not-yet-verified profile in this file uses;\ncorrect them from real boot evidence the day a BYO image is actually tested.\n========================================================================="
+},
+"alienvault": {
+"reasons": {},
+"tested": "Wave 21 U2/U3 (2026-09-05): the image IS held now - `alienvault-ossim-5.8.5.tgz` was\nimported from Downloads. What the vendor ships is an INSTALL SET, not a pre-installed\nappliance: a blank 50 GiB `hda.qcow2` (196 KiB allocated, measured with `qemu-img info`)\nplus a 756 MB bootable `cdrom.iso`. EVE-NG runs it exactly this way - their\n`alienvault.yml` carries `-boot order=cd`, which in QEMU means \"hard disk first, CD-ROM\nsecond\". That order is safe to pin statically (unlike the cdrom-FIRST order rejected for\nopenbsd above): the blank disk simply falls through to the installer, and once OSSIM is\ninstalled the same static order boots the disk instead. `ethernet: 2`, `cpu: 4`,\n`ram: 6144` and `console: vnc` below already match their template."
+},
+"alpine-base": {
+"reasons": {},
+"tested": "Wave 21 U2 (NPX-819). netplex ships an Alpine qcow2 as well as the Docker image, and\nthe two are DIFFERENT runtimes with different hardware: /netplex/images/qemu/linux/\nalpine-base-3-19-1/virtioa.qcow2 is a real KVM guest. Before this key existed, the\nname matcher found the Docker \"alpine\" profile just below, image-manager threw it\naway as a runtime mismatch (a QEMU upload cannot use \"emulator\": \"docker\") and the\nimage fell back to GENERIC_KVM_PROFILE - so a device netplex actually ships had no\ncurated hardware at all. Same shape and same reason as \"vyos-qemu\" sitting beside\nthe Docker \"vyos\" entry; the longer key wins the longest-match rule, so the Docker\nentry is untouched for real Docker nodes.\nLive boot 2026-09-05 (probe: -machine pc -cpu host -m 512 -smp 1, virtio disk, NO\nNICs at all, system QEMU 10.2.1) - reached, verbatim:\nWelcome to Alpine Linux 3.19\nKernel 6.6.16-0-virt on an x86_64 (/dev/ttyS0)\nlocalhost login: root\nlocalhost:~#\nSo: text console on the first serial port, root with no password, and it boots with\nzero network interfaces (nothing in the guest waits on a NIC). Wave 21 classes it C\n(shell) - its config channel is the generic shell dialect, marker-only fidelity,\nexactly like the other Linux images netplex ships."
+},
+"ampcloud": {
+"reasons": {
+"qemu_version_default": "rule #59: ampcloud.yml has no EVE qemu_version pin; 2.12.0 = netplex no-pin fallback (csp-vpn-gate/NPX-1792)"
+},
+"tested": ""
+},
+"android": {
+"reasons": {
+"qemu_version_default": "rule #59 (2026-09-21, NPX-1266): Reverted to EVE-NG's pin (2.4.0). The old 2.12.0 was only a fallback from before QEMU 2.4.0 could be built (NPX-457/NPX-1139, built+lane-verified 2026-09-16); that reason no longer exists."
+},
+"tested": ""
+},
+"aoscx": {
+"reasons": {
+"config_dialect": "W177-G1 (2026-08-30): the vendor string \"aruba\" has NO CLI dialect and must not\nget one - Aruba's other products in this file (aruba-vmc, arubaamp, arubafc,\narubanet, clearpass) are all `\"console\": \"vnc\"` appliances with entirely\ndifferent CLIs. ArubaOS-CX's verbs were proven on a real netplex boot of this\nimage (ArubaOS-CX 10.07.0004) and match EVE-NG's own config_arubacx.py verb for\nverb. Named per-IMAGE, which is the NPX-617 lesson: one vendor, several\nproducts, only one of them speaks this CLI. Set on BOTH keys - \"arubacx\" and its\ncanonical alias \"aoscx\" are the same image and must not disagree.",
+"min_ram_mb": "rule #59 (Wave 17): default = EVE-NG arubacx RAM 4096; the old 2048 had no written reason",
+"qemu_version_default": "NPX-1657 rule #59: pc-1.0 only in QEMU <6.2 (EVE default 2.x)"
+},
+"tested": ""
+},
+"apicem": {
+"reasons": {
+"qemu_version_default": "rule #59: apicem.yml has no EVE qemu_version pin; 2.12.0 = netplex no-pin fallback (csp-vpn-gate/NPX-1792)"
+},
+"tested": ""
+},
+"arista-ceos": {
+"reasons": {},
+"tested": "\"arista-ceos\" - Wave 38.12 gap fill (NPX-1167): the CONTAINER packaging of EOS,\na genuinely different product form from \"arista-veos\"/\"veos\" above (VM form -\nboth real, both worth having, per the catalog-diff doc's own note). No\nnetplex-held cEOS image exists (Arista gates the download behind a free\narista.com account, not on the <vendor-box> vendor library either - checked) -\nhardware defaults only (docker type,\nram 4096, single mgmt \"Management0\" interface), NOT live-boot-verified."
+},
+"arista-veos": {
+"reasons": {
+"day0_channel": "SUPPORTED VARIANT = vEOS-lab only (2026-08-22, the project owner decision, NPX-516): matches\nEVE-NG's own veos.yml (no cdrom line at all, boots straight from hd) and Arista's own\nsupport boundary - vEOS-lab is the only Arista-virtualization-supported build, it is\nself-booting (Aboot embedded in the primary disk). Full production vEOS (needs a\nseparate external Aboot boot ISO - confirmed live: an imported \"veos-4.14.5F\" full-vEOS\nimage's MBR boot code is genuinely all zero, and it hangs indefinitely - zero console\noutput on VGA or serial, CPU pegged - at the post-Aboot kernel handoff under plain KVM)\nis explicitly NOT supported here, same as EVE-NG. Earlier revisions of this profile\n(2026-08-20) added an extra_disks=[\"cdrom.iso\"]/boot_order=[\"cdrom\",\"hd\"] requirement to\ntry to boot that full-vEOS build - removed: wrong scope, not a netplex bug to fix.\nday0_channel=\"veos\" (2026-07-29): qemu-nbd-mounts the node's own primary disk and\nwrites startup-config directly onto it pre-boot - vEOS-lab's Aboot bootloader has no\nexternal CD-ROM/config-drive convention, unlike CVAC/Juniper/VyOS (see\nday0_channels.py's VeosChannel docstring).",
+"vendor": "NPX-1245 (rule #59): RAM 6144 / 2 vCPU = EVE veos.yml. The platform applied them (argv -m 6144 -smp 2) but NO boot proof: the library only holds the unsupported full vEOS 4.14.x, not a vEOS-lab image (open blocker in NPX-1245)."
+},
+"tested": "── Arista ───────────────────────────────────────────────────────────────────"
+},
+"aruba-vmc": {
+"reasons": {
+"emulator": "NPX-1810 rule #59: EVE aruba.yml pin (was unpinned); not boot-proven"
+},
+"tested": ""
+},
+"arubacx": {
+"reasons": {
+"config_dialect": "W177-G1 (2026-08-30): the vendor string \"aruba\" has NO CLI dialect and must not\nget one - Aruba's other products in this file (aruba-vmc, arubaamp, arubafc,\narubanet, clearpass) are all `\"console\": \"vnc\"` appliances with entirely\ndifferent CLIs. ArubaOS-CX's verbs were proven on a real netplex boot of this\nimage (ArubaOS-CX 10.07.0004) and match EVE-NG's own config_arubacx.py verb for\nverb. Named per-IMAGE, which is the NPX-617 lesson: one vendor, several\nproducts, only one of them speaks this CLI. Set on BOTH keys - \"arubacx\" and its\ncanonical alias \"aoscx\" are the same image and must not disagree.",
+"min_ram_mb": "rule #59 (Wave 17): default = EVE-NG arubacx RAM 4096; the old 2048 had no written reason",
+"qemu_version_default": "NPX-1657 rule #59: pc-1.0 only in QEMU <6.2 (EVE default 2.x)"
+},
+"tested": "ArubaOS-CX simulator - VERIFIED 2026-06-25: will NOT boot on the generic 512 MB default\n(it just sits at a black serial console forever); needs ~1.5 GB+. Keys cover the registered\nname (arubacx) and the canonical alias (aos-cx). x86_64, virtio."
+},
+"asa": {
+"reasons": {
+"emulator": "qemu_version_default: EVE-NG's asa.yml pins `qemu_version: 4.1.0` - a\ndistinct pin from asav (2.12.0, see cisco-asav/asav above); this is the\nolder i386 physical-ASA-image platform, not ASAv.\nqemu_arch x86_64 -> i386 (NPX-303/NPX-460, 2026-09-11): NPX-460's EVE-NG\ntemplate re-audit found exactly one real qemu_arch disagreement across all 171\nmatched templates - this one (EVE-NG's real asa.yml pins i386; netplex shipped\nx86_64). Per netplex rule #33 (device_profiles.py must match the real EVE-NG\ntemplate, not be guessed), i386 is the correct permanent default regardless of\nany one image's own boot outcome. LIVE-TESTED, honestly reported: the one real\nclassic-ASA image reachable anywhere (asa 8.0.2, imported from <vendor-box>) hit\nan IDENTICAL kernel panic under BOTH x86_64 and this i386 setting, so the arch\nchange alone did not unblock it. SUPERSEDED 2026-09-22 (NPX-153): that panic was\nnever an arch problem and was NOT an external blocker - it was the RAM ceiling,\nroot-caused and fixed below (see the min/default/max_ram_mb comment). i386 stays\nbecause it is the verified-correct EVE-NG-parity value;\na per-node qemu_arch override (backend/node-manager/providers/qemu.py) now also\nexists if a future, non-broken classic-ASA image needs x86_64 instead.\nnic: e1000 -> i82559er (NPX-303/NPX-1113, found 2026-09-14 live-testing the\nasa 9.1.5 image): EVE-NG's real asa.yml (re-checked directly) pins\n`qemu_nic: i82559er`, not e1000 - this was the one field NPX-460's earlier\ntemplate audit didn't catch (it only flagged the qemu_arch mismatch, fixed\nseparately below). Live evidence: booting this profile's e1000 NIC, the\nASA's own boot log shows \"Driver not found for vid=0x8086 did=0x100e\"\n(0x100e is the e1000 PCI id) repeated for every configured interface, then\n\"Total NICs found: 0\" and a kernel segfault soon after - the classic-ASA\nfirmware's own NIC driver simply doesn't recognize the e1000 model QEMU\nwas emulating. i82559er (an Intel 8255x Fast Ethernet chip) is what EVE-NG\nverified works.",
+"min_ram_mb": "rule #59 reason: ram 384 MB vs EVE-NG 2048 (initrd window, NPX-153) - RAM CEILING: THE ROOT CAUSE OF THE CLASSIC-ASA BOOT PANIC (NPX-153,\nroot-caused 2026-09-22). This is a deliberate, evidence-backed deviation from\nEVE-NG's asa.yml (`ram: 2048`) - rule #59 requires the reason in writing, here it\nis, with the guest kernel's own words.\nThe asa-8.02 disk boots via GRUB 0.91 on its MBR (stage1 -> /boot/grub/stage2 on\nhda2). Its menu.lst says:\nkernel /boot/vmlinuz root=/dev/hda1 ... initrd /boot/asa-single.gz\nhda1 is a VFAT partition (the ASA flash: lina_monitor, ln) and this kernel\n(2.6.17.8, 32-bit) has only ext3 + cramfs compiled in. The REAL root filesystem is\nthe initrd (`asa-single.gz`, a cpio initramfs containing /init), so `root=` is\nnever supposed to be reached at all.\nGRUB legacy always parks the initrd near the TOP of RAM, capped at its own\nLINUX_INITRD_MAX_ADDRESS (0x38000000 = 896 MB). This ASA kernel's low-memory\nwindow ends at 0x1a000000 (it reports \"416MB LOWMEM available\" for any RAM size\n>= 512 MB). So on any node with >= 512 MB the kernel prints, verbatim:\ninitrd extends beyond end of memory (0x1ffcf8af > 0x1a000000)\ndisabling initrd\n...then falls through to the VFAT hda1 it cannot mount:\nNo filesystem could mount root, tried:  ext3 cramfs\nKernel panic - not syncing: VFS: Unable to mount root fs on unknown-block(3,1)\nMeasured boundary (asa 8.0.2, qemu-system-i386, EVE-NG's own option set AND\nnetplex's KVM path - both behave identically, so this is the image, not the\nhypervisor flags): 256 MB and 384 MB load the initrd (\"Freeing initrd memory:\n1682k freed\") and reach the real `ciscoasa>` prompt with \"Total NICs found: 6\";\n512 MB, 1024 MB and 2048 MB all hit the panic above. 416 MB is the true hard\nceiling, but the UI RAM stepper moves in 128 MB steps, so 384 is the highest\nselectable safe value and is pinned as max_ram_mb - raising it past this does not\ngive the firewall more memory, it stops the box booting at all.\nThis is why the \"i386 vs x86_64\" and NIC-model fixes before it never helped: the\npanic happens before any of that matters. Nothing about -icount, -smbios\ntype=1,product=asa5520 or accel=tcg (all of which EVE-NG's asa.yml sets) is\nrequired - each was tested directly and the image boots to `ciscoasa>` without\nthem under plain KVM, so netplex deliberately does NOT carry that drift."
+},
+"tested": "Cisco ASA (legacy; ASAv is in the main list as cisco-asav)"
+},
+"asa-915": {
+"reasons": {
+"kvm": "TIMER-SUBSYSTEM CRASH - ROOT-CAUSED AND FIXED (NPX-303, 2026-09-23). Once this\nimage had enough RAM to get past the mempool crash above, it hit a SEPARATE,\nlater crash in its own timer subsystem - \"(set_exptime) Timer not a leaf\" /\n\"mgd_timer_set_exptime: Not a leaf\" - soon after reaching a real login-capable\nstate. Live-tested in-platform (rule #58), narrowed by evidence, not guessed:\nreproduced IDENTICALLY at 1024 MB and 2048 MB (not a RAM question), and under\nBOTH plain KVM and per-node `kvm: False` (tcg) alone (not an accel question by\nitself either). The guest kernel's own boot log showed a live TSC-instability\nsymptom on every boot (\"Fast TSC calibration failed\", \"TSC: Unable to calibrate\nagainst PIT\", \"Marking TSC unstable\"). EVE-NG's real asa.yml runs the whole\nclassic-ASA family under `-icount 1` (deterministic virtual time, tcg-only -\nQEMU refuses -icount together with KVM) - tested directly in-platform via the\nper-node qemu_extra_args/kvm config keys (added `-icount` to qemu.py's SEC-24\nextra-args allowlist to allow it): the SAME image that previously crashed at\nthis exact point now boots all the way to a real `ciscoasa>` prompt\n(\"INFO: Power-On Self-Test complete.\" then the AnyConnect banner then the\nprompt), confirmed via the raw serial.log, not the API's own interpretation.\nPer rule #59, this is now the permanent, evidence-backed default for this\nprofile ONLY (asa-8.02 is untouched - it does not reach this code path at all,\nsince it panics on the RAM ceiling long before any timer code runs) - a plain\nper-node override still wins if a future, faster-booting build of this same\nimage ever ships and no longer needs it."
+},
+"tested": "Cisco ASA 9.1.5 \"asa-915-k8\" build (NPX-303, root-caused 2026-09-23) - a SEPARATE,\nmore specific key so this image does not inherit the \"asa\" profile's 384 MB RAM\nceiling above. That ceiling is correct ONLY for the ancient 8.0.2 image (2.6.17\nkernel, GRUB-legacy initrd-placement bug - see the \"asa\" entry's own RAM CEILING\ncomment). This 9.1.5 build is a genuinely different kernel (2.6.29.6, direct\n`kernel`/`initrd` boot lines, no legacy-GRUB stage2) and does NOT hit that bug -\nlive-boot evidence (in-platform, rule #58): at the \"asa\" profile's 384 MB cap it\nunpacks its initramfs fine (\"Unpacking initramfs... done\", \"383MB LOWMEM available\")\nand reaches real ASA userland startup, but then the `lina` process itself fails to\nallocate its shared memory pool (\"mempool: error 22 creating global shared pool\")\nand segfaults (\"lina[499]: segfault at 0 ... in lina[8048000+273b000]\"), rebooting in\na loop - a plain RAM-shortage crash, not the earlier \"Timer not a leaf\" signature\nthis device's PLATFORM-AUDIT row previously reported (that symptom came from a run\nmade before the NPX-153/NPX-1339 NIC + tcg/icount/smbios-drift fixes landed; it does\nnot reproduce under the now-current clean KVM + i82559er config at all). Per rule\n59, EVE-NG's own asa.yml (single template, all classic-ASA versions) pins `ram:\n2048` - this key restores that EVE-NG-parity value for the 9.1.5 build specifically,\ninstead of carrying the 8.0.2-only 384 MB deviation onto an image it actively harms."
+},
+"asav": {
+"reasons": {
+"day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+"emulator": "qemu_version_default: see cisco-asav's comment above - corrected to match\nEVE-NG's real asav.yml pin (2.12.0), not the earlier 4.2.0 guess.",
+"virtio_extras": "NPX-1180 (rule #59 deviation from a plain default): EVE-NG's real asav.yml\npasses -nodefaults, so its guest never sees libvirt's default memballoon/rng\nvirtio devices. Match that (see qemu.py virtio_extras). Live-boot proven below."
+},
+"tested": "\"asav-*\" image folder format - same profile"
+},
+"barracuda": {
+"reasons": {
+"console": "console corrected 2026-07-23 from a live cross-reference against EVE-NG PRO v7's own\nproduction template for this exact image (root@<eveng-box>:/opt/unetlab/html/\ntemplates/intel/barracuda.yml): `qemu_options: -machine type=pc,accel=kvm -vga std\n-usbdevice tablet -boot order=dc` - real VGA + pointer hardware, the same signal\nthat root-caused cumulus-vx's silent zero-console-output bug (NPX-297). NOT\nlive-boot-verified here (unlike cumulus-vx's real `virsh screenshot` proof) -\napplied from cross-reference evidence alone, disclosed per rule #31.",
+"nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/barracuda.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824."
+},
+"tested": "── Barracuda ────────────────────────────────────────────────────────────────\nNo entry existed for \"barracuda\" - get_profile()/get_profile_key() silently fell\nthrough to GENERIC_KVM_PROFILE (disk_bus=\"virtio\", 512MB RAM cap). The on-disk\nimage (barracuda-fw8, id 97396424-2590-4473-b119-9763441a38b1) is IDE-formatted,\nso virtio meant the guest never saw a bootable disk; separately, the 512MB cap is\nunder Barracuda CloudGen NGFW's real footprint - live-observed the node sitting at\n563/512 MB (110% of cap) under the hypervisor's soft RAM ceiling. Same class of gap\nalready fixed once for \"esxi\" above (2026-07-18) and \"isrv\"/\"titanium\" before that."
+},
+"bigswitch-bcf": {
+"reasons": {},
+"tested": "The remaining 9 have no EVE-NG template - sourced from GNS3's own real\ntemplates instead (catalog-diff/gns3-catalog.md, rows named per entry).\nNone names an explicit -cpu flag or a specific vCPU count beyond what's\nnoted - kept at cpu_model \"host\" (this file's established default absent\ncounter-evidence, same as the Fortinet/Checkpoint blocks above) and\ncpu=1 unless GNS3's own template gives a real number."
+},
+"bsdrp": {
+"reasons": {
+"description": "58): reaches the real 'FreeBSD/amd64 (router.bsdrp.net) (ttyu0) login:' banner on the console (a first check at ~20s wrongly looked like a hang - real console output was already flowing, just slower than that first check allowed; a longer, patient poll confirmed it). Wave 38.12/NPX-1167.\",",
+"nic": "rule #59: no EVE template for BSDRP (EVE freebsd.yml is a different product, 2.12.0/virtio); e1000/ide chosen by NPX-1167 (GNS3), live-booted, no qemu pin"
+},
+"tested": ""
+},
+"c1700": {
+"reasons": {},
+"tested": "── Cisco Dynamips platforms ─────────────────────────────────────────────\nemulator=dynamips: node-manager uses DynamipsProvider, not QEMU.\nRAM recommendations from GNS3/EVE-NG community defaults."
+},
+"c2600": {
+"reasons": {
+"min_ram_mb": "NPX-1724 (rule #59 written deviation): default 96 MB boot-loops\nc2600-adventerprisek9-mz.124-15.T14 (\"Configured I/O memory percentage was too\nlarge ... %Software-forced reload\", live on twin-a via the platform, 2026-09-25);\n256 MB boots. The real EVE-NG c2600.yml was unreachable (<eveng-box>) and is not\nin docs/reference, so 256 is set from that live evidence + EVE's own c2691/c3725\n256 MB defaults. Re-check against the real template when the box is reachable."
+},
+"tested": ""
+},
+"c3660": {
+"reasons": {},
+"tested": "c3660 was already a supported chassis at runtime (dynamips_provider.py's\n_C3600_CHASSIS = (\"3620\", \"3640\", \"3660\")) but had no profile entry here, so any\nuploaded c3660 image got no hardware defaults at all (found 2026-07-12: the Library\npanel wasn't showing for a real uploaded c3660-a3jk9s-mz image - not a display bug,\nthis profile was just missing). Same \"3600\" chassis family as c3620/c3640, same real\n256MB ceiling - not a guess, this is the runtime's own established value for the family."
+},
+"c7200": {
+"reasons": {
+"min_ram_mb": "512/1024 previously here mis-set default/recommended RAM ABOVE the real NPE-400\nhardware ceiling this platform actually emulates (dynamips defaults to npe-400\nsince the provider never passes `-t`) - see DYNAMIPS_MAX_RAM_MB comment above for\nthe live-bisected evidence (2026-07-18). 256 is the real max for this NPE."
+},
+"tested": ""
+},
+"c9800cl": {
+"reasons": {
+"vendor": "EVE-NG c9800cl.yml: qemu 2.12.0 (already netplex's own most-common pin),\nvmxnet3 NIC, plain -serial mon:stdio (no VGA) - a genuinely simple,\ntelnet-console-only profile, unlike cat9kv's ISO-boot family above."
+},
+"tested": ""
+},
+"cat9kv": {
+"reasons": {
+"vendor": "EVE-NG cat9kv.yml: qemu 5.2.0, e1000 NIC, boots from an attached\nconfig.iso = iosxe_config.txt, the file cvac writes (NPX-5055); not live-boot-verified."
+},
+"tested": ""
+},
+"catalyst8000v": {
+"reasons": {
+"day0_channel": "Same product as \"cisco-cat8000v\" above under a different image naming\nconvention - see that key's comment for why CVAC applies (IOS-XE family,\nCvacChannel's own docstring names it explicitly). Tagged 2026-07-28.",
+"vendor": "NPX-1245 (rule #59): RAM 8192 / 4 vCPU = EVE c8000v.yml (same product as cisco-cat8000v above); booted through the platform on VM .83.",
+"virtio_extras": "NPX-1224 (rule #59): EVE c8000v.yml passes -nodefaults (no libvirt default memballoon/rng); match it. Live-booted via the platform on VM .59."
+},
+"tested": "\"catalyst8000v\" (the spelled-out image name image-manager's own detector.py\nrecognizes as a DISTINCT alias from \"cat8000v\"/\"c8000v\" - see detector.py's\ncomment at ~line 476 explaining they're deliberately not merged there to avoid\na false match against \"catalyst9000v\"/cat9k) had NO key here, so an image\nliterally named \"catalyst8000v\" never matched the \"cisco-cat8000v\" key above:\nget_profile()'s substring match needs \"cat8000v\" to appear in the normalized\nimage name, and \"catalyst8000v\" does not contain that substring (\"catA-LYST\"\nbreaks it up). Every catalyst8000v import silently fell through to\nGENERIC_KVM_PROFILE (512MB/1cpu/qemu64), not this 4096MB/2cpu/host-passthrough\nprofile - live-confirmed 2026-07-18: GET /images showed\nhardware_defaults={\"cpu\":1,\"ram_mb\":512,\"profile_key\":\"generic:catalyst8000v\"}\nfor the installed catalyst8000v image. Same bug class as the isrv fix below\n(2026-07-12) - IOS-XE's first-boot crypto keygen + package extraction crash-loops\nunder 512MB, so the node never reaches RUNNING and the boot-wait times out.\nMirrors the csr1000v/cisco-csr1000vng duplicate-key pattern already used above."
+},
+"cda": {
+"reasons": {
+"qemu_version_default": "rule #59: cda.yml has no EVE qemu_version pin; 2.12.0 = netplex no-pin fallback (csp-vpn-gate/NPX-1792)"
+},
+"tested": ""
+},
+"ce12800": {
+"reasons": {},
+"tested": "── Huawei CloudEngine (Wave 21 U2, NPX-820) ─────────────────────────────\nBuilt from a LIVE BOOT, not from a template: EVE-NG ships no CloudEngine template at\nall (its only Huawei ones are huaweiar1k / huaweine40 / huaweiusg6kv), so rule #33's\n\"pull the real template first\" has nothing to pull and rule #22 forbids guessing the\nrest. Everything below is what actually booted on this host 2026-09-05.\nProbe argv, mirroring raw_qemu.py's own construction: -machine pc -cpu host -m 4096\n-smp 2, virtio disk (the shipped file is virtioa.qcow2), 4 x e1000 NICs, system QEMU\n10.2.1. Both images then ran their platform bring-up to completion and dropped to a\nreal VRP prompt on the first serial port:\n[01:23:35] Step01: CHK-USERRIGHT .....Finish   ...   Step07: CHK-SVR ......Finish\n[01:24:55] Step08: START-BOARD ........Finish   [01:24:55] Step09: START-ROUTER ...Finish\n<HUAWEI>\nVRP (R) software, Version 8.180 (CE6800 V200R005C10SPC607B607)\n~80 s from the first bring-up step to the prompt on an idle-ish host; boot_timeout_sec\nis set to 300 to leave real headroom on this shared box rather than to describe a\nbest case.\nTHE NIC COUNT IS A BOOT REQUIREMENT, not a preference (root-caused from the guest's\nown log, not inferred): with a single NIC the bring-up fails at\nStep06: CHK-MULTICAST ....Error   Step07: START-ROUTER ....Error   reason=246\nand drops to the underlying Debian shell (root@debian:/opt/svrp#) instead of VRP. The\nguest's /opt/svrp/start_svrp.sh line 789 logs \"addMutiCastRoute: route add 225.1.0.1\ndev eth1 failed, reason code=7\" - it hard-codes eth1, so the VM must have at least\nTWO interfaces. Re-run with 4 NICs, both images reached <HUAWEI> first try. A node\ndrawn from the palette gets 4 NICs, and Wave 21's own harness creates 2, so this\nholds on both real paths; the general \"a vendor can require a minimum NIC count and\nnothing enforces it\" gap is NPX-154 (already logged against vwlc for the same\nreason) and is not re-fixed here.\nInterface names come from the running device's own configuration, not from docs:\nMEth0/0/0 is management and GE1/0/0.. are data ports on BOTH images (see MGMT_INFO\nand DATA_IFACE_NAMING below). CLI verbs live in node-manager's VENDOR_CLI[\"huawei\"],\nwhich carries its own console transcript."
+},
+"checkpoint-gaia": {
+"reasons": {
+"vendor": "No EVE-NG template - sourced from GNS3's real checkpoint-gaia.gns3a\n(catalog-diff/gns3-catalog.md row 45)."
+},
+"tested": "── Security / UTM (Wave 38.12/NPX-1167, 2026-09-16) ────────────────────────\nConfirmed real gaps by NPX-1167's phase 1b audit (final-gap-classification.md,\n\"Security / UTM\" group). No netplex-held image for any of these 5 - NOT\nlive-boot-verified."
+},
+"cips": {
+"reasons": {
+"emulator": "Wave 38 row 38.6/38.9 (2026-09-15): EVE-NG's own live template\n(intel+amd, identical) pins qemu_version 1.3.1 with no forced\n-cpu flag - was silently running on 1.7.0/host here, the nearest\nalready-built version, not the one this old-kernel appliance was\nactually validated against. Now built (see\ninfra/scripts/build-qemu-versions.sh) - fixed to match.\n\"cpu_model\" must be an EXPLICIT non-\"host\" value here, never just\nomitted - qemu.py's own resolver treats a missing key the same as\n\"host\" (`profile.get(\"cpu_model\") or \"host\"`), so \"qemu64\" (QEMU's\nown safe old default, what a bare no -cpu-flag actually resolves\nto) has to be spelled out or this profile silently keeps forcing\nhost-passthrough onto a 2013-era kernel - the exact failure class\nalready confirmed once in this project (vwlc)."
+},
+"tested": ""
+},
+"cisco-catc": {
+"reasons": {},
+"tested": "── Cisco Catalyst SD-WAN (catc* image folder naming) ────────────────────────"
+},
+"cisco-catcontrol": {
+"reasons": {
+"emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\ncatcontrol.yml, which pins \"-cpu host\" - this field had no comment addressing it\nand no evidenced reason to differ, so it was a leftover qemu64 default, not a decision."
+},
+"tested": ""
+},
+"cisco-catmanager": {
+"reasons": {
+"extra_disks": "NPX-1494: was the dead `\"multi_disk\": True` flag (never read anywhere), so the real\nsecond disk (virtiob.qcow2) was never attached. No image held for this platform yet\n(rule #13 external blocker) - re-verify live once one is imported.",
+"vendor": "rule #59 reason: ram 32768 vs EVE 24756 - min_ram_mb 32768 is Cisco Catalyst Center vendor floor; EVE default is below it."
+},
+"tested": ""
+},
+"cisco-catvalid": {
+"reasons": {
+"emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\ncatvalid.yml (\"-cpu host\"), and qemu_version pinned to match EVE-NG and its sibling\ncisco-catcontrol (both 2.12.0) - this profile had no qemu_version at all, so it was\nsilently falling to the platform's un-pinned default instead of the vendor-verified build."
+},
+"tested": ""
+},
+"cisco-csr1000vng": {
+"reasons": {
+"boot_timeout_sec": "NPX-5053C: see below - measured twice, 360 was a guess, 2400 was one sample",
+"day0_channel": "NPX-5053C (10 Nov 2026, live on VM .68): the real vendor file csr1000vng-17.03.08a.qcow2\nresolves HERE (longest prefix \"cisco-csr1000vng\" beats \"csr1000v\"), and this key had no\nday0_channel - so a pasted startup config built no CVAC ISO and the guest sat in the\n\"initial configuration dialog\" for the whole 45 min budget. Same IOS-XE CVAC as the\n\"csr1000v\" key below (CvacChannel, iosxe_config.txt on a CD-ROM).",
+"emulator": "VERIFIED 2026-06-01: CSR1000v 17.03.08a boots in <5s with host-passthrough.\nConsole prompt appears immediately: CSR1000V",
+"node_class": "NPX-5053C (10 Nov 2026, live on VM .68, 6-vCPU KVM): run csr3 took 1792 s from power-on to\n\"%CVAC-4-CONFIG_DONE\" (the \"<5 s\" above is the bootloader prompt, not IOS-XE); with 360 s the user saw\n\"Startup config did not apply\" while CVAC applied it 24 min later. Run csr5: the fresh overlay's first boot\nfsck-repaired its 10 partitions for 32 min (%IOSXEBOOT-4-FILESYS_REPAIR, I/O bound), IOS-XE up at 2717 s,\n2400 had expired 5 min earlier. 3600 = slower sample + 1/3; the CVAC marker watch spans this same budget."
+},
+"tested": ""
+},
+"cisco-dcnm": {
+"reasons": {
+"vendor": "EVE-NG dcnm.yml: qemu 2.12.0, no explicit -cpu flag (\"-machine\ntype=pc,accel=kvm -vga std -usbdevice tablet -boot order=dc\") - per\nrow 38.9's own rule, kept at qemu64 rather than forced host."
+},
+"tested": "── Cisco security/DC management (Wave 38.12/NPX-1167, 2026-09-16) ──────────\nDCNM, Firepower, NGIPS, WSA - confirmed real gaps by NPX-1167's phase 1b\naudit (final-gap-classification.md, \"Cisco\" group). Sourced from EVE-NG's\nown real templates (catalog-diff/eveng-catalog.md rows 52/56-57/63/75, rule\n33/#59). No netplex-held image for any of these 4 - NOT live-boot-verified."
+},
+"cisco-dnac": {
+"reasons": {},
+"tested": "── Cisco DNA Center / Catalyst Center ──────────────────────────────────────"
+},
+"cisco-firepower": {
+"reasons": {
+"min_ram_mb": "rule #59 (2026-09-21, NPX-1266): RAM 8192 matches EVE-NG's newer firepower6.yml (ram 8192, cpu 4, qemu 4.1.0), which this profile follows; only the older firepower.yml says 4096.",
+"vendor": "EVE-NG has two templates for this product (firepower.yml, older, no\nqemu_version pin; firepower6.yml, newer, pins 4.1.0 + explicit -cpu\nhost) - this profile follows the newer/current one."
+},
+"tested": ""
+},
+"cisco-fmc": {
+"reasons": {
+"emulator": "rule #59 (2026-09-21, NPX-1266): machine reverted to EVE-NG fmc7/ftd7 (pc); q35 came from the 2026-06-04 bulk table with no boot evidence.",
+"min_ram_mb": "rule #59 (2026-09-21, NPX-1266): default RAM 28672 (= Cisco's 28 GB FMC minimum, min_ram_mb) instead of 32768; EVE-NG's 28762 is not a multiple of RAM_STEP_MB (128) so the nearest allowed step below it is used. 32768 stays as recommended_ram_mb."
+},
+"tested": "── Cisco FMC / FTD ─────────────────────────────────────────────────────────"
+},
+"cisco-ftd": {
+"reasons": {
+"emulator": "rule #59 (2026-09-21, NPX-1266): machine reverted to EVE-NG fmc7/ftd7 (pc); q35 came from the 2026-06-04 bulk table with no boot evidence.\nrule #59 (NPX-1527 pass2b, 2026-09-24): cpu_model aligned to EVE-NG's real\nftd7.yml (\"-cpu host\") - same undocumented-drift class pass-1 already\nflagged for this profile's siblings (vtbond/vtedge/vtsmart/vtmgmt/\ncisco-catcontrol/cisco-catvalid/cisco-fmc), no comment ever addressed\nthis field, and FTD is Linux-KVM-based like those siblings (not\nconfirmed live-boot-verified against \"host\" here - no netplex-held FTD\nimage to test against yet, same as several other profiles in this\nsection)."
+},
+"tested": ""
+},
+"cisco-ngips": {
+"reasons": {
+"vendor": "EVE-NG fips7.yml: qemu 2.4.0 (already in QEMU_BUILT_VERSIONS), explicit\n-cpu host."
+},
+"tested": ""
+},
+"cisco-nxosv9k": {
+"reasons": {
+"day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+"emulator": "rule #59 (NPX-1527, NPX-4405): every field = EVE nxosv9k.yml (pc, no disk_bus, cpu 2, ram 8192, ethernet 8, telnet, qemu 4.1.0, -cpu host);\nmin_ram_mb 6144 = NX-OS reboot-loop floor; no EVE `multifunction` knob, no UEFI in the template; runtime sata -> libvirt q35.\nProof + the field-by-field table: tests/unit/test_npx4405_nxosv9k_profile.py.",
+"nic": "NPX-4767 #59: EFI-boot disk, SeaBIOS = empty serial (live 5 Nov)"
+},
+"tested": ""
+},
+"cisco-sourcefire": {
+"reasons": {},
+"tested": "── Cisco Sourcefire NGIPS (acquired 2013; still shipped as its own EVE-NG image\nfamily, \"sourcefire-<ver>\") - had no profile at all, falling through to\nGENERIC_KVM_PROFILE. Sized like its sibling NGIPS product FTD above (same\ninspection-engine class of appliance) - W1 audit 2026-08-30."
+},
+"cisco-wsa": {
+"reasons": {
+"vendor": "EVE-NG coeus.yml: qemu 2.12.0, no explicit -cpu flag (\"-machine\ntype=pc,accel=kvm -nographic -rtc base=utc\") - kept at qemu64 per\nrow 38.9's own rule, same reasoning as DCNM above."
+},
+"tested": ""
+},
+"cisco-xrv": {
+"reasons": {
+"config_dialect": "IOS-XR, not IOS: its config save is a two-stage commit, so the CLI dialect\ncannot be inferred from vendor=\"cisco\" (which means IOS). Live-proved\n2026-08-30 on a real booted xrv - see VENDOR_CLI[\"iosxr\"] in node_config.py.",
+"nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/xrv.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824.\nThe bare \"xrv\" key is an alias of this same dict (see the PROFILES[\"xrv\"] line lower down), so it moves with it."
+},
+"tested": ""
+},
+"clavister-netshield": {
+"reasons": {
+"vendor": "EVE-NG clavisterc.yml (Clav-cOS, catalog-diff/eveng-catalog.md row 87) -\nthe same cOS engine underlies both NetShield (cOS Stream) and NetWall\n(cOS Core) below; GNS3's own separate templates list smaller RAM\n(1024/512MB) for each, but EVE-NG's real template is preferred per\nrule #33's \"EVE-NG first\" ordering."
+},
+"tested": ""
+},
+"csp-vpn-gate": {
+"reasons": {
+"qemu_version_default": "NPX-1792 rule #59: pc-1.0 exists only in QEMU <6.2; live-booted to a login prompt through the platform 2026-09-25 (VM 701)"
+},
+"tested": "── S-terra CSP VPN Gate ────────────────────────────────────────────────────────\nNo entry existed for \"csp-vpn-gate\" / \"sterra\" - same two-tables-drifted class as\nbarracuda/sonicwall above. image_profiles.py already carries a live-repro-confirmed\nnote (2026-07-18) that this specific product (RHEL5/CentOS 5.3 base, IDE-only\ninitrd) panics in initramfs (\"could not find filesystem '/dev/root'\") when attached\nover virtio - it must be \"ide\". Scoped to \"csp-vpn-gate\" only: the separate\n\"sterra-gate-4.x\" product genuinely ships virtioa.qcow2 and must keep the virtio\ndefault, so no generic \"sterra\" key is added here.\nNPX-309: live-booted 2026-09-01 (lab npx309-sterra, image sterra-csp-vpn-gate-3.1) -\nthe VM boots fine and reaches \"cspgate login:\", but this RHEL5-base image's\nGRUB/kernel sends console output to VGA (tty0), never to ttyS0. With console\nset to \"telnet\" (serial), node-manager's serial.log stayed empty forever (1\nbyte) while a `virsh screenshot` of the VNC framebuffer showed the real login\nprompt - so every operator connecting via netplex's console saw a silent\n\"hang\" that was actually a live, healthy VM on the wrong console. Must be\n\"vnc\", not \"telnet\"."
+},
+"csr1000v": {
+"reasons": {
+"boot_timeout_sec": "NPX-5053C: same IOS-XE as cisco-csr1000vng above (IOS up at 2717 s on run csr5, live VM .68)",
+"day0_channel": "Phase 3 day-0 (2026-07-23, NPX-306): Cisco's own CVAC day-0 auto-install -\nsee providers/day0_channels.py's CvacChannel docstring for the public,\nvendor-documented convention this implements (ios_config.txt on an attached\nISO, watches for %CVAC-4-CONFIG_DONE). Explicit opt-in per device_profiles.py's\nown convention - never inferred from vendor name.",
+"min_ram_mb": "min_ram_mb=4096 matches Cisco's own documented CSR1000v IOS-XE 17.3 minimum (1/2/4\nvCPU configs all list 4GB RAM as the floor - Cisco CSR1000v release notes). But\ndefault_ram_mb was set equal to that floor, giving the launched VM zero headroom\nabove the bare minimum - live-observed 2026-07-21 (config-lifecycle sweep, round 7):\n3 different csr1000vng-universalk9 instances all climbed to 100% of the 4096MB cap\nand sat there for 3+ minutes before host-guard's hang-watchdog killed them for 0%\nCPU (a real hang under memory pressure, not a slow-but-progressing boot - the\nwatchdog only fires on zero forward progress). 3 OTHER csr1000v/csr1000vng\ninstances in the same catalog HAD already passed earlier under lighter host load -\nconsistent with a device running exactly at its bare floor tipping over under real\nhypervisor overhead + host contention, not a deterministic per-image failure.\ndefault_ram_mb raised to 6144 (1.5x the floor) for real working margin, matching\nthis file's own pattern elsewhere (default set meaningfully above min, e.g.\nbarracuda/pfsense) - min_ram_mb stays at Cisco's documented 4096 floor, unchanged.",
+"nic": "NPX-1812: e1000 = EVE csr1000v.yml (no nic set); no live evidence virtio was needed",
+"vendor": "rule #59 reason: ram 6144 vs EVE 3072 - live-observed 2026-07-21 (config-lifecycle sweep round 7): 3 instances hung at 100% of a 4096MB cap under memory pressure; 6144 gives margin (see comment below). Do not lower."
+},
+"tested": "\"csr1000v-*\" and \"csr1000vng-*\" image folders both map here"
+},
+"csr1000vng-ucmk9": {
+"reasons": {},
+"tested": "NPX-1035 (2026-09-11): the SD-WAN (ucmk9) CSR1000v build copies cisco-csr1000vng and adds config_dialect cisco-sdwan - its SD-WAN control plane refuses `configure terminal`, so plain IOS typing lands as EXEC gibberish (live-proved, same failure shape as NPX-818 vtedge). Keyed csr1000vng-ucmk9 (16 chars after normalisation) so it wins the longest-match over the shorter csr1000vng. NPX-5053C: day0_channel is deliberately NOT set - CVAC is only live-proven on the universalk9 image (rule #22)."
+},
+"ctxsdw": {
+"reasons": {
+"config_console": "W177-G1 (2026-08-30): Citrix SD-WAN never presents a command line on its\nconsole - measured, not assumed. 25 minutes after a full boot the serial log\nended at kernel time 48.68s and the VGA framebuffer (read over RFB) showed the\nSAME frozen text, with none of the newlines/`admin`/`help` we sent appearing on\nit, i.e. the guest processed no input at all. EVE-NG agrees by omission: none of\nits 30 config_*.py scripts covers ctxsdw. The console itself stays \"telnet\" and\nstill works for watching the boot - only CONFIG read/write is refused, and it is\nrefused with this reason instead of a misleading \"no dialect for vendor citrix\"\n(the same vendor's nsvpx has a full working dialect). Delete these two keys if a\nfuture build offers a console login; nothing else has to change.",
+"emulator": "EVE template ctxsdw.yml: Citrix SD-WAN (CTX SD-WAN) appliance.\nVERIFIED 2026-08-29: boots to login prompt in 10.8s with this profile.\nKernel console type: telnet (serial)."
+},
+"tested": "── Citrix SD-WAN ────────────────────────────────────────────────────────────"
+},
+"cucm": {
+"reasons": {
+"emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\ncucm.yml (\"-cpu host\"). machine also aligned to EVE's \"pc-1.0\" (found while\nfixing the cpu_model drift, per rule #60 - was silently \"pc\"). Profile is still\nmarked \"not yet boot-verified\" below - this only removes unjustified drift, it\ndoes not itself boot-verify the device."
+},
+"tested": ""
+},
+"cumulus-linux": {
+"reasons": {
+"nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/cumulus.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824."
+},
+"tested": ""
+},
+"cumulus-vx": {
+"reasons": {
+"emulator": "VERIFIED 2026-06-01: Cumulus VX 2.5.3 boots (hda.qcow2 = ide bus).\nTelnet IAC negotiation at start. Login prompt: cumulus login:\nREGRESSED, found + FIXED 2026-07-23 (NPX-297) - a real 3-part compounding bug:\n(1) bare \"pc\" resolves to whichever pc-i440fx-<newest> is aliased on the host\n(confirmed via `ps aux`: \"-machine pc-i440fx-10.2\") and this ~2016-era guest\nkernel hangs under it (~100% CPU, zero output, 100+ min) - fixed by pinning\n\"machine\" below to pc-i440fx-yakkety, the oldest i440fx variant this host's\nQEMU still ships. (2) that older machine type then made libvirt pick a\n\"256k-compat\" NIC option-ROM this host's qemu package doesn't expose on\nlibvirt's ROM search path, so the domain failed to even start (\"failed to\nfind romfile ... compat-256k-efi-e1000.rom\") - fixed via `<rom bar='off'/>`\non every QEMU node's NIC (providers/qemu.py's _build_interface_xml; no\nnetplex node ever PXE-boots, so the option ROM has no purpose for any\nvendor). (3) with (1)+(2) fixed the domain booted the guest kernel fully\n(confirmed via `virsh qemu-monitor-command --hmp \"info registers\"`: RIP in\nkernel space, HLT=1 - genuinely idling, not hung) but produced zero output on\nthe telnet/serial console netplex was watching. Mounted the actual qcow2\n(qemu-nbd) and read its real /boot/grub/grub.cfg: the boot menuentry is\n`linux /bzImage root=/dev/sda2` with NO \"console=\" kernel argument at all -\nthis image's kernel was never configured to use a serial console, full stop;\nit only ever outputs to the VGA framebuffer (confirmed by a VNC screenshot\nshowing a genuine working \"cumulus login:\" prompt while serial.log stayed\nempty the whole time). A same-day attempt to \"fix\" this by adding a\n\"video\": \"none\" opt-in (removing the VGA device entirely, mirroring EVE-NG's\n`-nographic`) was TRIED AND REVERTED - it does not help, because nothing in\nthis image's boot chain was ever told to use ttyS0 either; removing VGA just\nmakes the (still VGA-only) output invisible on every channel netplex has,\nincluding breaking the VNC screenshot check itself (\"no console to take a\nscreendump from\"). netplex never edits a user's imported image (no rewriting\ngrub.cfg), so the correct fix is the one already used for other VGA-only\nguests: \"console\": \"vnc\" below instead of \"telnet\" (matching esxi/vtmgmt/\ncisco-fmc/cisco-dnac/cisco-catmanager) - this is the one console channel this\nimage has ever actually produced output on. Separately, image_profiles.py's\ndisk_bus_for() had NO entry for the \"cumulus\" vendor token and silently\ndefaulted to virtio, ignoring this entry's own correct \"disk_bus\": \"ide\"\nbelow (that field is only consulted via an explicit per-node override - the\nnormal boot path always calls disk_bus_for()) - fixed by adding a \"cumulus\"\nentry to image_profiles.py's _PROFILES table; also directly confirmed via a\nraw qemu-system-x86_64 repro that this grub.cfg's `root=/dev/sda2` kernel\nargument only resolves under ide (which enumerates as /dev/sda) - under\nvirtio (/dev/vda) the kernel can't find root and panic-reboot-loops. This\nimage's disk file is misleadingly named `virtioa.qcow2` per the\nvendor-images naming convention, but its real on-disk content and baked-in\nkernel argument both require ide - do NOT \"correct\" disk_bus to \"virtio\"\nfrom the filename alone (that exact mistake was made and reverted once\nalready this same day chasing this bug).",
+"nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/cumulus.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824.\nThe bare \"cumulus\" key is an alias of this same dict, so it moves with it."
+},
+"tested": "── Cumulus Linux ────────────────────────────────────────────────────────────"
+},
+"cyberoam": {
+"reasons": {
+"qemu_version_default": "rule #59 (2026-09-21, NPX-1266): Reverted to EVE-NG's pin (2.4.0). The old 2.12.0 was only a fallback from before QEMU 2.4.0 could be built (NPX-457/NPX-1139, built+lane-verified 2026-09-16); that reason no longer exists."
+},
+"tested": ""
+},
+"cznic-bird": {
+"reasons": {
+"description": "58): reaches the real 'debian login:' prompt with bird.service started - this fix depended on NPX-1167's own virtio-scsi controller fix (this profile's disk_bus is scsi; before the fix, the kernel's initramfs could not find the root filesystem device at all under the wrong emulated SCSI controller). Wave 38.12/NPX-1167.\",",
+"vendor": "GNS3's real bird.gns3a specifies a scsi disk interface (the same real\nsignal used for nethesis-nethsecurity above) - machine left at bare\n\"pc\", letting qemu.py's own disk_bus heuristic auto-upgrade to q35."
+},
+"tested": ""
+},
+"debian": {
+"reasons": {
+"boot_timeout_sec": "boot_timeout_sec 180 -> 400 (NPX-1527 PROFILES-TOOLS pass-3, rule #59/#60): same\nday0_channel=\"cloud-init\" mechanism as \"ubuntu\" above, which was already fixed from\n180 to 400 for this exact reason (live-reproduced: cloud-init's \"ready marker\nconfirmed\" line doesn't land within 180s) - this sibling used the identical\nmechanism and was left at the old, already-disproven value."
+},
+"tested": ""
+},
+"dent": {
+"reasons": {},
+"tested": "── DENT ─────────────────────────────────────────────────────────────────────\nwave 6.M8 / NPX-577. Spec sourced from the vendor's own DENT-3.2-VM.gns3a\n(not guessed - netplex rule #12): adapter_type=e1000 (NIC), hda_disk_interface=virtio\n(disk bus), ram=2048. Debian-buster-based switch NOS."
+},
+"esxi": {
+"reasons": {},
+"tested": "── VMware ESXi (nested hypervisor) ─────────────────────────────────────────\nNo entry existed for \"esxi\"/\"vmware\" - the image (id 549b81d7.../da3ddd85...,\n/netplex/images/qemu/vmware/esxi-6.0/virtioa.qcow2) silently fell through to\nGENERIC_KVM_PROFILE (256/512 MB, 1 vCPU, no min_ram_mb enforcement - same class\nof bug already fixed once for \"isrv\" and \"titanium\" above). Live-repro'd\n2026-07-18 with the exact runtime params qemu.py derives from the fallback\nprofile (-m 512 -smp 1 -cpu host, virtio disk): the VMware bootloader gets partway\nthrough decompressing /s.v00 and HALTS with \"Fatal error: 10 (Out of resources)\" -\na textbook ESXi-under-provisioned-RAM crash, not a broken image (VMware's own\npublished minimum for ESXi 6.0 is 4 GB RAM / 2 cores; installer enforces it).\nRe-tested at 4096 MB / 2 vCPU: the boot-loader stage completes cleanly (all\nmodules load, \"Relocating modules and starting up the kernel...\" reached) -\nconfirming RAM/vCPU were the fallback profile's defect and this fix resolves it.\nNOTE: a separate \"#GP Exception 13 in world 32768:bootstrap\" purple-screen was\nobserved after the loader stage on THIS dev host regardless of RAM/cpu_model\n(host, Penryn)/machine type (pc, q35) - that reproduces identically because this\ndev box is itself a nested KVM guest (systemd-detect-virt=kvm), so booting ESXi\nhere is double-nested virtualization (L0 hw -> L1 this host -> L2 ESXi), a known\nfragile combination for a guest that is itself a Type-1 hypervisor. That is a\ntest-host environment limitation, not a netplex code defect - not addressed here;\na bare-metal (single-nesting-level) netplex host is expected to clear it once the\nRAM/vCPU floor below is in place. disk_bus stays virtio (unchanged) - the image is\nalready packaged virtioa.qcow2 and live-repro proved virtio storage IS readable by\nthis ESXi build's bootloader (it loaded every module fine over it); nic is set to\ne1000 (stock ESXi ships no inbox virtio-net driver - matches the platform's own\ngeneric-vm fallback NIC choice for exactly this reason)."
+},
+"extreme-xos": {
+"reasons": {
+"console": "NPX-821 (Wave 21 U3): console changed telnet -> vnc. ExtremeXOS never writes a\nlogin prompt to the serial port; it is a framebuffer-console guest. Measured on\nthis host 2026-09-05 by booting the shipped images in an isolated scratchpad QEMU\nthat mirrors the pre-libvirt-lanes raw-QEMU argv (NPX-825 PR2 later replaced that launch path with libvirt lanes; this comment describes the 2026-09-05 probe as it was actually run), across five variants (21.1.1.4 and 15.3.2 x\nQEMU 4.1.0/2.12.0 x -cpu host/Nehalem x 512/2048 MB x with/without a VGA device\nx with/without NICs). In every single run:\n* the GRUB entry the image auto-selects is literally titled \".. using VGA\nconsole\", and the kernel cmdline it builds ends \"console=tty0\" with \"quiet\";\nthe LAST console= on a Linux cmdline is the one that becomes /dev/console, so\nuserland's stdout goes to the framebuffer, and \"quiet\" drops everything below\nKERN_ERR from the serial port too;\n* userland output is visible ON SCREEN (e.g. \"ifconfig: ioctl 0x8913 failed: No\nsuch device\") while the serial log holds exactly 1 byte - 0xff, which is\nQEMU's own telnet IAC negotiation, i.e. ZERO bytes from the guest.\nRemoving the VGA card (-vga none) does not redirect anything to serial; it only\nblinds the guest (the hypothesis that -nographic drops the VGA device was tested\nand is false: qtree shows the VGA present under both -nographic and -vga std).\nSo a \"telnet\" console here promised a text console that cannot exist, and both\nconfig doors then tried to converse with silence. With console: \"vnc\" the user\ngets the working screen, and refuse_if_no_config_channel() answers\nGraphicalConsoleOnly - whose message (\"a serial port IS attached and reachable,\nthe guest just never writes to it\") is a verbatim description of what was\nmeasured. This is why the wave classes these images B (graphical), not A or D.",
+"emulator": "VERIFIED 2026-06-01: ExtremeXOS 21.1 boots with IDE bus (hda.qcow2).\nDespite vendor docs saying sata, the kernel mounts /dev/hda* → must use ide."
+},
+"tested": "── Extreme Networks ─────────────────────────────────────────────────────────"
+},
+"extremexos": {
+"reasons": {
+"console": "NPX-821 (Wave 21 U3): see the identical note on \"extreme-xos\" above - same\nproduct, same measurement, both image-name shapes must agree or the class a\ndevice gets would depend on which folder name it was ingested under."
+},
+"tested": "\"extremexos-*\" image folder format"
+},
+"f5-bigip": {
+"reasons": {},
+"tested": "F5 BIG-IP + BIG-IQ - no EVE-NG template exists for either (EVE-NG covers\nneither product); sourced from GNS3's own real templates instead\n(catalog-diff/gns3-catalog.md rows 65-66) - same \"pull the real template\nfirst\" rule applied to GNS3 as the source of last resort, same as the\nFortinet block above. GNS3's own schema specifies no explicit vCPU for\neither (defaults to 1 in GNS3) - kept at cpu=1 rather than invented higher."
+},
+"fortinet-faz": {
+"reasons": {
+"config_dialect": "Wave 21 (2026-09-10): FortiAnalyzer is NOT FortiOS's CLI, despite sharing a\nvendor string with FortiGate - live-measured on a real boot (rule #22/#30):\n`show full-configuration` (the \"fortinet\"/FortiOS dialect's capture command)\ngets \"command parse error before 'full-configuration'\"; plain `show` at the\nsame prompt returns the full config. See VENDOR_CLI[\"fortianalyzer\"].",
+"emulator": "cpu_model \"qemu64\", not \"host\" (NPX-1527 PROFILES-TOOLS pass-3, rule #59):\nEVE-NG's real fortinet.yml (the one template all 4 FortiOS-family keys in this\nfile map to) sets NO -cpu flag at all, which QEMU defaults to qemu64 - \"host\" here\nwas undocumented drift with no cited crash/boot evidence (unlike the RAM values on\nthese same entries, which do carry real cited evidence). Matching EVE's real,\nverified-safe default until/unless a live boot specifically justifies \"host\".\nNOT live-boot-verified either way this pass - if a future boot needs \"host\",\ncite the evidence here per rule #59 before changing it back."
+},
+"tested": "FortiAnalyzer - had NO entry at all (found 2026-07-18 device audit: device_id\n1f5a2e4a-3e7a-488c-ad36-03c0ab04f30d, image \"fortinet-FAZ-6-4\"). Every other\nlookup path (image-manager detector.py taxonomy, image_profiles.py disk-bus table)\nalready recognises \"fortianalyzer\"/\"faz\", but this file - the authoritative table\nnode-manager's QemuProvider actually reads for RAM/vCPU - had nothing, so\nget_profile() silently fell through to GENERIC_KVM_PROFILE (512MB/1 vCPU). Live\nrepro (2026-07-18, isolated single-node lab, host otherwise idle): the domain\nreached libvirt RUNNING quickly (process launched fine - NOT a disk-bus/machine-type\nproblem, virtio already matches the virtioa.qcow2 filename) but then sat pinned at\n~99% CPU / ~484MB of its 512MB cap (94%) indefinitely with zero settling over 100+s\nof polling - the classic signature of a guest that can never finish booting inside\nits memory ceiling. Fortinet's own KVM admin guide (docs.fortinet.com, all versions\n6.4-8.0) states FortiAnalyzer-VM's minimum is 4 vCPU / 8GB RAM (16GB for 7.4.1+);\nthis image is the 6.4 build, so 8GB is the correct floor. Matches the\nfortinet-fortigate entry above precedent: set default = the real vendor minimum,\nnot the generic fallback."
+},
+"fortinet-fgt": {
+"reasons": {
+"day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+"emulator": "cpu_model \"qemu64\", not \"host\" (NPX-1527 PROFILES-TOOLS pass-3, rule #59):\nEVE-NG's real fortinet.yml (the one template all 4 FortiOS-family keys in this\nfile map to) sets NO -cpu flag at all, which QEMU defaults to qemu64 - \"host\" here\nwas undocumented drift with no cited crash/boot evidence (unlike the RAM values on\nthese same entries, which do carry real cited evidence). Matching EVE's real,\nverified-safe default until/unless a live boot specifically justifies \"host\".\nNOT live-boot-verified either way this pass - if a future boot needs \"host\",\ncite the evidence here per rule #59 before changing it back."
+},
+"tested": "Alias: images are imported to disk as .../fortinet/fortinet-FGT-<version>/...\n(no \"fortigate\" path segment - see vendor-images/fortinet/fortigate/ source\ntree vs. the flattened /netplex/images/qemu/fortinet/fortinet-FGT-7.2.4.F/\nimport layout). get_profile() matches on substring/prefix of the resolved\nbase_image_path, so \"fortinet-fortigate\" above never matched any real\nimported FortiGate image - every FortiGate node silently fell back to\nGENERIC_KVM_PROFILE (512 MB RAM / 120s boot_timeout instead of the 4096 MB /\n240s this platform actually needs), crash-looping under memory pressure and\nnever reaching RUNNING (same failure shape as the isrv/NX-OS bugs documented\nelsewhere in this file). Found live 2026-07-18 chasing a device-audit\ntimeout for device \"fortinet-FGT\" (registered image name, also with no\n\"fortigate\" segment) - confirmed by normalizing both the real imported path\nand the \"fortinet-fortigate\" key and finding no substring match either way."
+},
+"fortinet-fmg": {
+"reasons": {
+"config_dialect": "FortiManager shares FortiAnalyzer's management-appliance CLI, not FortiGate's\nFortiOS - same \"no full-configuration keyword\" gap. See fortinet-faz's own\ncomment above (live-measured on FAZ; FMG hit the identical capture failure\nin the real Wave 21 fleet run, 2026-09-10).",
+"emulator": "cpu_model \"qemu64\", not \"host\" (NPX-1527 PROFILES-TOOLS pass-3, rule #59):\nEVE-NG's real fortinet.yml (the one template all 4 FortiOS-family keys in this\nfile map to) sets NO -cpu flag at all, which QEMU defaults to qemu64 - \"host\" here\nwas undocumented drift with no cited crash/boot evidence (unlike the RAM values on\nthese same entries, which do carry real cited evidence). Matching EVE's real,\nverified-safe default until/unless a live boot specifically justifies \"host\".\nNOT live-boot-verified either way this pass - if a future boot needs \"host\",\ncite the evidence here per rule #59 before changing it back.",
+"min_enforcement": "NPX-1918: dead \"multi_disk\" flag removed - real image is a single qcow2 file."
+},
+"tested": "FortiManager - NO entry existed here at all (only FortiGate did), so\nget_profile(\"fortinet-FMG-7.2.2\"/\"fortinet-fortimanager-...\") fell all the way\nthrough to GENERIC_KVM_PROFILE (512MB RAM, 1 vCPU, e1000, 120s boot_timeout).\nLive-reproduced 2026-07-18 (device audit 93dd0297-19c4-4887-8fef-da65d2d4f0a5):\nbooting the real virtioa.qcow2 (FMG 7.2.2) at the generic-fallback 512MB\ndeterministically kernel-panics every single boot attempt -\n\"VFS: Unable to mount root fs on unknown-block(2,0)\" at ~5s uptime, looping\nforever (matches the audit's \"timeout\"/never-RUNNING and the UI run's\nRunning-pill-but-never-boot-ready symptom - the QEMU *process* stays up and\nlibvirt reports VIR_DOMAIN_RUNNING, restart-looping the guest kernel forever,\nso node-manager status flips to RUNNING immediately while the guest itself\nnever boots). Identical image at 8192MB (this profile's value, matching the\ndocumented spec in docs/platform/node-emulation.md's Fortinet appliance\nmatrix - \"FortiManager VM ... host ... 8192 MB ... 4 ... virtio-net-pci ...\nvirtio\") boots past that point straight into the FortiOS \"Serial\nnumber:FMG-VM...\" banner - same image, same disk bus, only RAM changed.\nmin_ram_mb enforces the floor; default_ram_mb is what a new node gets."
+},
+"fortinet-fortiadc-manager": {
+"reasons": {},
+"tested": "── Fortinet - beyond FortiGate (Wave 38.12/NPX-1167, 2026-09-16) ──────────────\n10 Fortinet products confirmed as real, in-scope coverage gaps by NPX-1167's\nphase 1b audit (docs/reference/gns3-implementation/catalog-diff/\nfinal-gap-classification.md, \"Fortinet\" group). No EVE-NG template exists for\nany of these 10 (EVE-NG only ships FortiGate/FortiManager/FortiAnalyzer,\nalready covered above) - RAM/NIC/disk sourced from GNS3's own real installed\n`.gns3a` templates instead (docs/reference/gns3-implementation/catalog-diff/\ngns3-catalog.md, rows 104-116), same \"pull the real template first\" rule\n(#33/#59) applied to GNS3 instead of EVE-NG since GNS3 is the only source that\nships these. GNS3's own template schema specifies no explicit vCPU count for\nany of the 10 (defaults to 1 in GNS3 itself) - kept at cpu=1 here rather than\ninvented higher, per rule #59 (no unjustified drift from the real template).\ncpu_model \"host\" matches this file's own existing FortiGate/FortiManager\nconvention (GNS3's extracted catalog doesn't capture a per-template `-cpu`\nflag to cross-reference, unlike EVE-NG's YAML). No netplex-held image exists\nfor any of these 10 (checked <vendor-box>'s vendor library and this fleet's\n`/netplex/images` - no match) - NOT live-boot-verified, same honest-\nplaceholder convention as row 38.12's first 6 profiles (xrd/cat9kv/etc)."
+},
+"fortinet-fortigate": {
+"reasons": {
+"day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+"min_ram_mb": "RAM bumped 2048->4096 (2026-07-12): live-reproduced a genuine guest OOM on\nFortiOS 7.2.4.F at 2048MB - the kernel OOM-killer repeatedly killed\nhttpsd/cmdbsvr/fgfmd/miglogd/forticron in a loop, so config never landed\nand the node was never actually usable despite booting and staying up\n(found chasing NPX-148/NPX-146: the OLDER 6.0-era build this profile's\n2048MB default was originally tuned for is much lighter than modern\nFortiOS's daemon set). Matches Fortinet's own current guidance: the 7.2.x\nKVM admin guide states \"minimum recommended RAM is 2GB\" but later doc\nrevisions (7.6/8.0) strengthen this to \"at least 4GB... recommended,\nespecially if UTM/ZTNA/proxy is enabled\" - 2GB was never comfortably\nsufficient for a full-featured modern build, just under-documented at the\ntime. min_ram_mb stays at 1024 (a real floor for older/lighter builds\nlike 6.0, which booted fine at 2048); default_ram_mb is what a NEW node\nactually gets, now matching modern FortiOS reality.",
+"vendor": "rule #59 reason: ram 4096 vs EVE 1024 - 2026-07-12 live-reproduced guest OOM at 2048 (NPX-148/146), see comment below; do not lower."
+},
+"tested": "── Fortinet ─────────────────────────────────────────────────────────────────"
+},
+"fortinet-fortimanager": {
+"reasons": {
+"emulator": "cpu_model \"qemu64\", not \"host\" (NPX-1527 PROFILES-TOOLS pass-3, rule #59):\nEVE-NG's real fortinet.yml (the one template all 4 FortiOS-family keys in this\nfile map to) sets NO -cpu flag at all, which QEMU defaults to qemu64 - \"host\" here\nwas undocumented drift with no cited crash/boot evidence (unlike the RAM values on\nthese same entries, which do carry real cited evidence). Matching EVE's real,\nverified-safe default until/unless a live boot specifically justifies \"host\".\nNOT live-boot-verified either way this pass - if a future boot needs \"host\",\ncite the evidence here per rule #59 before changing it back.",
+"min_enforcement": "NPX-1918: dead \"multi_disk\" flag removed - real image is a single qcow2 file."
+},
+"tested": ""
+},
+"freerouter": {
+"reasons": {
+"description": "58) and genuinely blocked, but NOT by netplex: the image is a GraalVM native-image build that hard-requires a CPU with AVX2/BMI2/FMA/F16C (its own boot log names the exact missing features) - VM 702's own underlying physical/virtual CPU only exposes AVX (confirmed via /proc/cpuinfo on the host), a real hardware limit of this specific test machine, not a netplex bug (host-passthrough CPU mode was confirmed correctly wired in the live domain XML). Worth retrying on a host with a newer CPU. NOT live-boot-verified yet for this reason. Wave 38.12/NPX-1167.\","
+},
+"tested": ""
+},
+"generic-docker": {
+"reasons": {},
+"tested": "── Generic-Docker fallback ─────────────────────────────────────────────────\nUsed for a locally-pulled Docker image with no curated profile (most user pulls -\nwireshark, a random tool, an in-house build). 512MB/1 vCPU matches NodeDefinition's\nown pre-existing default for a raw topology POST (docker_provider.py) - not a new\nnumber invented here, the same floor the runtime already falls back to."
+},
+"generic-lxc": {
+"reasons": {},
+"tested": "── Generic-LXC fallback ─────────────────────────────────────────────────────\nNo nic/disk_bus/machine/qemu_arch - LXC has none of those concepts. max_cpu is\ndeliberately left unset so _build_hardware_defaults' os.cpu_count() ceiling applies -\nlxc.py's limits.cpu genuinely honours a per-container core count, unlike namespace."
+},
+"generic-microvm": {
+"reasons": {},
+"tested": "── Generic-MicroVM fallback ────────────────────────────────────────────────\ninterfaces ties into W2's boot-time NIC count surface. microvm_engine is a closed\nenum (kata|firecracker|qemu) already recognised by shared/models.py's node-config\nallowlist and consumed by microvm.py - firecracker is the safe default (no nested\ndouble-governance quirk Kata has, see device_profiles module docstring D3 notes)."
+},
+"generic-namespace": {
+"reasons": {},
+"tested": "── Generic-Namespace fallback ──────────────────────────────────────────────\nDeliberately NO \"cpu\" key at all (D3: CPU stays a global cgroup quota for namespace\nnodes, nothing per-node to set - _build_hardware_defaults' existing\nmin_cpu===max_cpu convention, already used for Dynamips/IOL, renders the control inert)."
+},
+"i86bi-linux": {
+"reasons": {
+"min_ram_mb": "default_ram_mb 512 -> 1024 (NPX-1527 PROFILES-TOOLS pass-3, rule #59): EVE-NG's\nreal iol.yml sets ram: 1024 with no separate default/floor split - the old 512\nhere had no written reason, matching EVE exactly now.",
+"nic": "NPX-1527 review (Wave 38): IolProvider.get_console returns ConsoleType.SERIAL (raw PTY bridge), so the profile must say \"serial\" - not EVE's \"telnet\" label; verified in iol_provider.py get_console. No consumer treats the two differently today."
+},
+"tested": ""
+},
+"i86bi-linux-l2": {
+"reasons": {
+"min_ram_mb": "default_ram_mb 512 -> 1024 (NPX-1527 PROFILES-TOOLS pass-3, rule #59): EVE-NG's\nreal iol.yml sets ram: 1024 with no separate default/floor split - the old 512\nhere had no written reason, matching EVE exactly now.",
+"nic": "NPX-1527 review (Wave 38): IolProvider.get_console returns ConsoleType.SERIAL (raw PTY bridge), so the profile must say \"serial\" - not EVE's \"telnet\" label; verified in iol_provider.py get_console. No consumer treats the two differently today."
+},
+"tested": ""
+},
+"i86bi-linux-l3": {
+"reasons": {
+"min_ram_mb": "default_ram_mb 512 -> 1024 (NPX-1527 PROFILES-TOOLS pass-3, rule #59): EVE-NG's\nreal iol.yml sets ram: 1024 with no separate default/floor split - the old 512\nhere had no written reason, matching EVE exactly now.",
+"nic": "NPX-1527 review (Wave 38): IolProvider.get_console returns ConsoleType.SERIAL (raw PTY bridge), so the profile must say \"serial\" - not EVE's \"telnet\" label; verified in iol_provider.py get_console. No consumer treats the two differently today."
+},
+"tested": "── Cisco IOL (IOS-on-Linux) ─────────────────────────────────────────────\nemulator=iol: node-manager uses IolProvider."
+},
+"infoblox": {
+"reasons": {
+"vendor": "EVE-NG infoblox.yml (catalog-diff/eveng-catalog.md row 113): no explicit\n-cpu flag - kept qemu64 per row 38.9's rule. Real adapter pattern\n\"LAN{1}\"."
+},
+"tested": "── Other confirmed real network-vendor gaps (Wave 38.12/NPX-1167, 2026-09-16)\nConfirmed real gaps by NPX-1167's phase 1b audit (final-gap-classification.md,\n\"Other confirmed real network-vendor gaps\" group). No netplex-held image for\nany of these 11 - NOT live-boot-verified. (Onos, also named in that group, is\na Docker-only appliance with NO real image reference captured by either\ncatalog extraction - not added this pass rather than guessing a docker image\nname; named honestly as a remaining gap.)"
+},
+"innovaphone-app": {
+"reasons": {
+"vendor": "GNS3's real innovaphone-app.gns3a (catalog-diff/gns3-catalog.md row 130)\ngives a real explicit vCPU count (1)."
+},
+"tested": "── Lower-priority / borderline network-adjacent gaps (Wave 38.12/NPX-1167,\n2026-09-16) - real products confirmed by NPX-1167's phase 1b audit\n(final-gap-classification.md, \"Lower-priority / borderline\" group), kept\nfor completeness even though several labs use them as monitoring/infra\ntargets rather than as network gear itself. No netplex-held image for any\nof these 6 - NOT live-boot-verified."
+},
+"innovaphone-ipva": {
+"reasons": {
+"vendor": "GNS3's real innovaphone-ipva.gns3a (row 131) also gives a real vCPU\ncount (1)."
+},
+"tested": ""
+},
+"iosv": {
+"reasons": {
+"day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+"emulator": "cpu_model host + qemu_arch x86_64 (NPX-1527 GW-AUTH/PROFILES-TOOLS pass-3, rule #59):\nsame fix as \"vios\"/\"viosl2\" (NPX-460) for the identical documented live crash\n(memory-pool corruption -> CPU exception vector 4) - this key is what\nPROFILES[\"cisco-iosv\"] is actually aliased to below, so this is the value real\nimports of either naming convention boot with."
+},
+"tested": "Bare \"iosv-*\" image folder format (no \"cisco-\" prefix) - some real IOSv uploads use\nthis naming instead of \"cisco-iosv-*\". Found missing 2026-07-22 (the project owner: \"How hard can\nit be to categorise those IOL images properly?\") chasing a live failure: image\n\"iosv-159-3-m6\" had NO profile match at all (get_profile_key returned None), so it fell\nthrough to GENERIC_KVM_PROFILE's 120s boot_timeout_sec and got none of the extended\nbusy-console retry treatment node_config._retry_deadline_s gives any profiled device -\nit was still running the original fixed-2-attempt budget the whole night. Same specs as\n\"cisco-iosv\" above (identical underlying software, just a different upload naming\nconvention) - see that entry's comment for the 400s boot_timeout_sec evidence."
+},
+"isrv": {
+"reasons": {
+"day0_channel": "ISRv is IOS-XE, same family as csr1000v/cat8000v - CvacChannel's own\ndocstring explicitly names it in scope (\"CSR1000v, ISRv, Catalyst 8000v,\ncat9kv\"), and Cisco documents CSR1000v + ISRv together in one Software\nConfiguration Guide (see this profile's own comment above). Tagged\n2026-07-28 to complete the CVAC family started with csr1000v."
+},
+"tested": "ISRv (Integrated Services Virtual Router) - same IOS-XE family as CSR1000v,\ndocumented together in Cisco's own \"CSR 1000v and Cisco ISRv Software\nConfiguration Guide\". Had no entry here before 2026-07-12 - unmatched image\nnames fall through to GENERIC_KVM_PROFILE (512MB/1cpu), which is nowhere near\nenough: first-boot crypto keygen + package extraction under that much memory\npressure crash-loops (repeated \"Failed to format /dev/vdaN. Rebooting.\"),\neasily misread as a broken image (same failure shape as the dynamips\nout-of-range-RAM SIGSEGV found the same day - see DYNAMIPS_MAX_RAM_MB above).\n4096MB/2cpu mirrors this table's existing csr1000v entry (same vendor family\nminimum); EVE-NG's own isrv-17.03.02 howto independently confirms 4096MB is\nthe correct order of magnitude (they run 1 vCPU/4096MB for a lighter profile).\ndefault_ram_mb is 6144, not 4096 (2026-07-21, re-applied 2026-07-23 - see that date's\ncommit for why): same fix and same reason as the sibling csr1000v entry above (both\nare Cisco IOS-XE platforms, documented together in Cisco's own \"CSR1000v and ISRv\nSoftware Configuration Guide\"): min_ram_mb==default_ram_mb left zero real-world\nheadroom above the bare floor. Live-observed 2026-07-21 (config-lifecycle sweep round\n8): 2 different isrv instances (isrv-21e32d3e, isrv-ucmk9-0beacd55) both climbed to\n97-100% of the 4096MB cap and sat there for 4.5+ minutes - the same \"hung under memory\npressure\" signature already root-caused for csr1000v. min_ram_mb stays at 4096,\nunchanged. RE-CONFIRMED live 2026-07-23: a bulk catalog-regeneration commit\n(309ff0f7, \"populate the 73 EVE-NG-template gaps\") silently reverted this same fix\nback to 4096/4096 without anyone noticing, re-exposing the exact same OOM-hang this\nentry already fixed once - caught only because a live sweep hit isrv again and this\nRAM value was the first thing checked. If you're regenerating/bulk-populating this\ntable from a template, please diff against evidence-backed comments like this one\nfirst - a template regen has no way to know a manually-tuned value came from a real,\nreproduced incident."
+},
+"jspacelogcollector": {
+"reasons": {
+"qemu_version_default": "rule #59: jspacelogcollector.yml has no EVE qemu_version pin; 2.12.0 = netplex no-pin fallback (csp-vpn-gate/NPX-1792)"
+},
+"tested": ""
+},
+"juniper": {
+"reasons": {
+"nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/vmx.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824."
+},
+"tested": "Juniper generic - matches images named just \"juniper\" (e.g. vMX VCP)"
+},
+"juniper-vevo": {
+"reasons": {
+"vendor": "EVE-NG vjunosevo.yml: explicit `-cpu qemu64` (no host-passthrough)."
+},
+"tested": "── Juniper vEVO / vEX / vRouter (Wave 38.12/NPX-1167, 2026-09-16) ──────────\nConfirmed real gaps by NPX-1167's phase 1b audit (final-gap-classification.md,\n\"Juniper\" group) - vMX/vSRX/vQFX above are covered, these 3 newer vJunos\nproducts were not. Sourced from EVE-NG's own real templates\n(catalog-diff/eveng-catalog.md rows 123/126/133, rule #33/#59); all pin\nqemu_version 5.2.0 (already netplex's own QEMU_BUILT_VERSIONS entry). NIC\nmodel follows this file's existing Juniper-family convention\n(virtio-net-pci, matching vmx/vqfxre/vqfxpfe above) since none of the 3\ntemplates names a specific NIC hardware model. No netplex-held image for\nany of these 3 - NOT live-boot-verified."
+},
+"juniper-vex": {
+"reasons": {
+"vendor": "EVE-NG vjunosswitch.yml pins a much more specific CPU than a plain model\nname: \"-cpu IvyBridge,ibpb=on,md-clear=on,spec-ctrl=on,ssbd=on,vmx=on\".\nnetplex's cpu_model field only carries a base model name (qemu.py's\n<model fallback='forbid'>{model}</model> - no per-flag passthrough for a\nprofile-level pin), so the base model (IvyBridge, a real QEMU CPU model)\nis set here and the extra security/virtualization feature flags are\nnamed here rather than silently dropped - a real, disclosed schema\nlimitation (rule #31), not an oversight."
+},
+"tested": ""
+},
+"juniper-vmxvcp": {
+"reasons": {
+"day0_channel": "NPX-4606 (the project owner 4 Nov, no console typing): EVE-NG's config_vmxvcp.py types a mount +\n\"load set\" sequence; netplex does not. vmxvcp is a FreeBSD Junos like vsrx/vqfxre, so\nits day-0 text goes into the /config partition of its own overlay while it is off.",
+"min_ram_mb": "RAM corrected 4096 -> 2048 (Wave 38 row 38.4, 2026-09-16, rule #59): EVE-NG's\nown real vmxvcp.yml template (docs/reference/eveng-implementation/raw/\ntemplates/vmxvcp.yml) says \"ram: 2048\", \"cpu: 1\" - the previous 4096 was\nunexplained drift with no comment justifying it. Real-world evidence this\nwas wrong, not just a template mismatch: live-booting a real vmxvcp+vmxvfp\npair on an 8GB test VM (vmxvfp alone already needs 4096MB per EVE-NG's own\nvmxvfp.yml) hit a genuine host-RAM admission refusal with the old 4096MB\nvmxvcp value - 2048+4096=6144MB fits comfortably where 4096+4096=8192MB did\nnot, on hardware EVE-NG's own reference deployment is sized for."
+},
+"tested": ""
+},
+"juniper-vmxvfp": {
+"reasons": {
+"nic": "disk_bus corrected virtio -> ide (NPX-1101 burn-down, 2026-09-20, rule #59):\nEVE-NG's own real vmxvfp.yml template declares no `qemu_disk_interface` field\nat all - the same as vmx-17.2R1's template, which this file's own\ntest_family_splits_survive_the_single_source already pins to \"ide\" - so EVE-NG's\nunqualified default (ide) is what applies here too. The previous \"virtio\" was\nunexplained drift (likely copied from the neighbouring vmxvcp entry, which\ngenuinely IS virtio because its family key matches the file-naming table's\n\"virtide\" token - vmxvfp has no entry in that table at all)."
+},
+"tested": "No profile existed for \"vmxvfp\" (Juniper vMX Virtual Forwarding Plane - the\ncompanion node to juniper-vmxvcp above) - every vmxvfp image silently fell\nthrough to GENERIC_KVM_PROFILE. Sourced from EVE-NG's own real vmxvfp.yml\ntemplate (rule #33/#43/#57, docs/reference/eveng-implementation/raw/templates/\nvmxvfp.yml): cpu=3, ram=4096, 12 ethernet interfaces (fxp0, int, ge-0/0/0..9),\nsame qemu_options (pc/kvm/host-cpu) as vmxvcp. EVE-NG's own config-scripts\ncatalog (08-config-scripts-catalog.md) lists a dedicated driver for \"vmxvcp\"\nbut none for \"vmxvfp\" - the VFP is a headless forwarding engine with no Junos\nCLI of its own; it never receives a day-0 config push (day0_channel\ndeliberately NOT set here, matching EVE-NG's own behavior exactly, not a gap).\nIt boots and is wired to its VCP companion purely via the ordinary \"int\"\ninterface (index 1) - an ORDINARY netplex link between two ORDINARY nodes, the\nsame mechanism used for every other inter-device cable; no special multi-node\ntopology feature is needed (confirmed by reading EVE-NG's own vmxvcp.yml/\nvmxvfp.yml templates directly - each is just a plain two-interface-plus qemu\nnode like any other device in this file)."
+},
+"juniper-vrouter": {
+"reasons": {
+"vendor": "Same IvyBridge base-model-only limitation as vEX above - EVE-NG's real\nvjunosrouter.yml pins the identical flag set."
+},
+"tested": ""
+},
+"junipercrpd": {
+"reasons": {},
+"tested": "ROOT CAUSE (2026-09-07, Wave 21 U6 confirmation experiment): no profile entry\nexisted for \"junipercrpd\" under any spelling (confirmed by a case-insensitive\ngrep of this whole file for \"crpd\") - every junipercrpd image silently fell\nthrough to the generic \"juniper\" vendor profile (2048 MB RAM, 1 vCPU, 180s\nboot_timeout), nowhere near enough for a Junos cRPD control-plane VM. The fleet\nrun's own attempt log showed it timing out fastest of all 5 confirmation-\nexperiment devices (\"no recognized prompt; deadline 180.0s at attempt 3\") - the\nsame 180s. Live-booted with 4096 MB/2 vCPU (still using the generic juniper\nprofile's e1000/virtio/pc device settings, only RAM/CPU overridden): reached a\nreal \"crpd login:\" Alpine Linux 3.12 prompt at t=220.5s (`repro_crpd.log`). 400s\ngives real margin over that."
+},
+"kernelkit-infix": {
+"reasons": {
+"description": "58): needs UEFI firmware (see firmware=uefi above) - reaches the real Infix/OpenWrt-style login banner on the console. Wave 38.12/NPX-1167.\",",
+"firmware": "firmware: \"uefi\" (NPX-1167, rule #59 deviation, live evidence not guessed):\nKernelKit's own official x86_64 release qcow2 (github.com/kernelkit/infix\nreleases) is a real GPT disk with an \"EFI System\" partition and NO BIOS boot\ncode at all (confirmed via `fdisk -l` on the raw image) - booted through\nnetplex's real platform per rule #58, it hung forever at SeaBIOS's \"Booting\nfrom Hard Disk...\" with the guest pinned near 100% CPU (a real screenshot\nconfirmed this, not guessed). GNS3's own infix.gns3a doesn't record a firmware\nfield either way, so this isn't drift from their template - it's this image's\nown real, upstream requirement. `ovmf` is already a documented netplex\ndependency for exactly this case (docs/DEPENDENCIES.md: \"UEFI/Secure-Boot\nguests\") - qemu.py just never had the loader/nvram wiring to use it until now.",
+"vendor": "GNS3's own template gives a real explicit vCPU count (1), unlike most\nof this batch."
+},
+"tested": ""
+},
+"keysight-ixia-c-one": {
+"reasons": {},
+"tested": "Keysight Ixia-c-one (open-traffic-generator all-in-one). Vendor minimum\n(Keysight docs: 2 vCPU / 4GB for the all-in-one - inner dockerd + controller +\na traffic+protocol engine pair per port, protocol-engine image alone is 1.6GB;\nprobe-verified live 2026-07-16) - matches the launch-time floor already enforced\nin docker_provider.py's _CONTAINER_NOS_LAUNCH (\"min_cpu\": 2, \"min_ram_mb\": 4096)\nso the Library/palette-shown default and the actually-enforced minimum agree.\nFound 2026-07-18 device audit: this entry was MISSING, so image-manager fell back\nto the generic profile (1 vCPU / 512MB) for the Inspector-displayed hardware\ndefaults - launch-time enforcement in docker_provider.py meant the node still\nbooted correctly (floor bump live-verified), but rule 14 step 5 (\"hardware\ndefaults set from the vendor recommendation\") was violated: the displayed default\nsilently understated the real requirement by 8x RAM / 2x CPU."
+},
+"l2-adventerprisek9": {
+"reasons": {
+"min_ram_mb": "default_ram_mb 512 -> 1024 (NPX-1527 PROFILES-TOOLS pass-3, rule #59): EVE-NG's\nreal iol.yml sets ram: 1024 with no separate default/floor split - the old 512\nhere had no written reason, matching EVE exactly now.",
+"nic": "NPX-1527 review (Wave 38): IolProvider.get_console returns ConsoleType.SERIAL (raw PTY bridge), so the profile must say \"serial\" - not EVE's \"telnet\" label; verified in iol_provider.py get_console. No consumer treats the two differently today."
+},
+"tested": "Some real IOL binaries in the wild are named without the \"i86bi\"/\"iou\" token at all -\nbare \"L2-ADVENTERPRISEK9-M\" / \"L3-ADVENTERPRISEK9-M\" (Cisco internal test-build names).\nWithout these, get_profile() found no match for them at all and they silently fell\nthrough to GENERIC_KVM_PROFILE (a QEMU-shaped profile - wrong emulator, wrong interface\nnaming) instead of the correct IOL router/switch profile. Found 2026-07-21 alongside the\nmatching frontend Library-badge gap (computeImageRoleKey in StudioHome.tsx)."
+},
+"l3-adventerprisek9": {
+"reasons": {
+"min_ram_mb": "default_ram_mb 512 -> 1024 (NPX-1527 PROFILES-TOOLS pass-3, rule #59): EVE-NG's\nreal iol.yml sets ram: 1024 with no separate default/floor split - the old 512\nhere had no written reason, matching EVE exactly now.",
+"nic": "NPX-1527 review (Wave 38): IolProvider.get_console returns ConsoleType.SERIAL (raw PTY bridge), so the profile must say \"serial\" - not EVE's \"telnet\" label; verified in iol_provider.py get_console. No consumer treats the two differently today."
+},
+"tested": ""
+},
+"mikrotik-chr": {
+"reasons": {},
+"tested": "── MikroTik ─────────────────────────────────────────────────────────────────"
+},
+"netapp-ontapsim": {
+"reasons": {
+"vendor": "GNS3's own template gives a real explicit vCPU count (2)."
+},
+"tested": ""
+},
+"nethesis-nethsecurity": {
+"reasons": {
+"description": "58): reaches the real OpenWrt-style 'Please press Enter to activate this console' banner with br-lan/eth0/eth1 up - this fix depended on NPX-1167's own virtio-scsi controller fix below (this profile's disk_bus is scsi). Wave 38.12/NPX-1167.\",",
+"emulator": "machine left at plain \"pc\" - qemu.py's own disk_bus heuristic already\nauto-upgrades a bare \"pc\" to \"q35\" for scsi/sata/nvme buses, so setting\nit explicitly here would be redundant with (and could silently diverge\nfrom) that existing code path.",
+"vendor": "No EVE-NG template - sourced from GNS3's real nethsecurity.gns3a\n(catalog-diff/gns3-catalog.md row 174), which is the one entry in this\nwhole group to give a real, specific disk_interface (scsi, not the\nusual \"n/a\") - used directly."
+},
+"tested": ""
+},
+"nokia-sros": {
+"reasons": {
+"nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). The evidence here is\nnetplex's OWN live boot, which is stronger than the EVE-NG cross-reference used\nfor the other switches: the \"nokia-timos\" profile a few lines below carries a\n2026-06-01 note that Nokia SR OS 21.10.R1 boots on virtio, and the image this\nprofile resolves to (nokia-sros-21.10.R1) is that exact same OS at that exact\nsame version. Two profile keys for one guest disagreeing about its NIC was the\nbug. Re-booted on netplex before this landed - run recorded in\ndocs/status/PLATFORM-AUDIT.md NPX-824."
+},
+"tested": "── Short-name aliases for images that don't match longer profile keys ──"
+},
+"nokia-timos": {
+"reasons": {
+"boot_timeout_sec": "Live-booted 2026-09-07 (Wave 21 U6 confirmation experiment, timos-12.0.R6):\ngiven this profile's own 4096 MB/2 vCPU (now correctly matched thanks to\nNPX-817's path-separator fix), a real TiMOS \"Login: \" prompt was reached at\nt=636.2s (`repro_timos.log`) - past the previous 600s boot_timeout_sec,\nwhich would still have flagged this genuine successful boot as a failure.\n750s keeps real margin over the observed time.",
+"min_ram_mb": "NPX-1245 / rule #59 (RAM + vCPU): EVE-NG timos.yml says 2048 MB / 1 vCPU; netplex keeps 4096 / 2.\nMeasured live THROUGH the platform on VM .83 (lab API + node start, console relay, timos-12.0.R6):\nwith EVE's 2048/1 (qemu argv -m 2097152k -smp 1) TiMOS reaches \"Login:\" only after ~1268 s; with\n4096/2 it reaches it at ~636 s (Wave 21 U6). So EVE's value boots but is 2x slower and lands\npast this profile's 750 s boot_timeout_sec. NOT tested: timos-21.10.R1 at 2048/1 (this key also\nserves 21.x and that image could not be registered on the test VM this session) - so 4096 stays.",
+"qemu_version_default": "VERIFIED 2026-06-01: Nokia SR OS 21.10.R1 boots on virtio/x86_64 pc.\nNPX-1811 disk_bus=ide: the project owner observed a real TiMOS boot with the image_profiles.py ide override, relayed by netplex-2f 2026-09-26.\nEVE timos.yml sets no bus (qemu_options only), so ide is not a rule-#59 deviation; EVE box unreachable to re-confirm.\nNPX-1245 / rule #59: EVE-NG timos.yml says `-machine type=pc-1.0`; netplex keeps plain \"pc\" ON PURPOSE.\nNPX-1792 (supersedes the old \"keeps plain pc\" note; on system QEMU 10.2.1 pc-1.0 gave a 422):\npinned to the 2.12.0 lane (pc-1.0 exists only in QEMU <6.2); timos-21.10.R1 live-booted THROUGH the\nplatform on VM 701 (lab API + node start, `-machine pc-1.0`): serial `Login:` within ~12 min.\nNPX-1792 rule #59: pc-1.0 exists only in QEMU <6.2; live-booted to a login prompt through the platform 2026-09-25 (VM 701)",
+"vendor": "rule #59 reason: ram 4096 / cpu 2 vs EVE 2048 / 1 - live A/B NPX-1245 (VM .83): EVE hardware reaches TiMOS Login only after ~1268 s vs ~636 s at 4096/2 (12.0.R6). See NPX-1245 comment below."
+},
+"tested": "── Nokia ────────────────────────────────────────────────────────────────────"
+},
+"nokia-timoscpm": {
+"reasons": {
+"qemu_version_default": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu/ram trimmed to EVE-NG's\ntimoscpm.yml (Nokia 7750 CPM: cpu 1, ram 2048) - the previous 4/4096 was 4x CPU\nand 2x RAM above EVE's real value with no comment justifying the over-provision.\nqemu_version_default added (found while fixing this row, per rule #60 - the\nprofile had none at all, so it silently used the platform's un-pinned default\ninstead of EVE-NG's vendor-verified 2.12.0 build)."
+},
+"tested": ""
+},
+"nsvpx": {
+"reasons": {
+"config_dialect": "W177-G1 (2026-08-30): NetScaler's own CLI, proven live on this exact image\n(NetScaler NS12.0 Build 53.13.nc) - nsroot/nsroot, `set cli mode -page OFF`,\n`show ns runningConfig`, `save ns config`, and NO configuration mode at all.\nKeyed per-image rather than on the vendor string \"citrix\" because ctxsdw\n(Citrix SD-WAN) is the same vendor with a completely different console - see\nVENDOR_CLI[\"nsvpx\"] in node_config.py.",
+"emulator": "cpu_model \"qemu64\", not \"host\" (2026-09-12, Wave 21 close, netplex rule #43 - EVE-NG\nfirst, never guess): EVE-NG's own nsvpx.yml qemu_options has NO `-cpu` flag at all\n(`-machine type=pc,accel=kvm ... -rtc base=utc`) - it runs this OS on QEMU's plain\ndefault CPU model, not host-passthrough. `cpu_model_for()`'s own docstring already\ndocuments this exact failure class for another old-kernel appliance (AireOS/vWLC's\n3.10 kernel: \"can kernel-panic on host-passthrough's exposed feature/clock set;\npinning a conservative model avoids that\"). NetScaler's kernel here is an equally\nold FreeBSD derivative. Two things were tried and live-reproduced this session,\nin order, being honest about what did and didn't work (rule #22): (1) cpu 4->2\n(matching EVE-NG's vCPU count) did NOT change the symptom - reproduced identically\nwith cpu=2: SMP brings up fine (\"SMP: AP CPU #1 Launched!\"), reaches \"Trying to\nmount root from ufs:/dev/md0c\" / \"NS-KERN /dev/md0 for compatibilty\", then total\nserial silence for the rest of the 600s budget, byte-identical to the cpu=4 case.\nSo vCPU count is NOT the cause - ruled out with evidence, not assumed. (2) Not yet\nlive-verified this session: switching cpu_model to \"qemu64\" (matching EVE-NG's\nreal no-passthrough config) - the next thing to try before guessing further, since\nthe vCPU-count hypothesis is now ruled out and machine/cpu-model divergence is the\nnext real difference from EVE-NG's own working template."
+},
+"tested": "── Citrix ADC / NetScaler VPX ──────────────────────────────────────────────\nROOT CAUSE (2026-07-18): \"nsvpx\" has NO entry in this table (nor in taxonomy.py's\ndetector aliases beyond the vendor mapping), so get_profile(\"nsvpx-12.0.53.13\")\nmatched nothing and fell through to GENERIC_KVM_PROFILE (512MB RAM / 1 vCPU).\nLive-reproduced booting the real local image (nsvpx-12.0.53.13/virtioa.qcow2) at\nthat 512MB fallback: the FreeBSD-based loader gets all the way into the NetScaler\nkernel (ns_physmem_init reserves only ~38MB for NetScaler use out of the 512MB\ntotal) and then the kernel OOM-kills its own boot processes outright -\n\"pid 22 (pitboss), uid 0, was killed: out of swap space\" / same for pid 23 (sh) -\nboth within ~40s of power-on, confirmed via the real QEMU serial console, not a\nmock. docs/platform/node-emulation.md already documents Citrix's real minimum\n(2048MB RAM, 4 vCPU) from the vendor datasheet - it was simply never wired into\nthis table (DoD step 5, rule #14, was skipped for this device). RAM/CPU bumped to\nmatch; disk_bus kept at \"virtio\" (NOT the \"ide\" the doc footnote mentions for a\nfreshly-converted raw vendor image) because the actual locally-imported artifact\nis already named virtioa.qcow2 and the live boot confirms the virtio disk reads\nfine (loader loads the kernel/modules, kernel probes ATA/USB, gets to\n\"Trying to mount root from ufs:/dev/md0c\" - the failure is purely OOM, never a\ndisk/bus mismatch) - flipping the bus to ide would break a currently-working disk\npath to chase a doc footnote that predates this locally-converted image."
+},
+"openbsd": {
+"reasons": {},
+"tested": "── OpenBSD ──────────────────────────────────────────────────────────────────\nwave 6.M8 / NPX-577/581. Sourced artifact (install79.iso) is an INSTALLER, not a\nbootable disk - closest EVE-NG precedent is freebsd.yml's \"-boot order=cd\"\npattern (netplex rule #43). Original plan was a per-node runtime autoinstall\n(extra_disks=[\"cdrom.iso\"], boot_order=[\"cdrom\",\"hd\"], an OpenbsdAutoinstallChannel\nday0_channel) - reverted 2026-08-26 once live testing showed boot_order is STATIC\n(applies every boot, confirmed via qemu.py), which would have forced the install\nmenu on every restart forever. Instead the sourced ISO was unattended-installed\nONCE, host-side, via a pexpect-driven serial-console script (openbsd_autoinstall.py,\nwave 6.M8 handoff), producing a normal pre-installed virtioa.qcow2 base image -\nverified live: boots straight to a real `login:` prompt with no CD-ROM attached,\nexactly like every other vendor's pre-installed image in this table."
+},
+"openwrt": {
+"reasons": {
+"emulator": "rule #59: no EVE template exists; nic/disk/RAM chosen by NPX-1769 (GNS3 openwrt.gns3a), no qemu pin.",
+"nic": "NPX-1769: GNS3 openwrt.gns3a value (rule #59); LEDE kernel lacks virtio-blk"
+},
+"tested": "── OpenWrt ──────────────────────────────────────────────────────────────────"
+},
+"opnsense": {
+"reasons": {
+"console": "console/day0: EVE-NG's own real opnsense.yml says `console: vnc` (its\n`-serial mon:stdio` flag only carries early boot-loader chatter, not the\ninteractive console) - this is a DELIBERATE, evidenced deviation (rule #59),\nnot drift: EVE-NG's own image is the plain \"vga\" OPNsense build, which has\nno real interactive serial console at all (the same class of gap NPX-1200\nalready found and fixed for pfSense). netplex instead uses OPNsense's own\nofficial \"serial\" build variant (`OPNsense-<ver>-serial-amd64.img`, a\nready-made raw disk image, sha256-verified against the vendor's own\npublished checksum before import) - a real, current, upstream-supported\nbuild with a genuine interactive serial getty, matching this project's own\nconsole-relay design (same \"just use the vendor's serial build\" choice\nthe project owner directed for pfSense). Live-confirmed 2026-09-16: this build's\nconsole is genuinely interactive over telnet (a live boot reached the\nBSD kernel boot menu on the real console, not silence).",
+"description": "58): reaches the real BSD loader boot menu, boots the kernel, mounts its filesystem clean, and reaches its own real first-boot 'Press any key to start the configuration importer' prompt - a genuine, usable interactive console. Day-0/full setup-wizard automation not yet built, see NPX-1167's tracker row.\",",
+"vendor": "EVE-NG opnsense.yml (catalog-diff/eveng-catalog.md row 156): no\nexplicit -cpu flag - kept at qemu64 per row 38.9's rule.\nnic corrected e1000 -> virtio-net-pci (Wave 38 row 38.12 live-boot pass,\n2026-09-16, rule #59): EVE-NG's real opnsense.yml says\n`qemu_nic: virtio-net-pci` - the earlier e1000 value was unexplained drift."
+},
+"tested": ""
+},
+"ovs-switch": {
+"reasons": {},
+"tested": "── Built-in virtual nodes (zero external image, OVS does the real work) ──"
+},
+"paloalto-panorama": {
+"reasons": {
+"vendor": "EVE-NG panorama.yml (catalog-diff/eveng-catalog.md row 161): explicit\n-cpu host. Distinct from \"paloalto-panos\" above (the firewall itself,\nalready covered) - Panorama is the centralized management appliance."
+},
+"tested": ""
+},
+"paloalto-panos": {
+"reasons": {
+"day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+"emulator": "NPX-1810 rule #59: EVE paloalto.yml pin (was unpinned); not boot-proven",
+"min_ram_mb": "rule #59: cpu/ram = EVE-NG paloalto.yml (cpu 4, ram 8192). Real PAN-OS 11.2.5 imported + booted via the platform (NPX-4691)."
+},
+"tested": "── Palo Alto ────────────────────────────────────────────────────────────────"
+},
+"pfsense": {
+"reasons": {
+"console": "console: \"telnet\" (serial), not \"vnc\" - the whole point of the memstick-\nserial build. console_init sends a blank line first since pfSense's console\ntype prompt (\"Console type [vt100]:\") accepts Enter for its own default.",
+"day0_channel": "NPX-1200: real, verified EVE-NG convention (config_pfsense.py on the real\nEVE-NG box, <eveng-box>) adapted for netplex's own golden image, which - unlike\nEVE-NG's virgin image - is pre-assigned at build time and so boots straight to\nthe numbered menu with no VLAN/interface-assignment prompt. See\nday0_channels.py's PfsenseCdromCopyChannel docstring for the full, live-\nverified command sequence and boot evidence.",
+"emulator": "NPX-1200 (2026-09-16, the project owner's own correction: \"pfsense is not juniper. it's\na standalone vendor. if you have old version, then download a new one.\"):\nreplaces the old VGA-only pfsense-2.3.3 image (NPX-821's own console: \"vnc\"\nentry, kept below in spirit but now wrong) with pfSense CE's OWN official\n\"memstick-serial\" build - a real, current, free/open-source download (no\nvendor-licensing barrier, unlike this project's other vendor images), built\nby pfSense specifically for a serial-getty-only boot, no VGA/keyboard.\nLIVE-VERIFIED 2026-09-16 on VM 702 (<test-vm>, netplex-qtest-02, real\nQEMU/KVM, not a claim): pfSense CE 2.7.2 (pfSense-CE-memstick-serial-\n2.7.2-RELEASE-amd64.img.gz, sha256 bc3ee3d82b8195387114a64c3398505f238a6cb\n5393ae9b2d45d1bf9408ed192, from pfSense's own official download mirror\natxfiles.netgate.com - 2.8.x exists on the download page but that mirror has\nno memstick-serial build for it yet, checked directly, 404) - real console\nshows \"uart0: <16550 or compatible> ... console (115200,n,8,1)\" and \"Dual\nConsole: Serial Primary, Video Secondary\" on every boot, and a real\nunattended install (bsdinstall, UFS auto-partition) + interface assignment\n(WAN=vtnet0, LAN=vtnet1) produced a golden image that reaches pfSense's own\nnumbered \"Enter an option:\" console menu with NO VGA framebuffer involved."
+},
+"tested": "── pfSense ──────────────────────────────────────────────────────────────────"
+},
+"pfsense-2.3.3": {
+"reasons": {},
+"tested": "pfSense 2.3.3 - the LEGACY, VGA-only build (NPX-821's own measured image). Longest-prefix\nmatch (\"pfsense233\" beats \"pfsense\") sends any image under a pfsense-2.3.3 folder here.\nrule #59 reason (console only, everything else identical to the \"pfsense\" profile above):\nNPX-821 measured on 2026-09-05 that this image draws its whole \"Enter an option:\" menu on\nthe VGA framebuffer and writes 0 guest bytes to serial. NPX-1200 later changed the single\n\"pfsense\" key to serial/telnet for the new memstick-serial build, which left this legacy\nimage with a silent serial xterm and no VNC door (found live, Wave 17 sweep NPX-153:\nconsole tab opened, blank xterm, no VNC viewer). NPX-821's own comment promised a serial\nbuild would get its own key while this one stayed; this restores that. No day0_channel:\nthe pfsense-cdrom-copy channel types over serial, which this image never answers."
+},
+"rsaam": {
+"reasons": {
+"emulator": "Wave 38 row 38.6 (2026-09-15): EVE-NG's live template pins 6.0.0\n(was on 6.2.0, the nearest already-built version) - cpu_model\n\"host\" is unchanged/correct here, EVE-NG's own real template also\nforces -cpu host for this appliance (row 38.9's \"stop forcing\nhost\" finding does not apply to every profile, only where EVE-NG\nitself passes no -cpu flag). EVE-NG's template also carries an\n-smbios type=2 override this appliance needs to license - no\nnetplex schema field for that yet (NPX-1139's own named gap,\nseparate from this row, not fixed here)."
+},
+"tested": ""
+},
+"silveredge": {
+"reasons": {
+"nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/silveredge.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824."
+},
+"tested": "── Silver Peak / Aruba EdgeConnect (SilverEdge / VXOA) ────────────────────────\nNo profile existed for this vendor before 2026-07-18 - \"silveredge\"/\"silver_peak\"\nmatched no PROFILES key, so get_profile() fell back to GENERIC_KVM_PROFILE\n(512MB/1 vCPU). Live-reproduced: the real image (silveredge-8.1.9.6.tar,\nVXOA 8.1.9.6) booted with a raw `qemu-system-x86_64 -m 512 -smp 1` never got\npast the GRUB menu after 5.5+ minutes (0 bytes of further serial output,\nQEMU process alive the whole time - not a crash, a boot that never progresses\nunder memory pressure). The identical image at -m 4096 -smp 2 reached a full\n\"silverpeak login:\" VXOA prompt in under 4 minutes. Same \"unknown vendor\nsilently gets the 512MB generic floor\" failure class already fixed for isrv/\nNX-OS/FortiGate above (see those comments) - min/default set from the PROVEN\n4096MB/2-vCPU boot, not a vendor-doc guess."
+},
+"sonic-vs": {
+"reasons": {},
+"tested": "── SONiC (open-source NOS) ──────────────────────────────────────────────────\nSONiC-VS = the community \"Virtual Switch\" KVM image - the standard emulation\nroute for SONiC. It boots a full containerised NOS internally, so it is slow\nto come up and RAM-hungry. Login: admin / YourPaSsWoRd. Serial console over telnet."
+},
+"sonicwall": {
+"reasons": {
+"console": "console corrected 2026-07-23 from a live cross-reference against EVE-NG PRO v7's own\nproduction template for this exact image (root@<eveng-box>:/opt/unetlab/html/\ntemplates/intel/sonicwall.yml): `qemu_options: -machine type=pc,accel=kvm\n-nographic -rtc base=utc -cpu host` reports console: vnc in the SAME template\ndespite -nographic - the same \"no serial output despite serial being requested\"\nsignal that root-caused cumulus-vx (NPX-297). NOT live-boot-verified here (unlike\ncumulus-vx's real `virsh screenshot` proof) - applied from cross-reference evidence\nalone, disclosed per rule #31.",
+"nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/sonicwall.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824.",
+"vendor": "NPX-1245 (rule #59): RAM 6144 / 4 vCPU = EVE sonicwall.yml; booted through the platform on VM .83 (argv -m 6144 -smp 4, VNC console answers)."
+},
+"tested": "── SonicWall ────────────────────────────────────────────────────────────────\nNo entry existed for \"sonicwall\" - fell through to GENERIC_KVM_PROFILE\n(disk_bus=\"virtio\"), while backend/shared/image_profiles.py (the separate table\nthat governs the ON-DISK file the image importer writes, e.g. sataa.qcow2 vs\nvirtioa.qcow2) already has \"sonicwall\": (\"sata\", ...) - the same two-tables-\ndrifted class of bug already found for \"barracuda\" above. QEMU was being launched\nwith `disk_bus=virtio` attaching a file that was actually written as sataa.qcow2 -\na guaranteed no-bootable-disk mismatch regardless of which table is \"right\"."
+},
+"sophosxg": {
+"reasons": {
+"emulator": "VERIFIED 2026-07-18 via live repro: with both required disks present (see\nshared/image_profiles.py \"sophosxg\": disks=2) the guest's own firstboot\nscript enforces \"RAM size lower than minimum required: 1024 MB\" and\n\"Network Interfaces lower than minimum required: 2\" - dropping to FailSafe\nMode below these floors. 1024 MB / 4 vCPU matches the vendor-documented\nminimum (docs/platform/node-emulation.md \"Sophos XG Firewall\").",
+"vendor": "rule #59 reason: cpu 4 vs EVE 1 - VERIFIED 2026-07-18 by live repro: the guest firstboot enforces its vendor-documented minimum (1024 MB, 4 vCPU per docs/platform/node-emulation.md); below it drops to FailSafe Mode. Do not lower."
+},
+"tested": "── Sophos XG Firewall ──────────────────────────────────────────────────────"
+},
+"srlinux": {
+"reasons": {
+"min_ram_mb": "Vendor minimum (Nokia's docs: 2GB+ RAM, 2 vCPU) - matches the launch-time\nfloor already enforced in docker_provider.py's _CONTAINER_NOS_LAUNCH so the\nLibrary/palette-shown default and the actually-enforced minimum agree."
+},
+"tested": ""
+},
+"stealth": {
+"reasons": {
+"qemu_version_default": "rule #59: stealth.yml has no EVE qemu_version pin; 2.12.0 = netplex no-pin fallback (csp-vpn-gate/NPX-1792)"
+},
+"tested": ""
+},
+"sterra": {
+"reasons": {
+"qemu_version_default": "NPX-1657 rule #59: pc-1.0 only in QEMU <6.2 (EVE default 2.x)"
+},
+"tested": ""
+},
+"stormshield-sns": {
+"reasons": {
+"vendor": "EVE-NG utm.yml (catalog-diff/eveng-catalog.md row 175): explicit\n-cpu host."
+},
+"tested": ""
+},
+"titanium": {
+"reasons": {},
+"tested": "\"titanium-final-*\" image folder format (Nexus 9000v internal codename) - same profile.\nROOT CAUSE (2026-07-12): get_profile(\"titanium-final\") matched no PROFILES key,\nfell back to GENERIC_KVM_PROFILE with no min_ram_mb, so the QEMU provider never\nbumped RAM past the generic 512 MB default. NX-OS self-checks available DRAM at\nboot and reboots in an infinite loop (\"This Supervisor does not have sufficient\nDRAM to function\") when under its ~6 GB floor - confirmed via live serial-console\nprobe (repeated identical crash-restart every ~15s, never reached a prompt).\nROOT CAUSE #2 (2026-07-18): \"machine\": \"q35\" and \"disk_bus\": \"sata\" here were both\nwrong for Titanium - copy-pasted from the cisco-nxosv9k entry just above (which\ngenuinely needs q35+SATA+UEFI). Per docs/platform/node-emulation.md's own spec,\nTitanium is the OLDER product and needs the legacy `pc` (i440fx) machine + virtio\ndisk, not q35+SATA - unlike NX-OSv 9000, it predates AHCI/UEFI support entirely.\nConfirmed live 2026-07-18 with the real image (titanium-final-7.3.0.D1.1): under\nq35, the kernel boots the kickstart fine (\"Image verification OK\") but then prints\n\"Unknown boot option `ide_generic.probe_mask=0x0': ignoring\" followed by \"No disk\ndetected\" / \"There is a problem with the compact flash. It could not be\ninitialized.\" and drops to a permanent switch(boot)# recovery shell (a reload just\nrepeats the same failure - confirmed the disk never actually becomes writable, not\na one-off first-boot format). This reproduced byte-identically whether the disk was\nattached as virtio OR sata (ruling out disk_bus as the cause) - only switching the\n*machine type* to `pc` (i440fx) fixed it: the guest's IDE_GENERIC-era kernel needs\ni440fx's legacy PCI/ISA topology to enumerate its own disk at all, and q35 has no\nlegacy IDE controller. Re-probe with machine=pc: \"No disk detected\" never appears,\nboot proceeds through NX-OS module bring-up straight to \"User Access\nVerification / login:\". disk_bus reverted to virtio to match: it was never\nconsulted by the real disk-attach path (shared/image_profiles.disk_bus_for(),\nwhich already defaults unmatched vendors incl. titanium to virtio, matching this\nimage's actual virtioa.qcow2 file) - this field only feeds the UI's displayed\nhardware-defaults recommendation, but leaving it as \"sata\" there was a live footgun:\na user who edited a Titanium node's disk bus in the Inspector (which seeds its\ndropdown from this field) and saved would write config.disk_bus=\"sata\", which DOES\noverride the runtime default and reproduce the exact same lockup for real users\nfrom the UI."
+},
+"tpgen-adventerprisek9": {
+"reasons": {
+"min_ram_mb": "default_ram_mb 512 -> 1024 (NPX-1527 PROFILES-TOOLS pass-3, rule #59): EVE-NG's\nreal iol.yml sets ram: 1024 with no separate default/floor split - the old 512\nhere had no written reason, matching EVE exactly now.",
+"nic": "NPX-1527 review (Wave 38): IolProvider.get_console returns ConsoleType.SERIAL (raw PTY bridge), so the profile must say \"serial\" - not EVE's \"telnet\" label; verified in iol_provider.py get_console. No consumer treats the two differently today."
+},
+"tested": "NPX-137 (2026-09-12): a real IOL L3 binary imported and registered as\n\"tpgen-adventerprisek9-124\" (the vendor-image DIRECTORY name was used as the\nregistry `name`, not the actual binary filename inside it,\n`i86bi-linux-l3-tpgen-adventerprisek9-12.4.bin`) - the same class of \"bare-named\nIOL build\" this section's \"l2-adventerprisek9\"/\"l3-adventerprisek9\" entries already\nexist for, just with a \"tpgen-\" prefix neither of those two keys' prefix/substring\nmatching covers. Without this entry, `_match_profile_key`/`_match_data_iface_key`\nboth silently fail to recognize this image as IOL at all, and\n`data_interface_name()` falls all the way back to the generic-Linux \"eth0\" instead\nof this platform's real \"Ethernet0/0\" - live-reproduced: boot_verify.py's\ndataplane-verify stage sent a real \"no shutdown\" to a data-plane interface named\n\"eth0\" that does not exist on this device, so the real interface stayed\nadministratively down and the check correctly (if unhelpfully) reported zero\nframes forwarded, even though the image itself boots and takes console commands\ncompletely normally (confirmed via a direct single-node reproduction)."
+},
+"trendmivtps": {
+"reasons": {},
+"tested": "NOTE: the canonical \"sophosxg\" profile is the live-VERIFIED one defined earlier\nin this dict (1024 MB / 4 vCPU, matching the guest's own firstboot floor). A\nsecond \"sophosxg\" key used to live here with unverified 2048 MB / 1 vCPU defaults\nand, being defined last, silently overrode the verified one (ruff F601). Deleted\n2026-07-24 (NPX-322) so sophosxg boots with its verified hardware defaults."
+},
+"ubuntu": {
+"reasons": {
+"boot_timeout_sec": "boot_timeout_sec 180 -> 400 (2026-09-12, Wave 21 close): live-reproduced 3/3 on\nthe registered \"ubuntu-22.04\" image - node-manager's own day0 logs show\ncloud-init's \"ready marker confirmed\" line never lands within 180s of node\nstart (a sibling cloud image needed 274s for the SAME cloud-init channel/marker\nmechanism to confirm, and that one had enough budget to still pass) - the login\nprompt is real and un-injected (NPX-1040/1039 both working correctly), root's\npassword simply hasn't been seeded by cloud-init yet when apply_config_serial's\n180s deadline runs out. Same class of inconsistency-with-a-documented-sibling\ngap NPX-1033 already fixed for \"vios\"/\"iosv\" - 400s matches that fix's own value."
+},
+"tested": "── Generic-KVM fallback ───────────────────────────────────────────────────\nUsed for any uploaded qcow2/vmdk that doesn't match a known vendor profile.\ne1000 NICs + virtio disk + x86_64 are the safest defaults for unknown VMs\n(they work with most OS images without needing paravirtual drivers).\n── Linux cloud images (cloud-init NoCloud day-0) ───────────────────────────\n2026-08-20 (Wave 3, LLA-064): the catalog's \"ubuntu-server\"/\"debian\" entries install\nupstream *cloudimg* builds - no loginable account until cloud-init provisions one, so\nthese MUST carry day0_channel=\"cloud-init\" (see day0_channels.LinuxCloudInitChannel).\nCurated here (rather than on generic-vm) so the cidata ISO is only ever attached to an\nimage family known to read it - generic-vm is also the fallback base for every\nregistry-imported NOS without a curated profile. Serial console (cloud images boot\nwith console=ttyS0), virtio NIC/disk (the registry's own values for these images)."
+},
+"ubuntu-desktop": {
+"reasons": {},
+"tested": "Longest-prefix guard: an \"ubuntu-desktop-*\" (or k/x/lubuntu desktop) image is NOT a\ncloud image - keep the registry's own desktop defaults (VNC console, 4 GB, no cidata)."
+},
+"ucspe": {
+"reasons": {
+"qemu_version_default": "rule #59: ucspe.yml has no EVE qemu_version pin; 2.12.0 = netplex no-pin fallback (csp-vpn-gate/NPX-1792)"
+},
+"tested": ""
+},
+"veos": {
+"reasons": {
+"day0_channel": "vEOS-lab only - see \"arista-veos\" above.",
+"vendor": "NPX-1245 (rule #59): RAM 6144 / 2 vCPU = EVE veos.yml, same as arista-veos above (same no-vEOS-lab-image blocker, NPX-1245)."
+},
+"tested": "Bare \"veos-*\" image folder format (no \"arista-\" prefix) - same gap class as\niosv/cisco-iosv fixed earlier tonight. Real registered image (veos-4.14.5F) uses\nthis exact bare naming and had NO profile match at all, falling through to\nGENERIC_KVM_PROFILE's disk_bus=\"virtio\" against an on-disk image resolved as\nhda.qcow2 (IDE) - image_profiles.py already has \"veos\": (\"ide\", 1, True) - a\nguaranteed no-bootable-disk mismatch, plus none of arista-veos's own RAM settings.\nMirrors \"arista-veos\" exactly (identical product, different upload naming convention)."
+},
+"versa-vcg": {
+"reasons": {},
+"tested": "── Versa Networks (Wave 38.12/NPX-1167, 2026-09-16) ────────────────────────\nEntire SD-WAN/orchestration suite confirmed as a real, in-scope gap by\nNPX-1167's phase 1b audit (final-gap-classification.md, \"Versa Networks\"\ngroup) - netplex had zero Versa coverage before this pass. Sourced from\nEVE-NG's own real templates (catalog-diff/eveng-catalog.md rows 179-183,\nrule #33/#59: pull the real template first) - all 5 pin qemu_version 2.12.0\n(already a netplex QEMU_BUILT_VERSIONS entry) and explicit `-cpu host` in\ntheir real qemu_options. disk_bus \"ide\" matches this file's own established\ndefault-when-unspecified convention for other EVE-NG-2.12.0-pinned profiles\n(see cat9kv's own comment above for the same reasoning) - EVE-NG's extracted\ndisk_interface field is \"n/a\" (not captured) for all 5, so this is the same\nhonest fallback, not an invented bus. nic \"e1000\" likewise matches EVE-NG's\nreal default when its own adapter_type field reads \"unknown\"/\"ethernet\"\n(generic, unmodeled adapter) rather than a specific model like virtio/\nvmxnet3. No netplex-held image for any of these 5 - NOT live-boot-verified."
+},
+"vios": {
+"reasons": {
+"boot_timeout_sec": "boot_timeout_sec 240 -> 400 (2026-09-11, Wave 21 U7 + NPX-1031/1032 live\nretest): this entry's own comment at the top says \"identical underlying\nsoftware\" to \"iosv\" above, which already carries 400s - the 240s here was\nan inconsistency, not a deliberately-measured-lower value. Live-reproduced\non this exact image (vios-adventerprisek9-m-SPA.157-3.M3/159-3.M4, node-manager\nreq af4aafa0/deda8b50): the initial-config-dialog genuinely needed more than\none apply_config_serial retry cycle to clear (each cycle costs 30-90s of real\nwall clock: boot-banner read + _dismiss_setup_dialog's own poll + the send/\nread round trip) - `_retry_deadline_s`'s floor (max(180, boot_timeout-80))\nonly gave this device 180s (240-80=160, below the 180 floor), enough for\nroughly 2 real attempts, not enough for the dialog to reliably clear. 400s\nmatches iosv's own already-evidenced value and gives max(180, 320)=320s.",
+"day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+"emulator": "cpu_model host + qemu_arch x86_64 (2026-09-10, NPX-460): this entry had never\ngotten the same fix its switch sibling \"viosl2\" got on 2026-08-20 for the\nidentical documented crash (netplex rule #33) - EVE-NG's own vios.yml pins\n`qemu_arch: x86_64`, `-cpu host`, same as viosl2.yml. See viosl2's own comment\na few entries below for the exact live crash signature (memory-pool\ncorruption -> CPU exception vector 4) this class of mismatch produces.",
+"qemu_version_default": "rule #59 (2026-09-21, NPX-1266): Reverted to EVE-NG's pin (2.4.0). The old 2.12.0 was only a fallback from before QEMU 2.4.0 could be built (NPX-457/NPX-1139, built+lane-verified 2026-09-16); that reason no longer exists."
+},
+"tested": ""
+},
+"viosl2": {
+"reasons": {
+"boot_timeout_sec": "boot_timeout_sec 400, not 240 (2026-08-22, LLA-074) - same IOSv-family boot-banner\nevidence as \"iosvl2\"/\"cisco-iosvl2\" above, which already carry 400s for this exact\nreason; this profile's node_config.py/serial_manager.py retry-window budgets scale\noff this value, so 240s was cutting day-0 read windows short even before the\ncpu_quota_period_us fix below existed.",
+"cpu_quota_burst": "cpu_quota_burst=2.5 (2026-09-29, NPX-1220): period is already at libvirt's max (above),\nso the only remaining lever against 1s-period throttling is the quota SIZE. Live cgroup\ncpu.stat on a fresh viosl2-15.2.4.55e boot with this profile's real 12 e1000 NICs (EVE-NG\nparity, not a test artifact), doing \"crypto key generate rsa modulus 2048\" at day-0,\nreproduced identically across 3 separate node instances: nr_periods=122/nr_throttled=105\n(86%) at the default 1x-cpu quota (providers/qemu.py's global_quota = cpu*period) - worse\nthan the 41% LLA-074 validated, because that validation never exercised this image's real\n12-NIC topology. qemu.py's own <cputune> comment already documents this exact domain's\nUNCAPPED usage peaking at 140-240% CPU (vcpu + emulator + per-NIC iothread work combined)\nbefore global_quota was introduced to cap it at 100% - so a 2.5x quota multiplier still\ncaps well under that observed peak (never re-opening the original 140-240% runaway\n`<cputune><quota>` was added to fix) while giving the emulator thread's 12-NIC I/O work\nand the RSA keygen CPU spike enough combined headroom to land inside one 1s window\ninstead of tripping the hard cutoff mid-computation. `cpu` (vCPU count, still 1, EVE-NG\nparity) is intentionally NOT raised - this widens only the burst ceiling the whole-domain\ncgroup is allowed, not the guest's own visible core count. See providers/qemu.py's\n`_cpu_quota_burst` for how this multiplies into <global_quota>.",
+"cpu_quota_period_us": "cpu_quota_period_us=1000000 (LLA-074, 2026-08-22, unchanged): 1,000,000us is also\nlibvirt's hard ceiling for <cputune><global_period> (\"Value of cputune 'global_period'\nmust be in range [1000, 1000000]\", confirmed live 2026-09-29 trying to widen it further\nfor the NPX-1220 fix below - node start failed 422 on this exact schema error) - the\nperiod cannot be widened past what LLA-074 already set.",
+"day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+"emulator": "cpu_model host + qemu_arch x86_64 (2026-08-20, netplex rule #33 - EVE-NG's real\nviosl2.yml: `qemu_arch: x86_64`, `-cpu host`; previously qemu64/i686 here, the\nLLA-008 divergence). Live serial.log on netplex's own viosl2-15.2.4.55e with the old\nvalues: a memory-pool corruption dump -> %Software-forced reload, then on reboot\n\"CPU exception occurred: Overflow(4) ... Unexpected exception to CPU: vector 4,\nPC/EIP = 0x8E1659\" - deterministic, CPU-level, reproduced with virtio extras OFF.",
+"min_ram_mb": "min/default_ram_mb 512/1024, not 512/768 (2026-09-12, Wave 21 close, netplex rule\n#33 - rechecked EVE-NG's own viosl2.yml: `ram: 1024`, not 768). Live-reproduced on\nnetplex's own viosl2-15.2.4.55e with the OLD 768 value: the exact same\n\"Corrupted redzone blk ... alloc ... InUse\" heap-corruption panic this profile's own\ncomment already documents, immediately followed by the \"CPU exception ... vector 4\"\ncrash - both symptoms are consistent with IOS's internal memory pools running out of\nroom at 768MB (a redzone/guard-byte corruption report IS a heap allocator complaining\nabout running out of headroom, not a CPU/virtio config issue, which the 2026-08-20 fix\nabove already ruled out as the sole cause). 1024MB matches EVE-NG's real template\nexactly - not a guess.\nmin_ram_mb ALSO raised to 1024 (not left at 512), found live while proving the fix\nabove: `providers/qemu.py`'s RAM-floor bump (`_eff_ram = int(node.ram or 512)`, then\nbump only `if _eff_ram < _min_ram`) never fires when a caller creates a node with no\nexplicit `ram` at all, because `NodeDefinition.ram`'s own default (512) is NOT below\na min_ram_mb of 512 - the exact same \"no unset-sentinel\" gap this file's own qemu.py\ncomment already documents for `cpu` (bump only fires when the model default of 1 is\nbelow the profile's cpu, which was always true for cpu but was never true for RAM\nhere since both defaulted to 512). Confirmed live: a node created with no explicit\nram genuinely booted at 512MB (`virsh dumpxml` showed `<memory unit='KiB'>524288`)\neven with default_ram_mb=1024 above. EVE-NG's own viosl2.yml has only one RAM value\n(1024) with no separate floor, so setting min == default here matches it exactly and\nis the narrow, single-profile fix - NOT touching qemu.py's shared bump logic itself\n(rule #26: that would change every other profile's floor behaviour too).",
+"qemu_version_default": "NPX-1810 rule #59: EVE viosl2.yml pin; 2.4.0 is built since NPX-1139 (same revert as vios, NPX-1266); needs live re-verify",
+"virtio_extras": "virtio_extras=False (2026-08-20, Wave 3 real serial.log evidence, EVE-NG parity -\n`-nodefaults`): IOSvL2 15.2.4.55e logs \"%VIRTIO-3-INIT_FAIL ... PCI 0/6/0/1002\" and\n\"PCI 0/7/0/1005 ... device is disabled, not supported\" for libvirt's default\nmemballoon (0x1002) and rng (0x1005) devices on every boot. Omit both for this image."
+},
+"tested": "W17 gaps (NPX-1814, rule #59): \"cisco-iosvl2\"/\"iosvl2\" used to be their OWN profiles\n(512 MB, no QEMU pin, virtio-net-pci) - a second, undocumented set of hardware defaults for\nthe SAME Cisco IOSvL2 product EVE-NG ships as viosl2.yml (1024 MB, QEMU 2.4.0, e1000). A\nfolder named \"iosvl2-<ver>\" imported through the API therefore booted on system QEMU with half\nthe RAM of the identical file imported through the drop-folder (named vios_l2-*, viosl2\nprofile). Live-proven on VM 708 (2026-09-26): same iosvl2-2020 qcow2, API import -> 512 MB /\nQEMU 10.2, drop-folder import -> 1024 MB / QEMU 2.4.0. They are now plain aliases of \"viosl2\"\n(see the PROFILES[\"iosvl2\"] alias block below) so the two names can never disagree again.\n\"viosl2-adventerprisek9-m-*\" image folder format - VERIFIED 2026-06-01\nNPX-457/NPX-496: EVE-NG pins this template to qemu_version 2.4.0, which\nisn't in netplex's built major-line set (see QEMU_BUILT_VERSIONS) - 2.4.0\nsnaps to 2.12.0, the built representative of the same 2.x major line and\nalready the single most-common EVE pin across all templates (97/155).\nNOT YET live-boot-verified under 2.12.0 - this is NPX-496's open Wave 3\nblocker (rule 22 - no unverified claims until a real console prompt is seen)."
+},
+"vmx": {
+"reasons": {
+"vendor": "rule #59 reason: ram 6144 / cpu 4 vs EVE 2048 / 1 - netplex runs vMX as one combined VCP+VFP guest in Lite Mode (min_ram_mb 5120 floor, description below); EVE splits VCP/VFP so its per-VM values do not apply."
+},
+"tested": "No entry existed for \"vmx\" (Juniper's full vMX virtual router) - fell through to\nGENERIC_KVM_PROFILE (512MB RAM, disk_bus=\"virtio\"). Same two-tables-drifted class as\nbarracuda/sonicwall/csp-vpn-gate above: image_profiles.py already has \"vmx\": (\"ide\",\n1, False) - the disk was ALWAYS going to mismatch regardless of RAM. RAM/vCPU from\nJuniper's own published vMX datasheet: \"Lite Mode\" (the lab/simulation profile, vs.\n\"Performance Mode\"'s 16GB/9vCPU for real throughput) needs a minimum of 4 vCPUs (1\nVCP + 3 VFP) and 5GB RAM. Found 2026-07-23 (the project owner: \"fix what you can\" after the IOL\ncategorisation gap) - live-observed at the generic 512MB/1vCPU default the console\nnever reached a working prompt."
+},
+"vnam": {
+"reasons": {
+"qemu_version_default": "rule #59: vnam.yml has no EVE qemu_version pin; 2.12.0 = netplex no-pin fallback (csp-vpn-gate/NPX-1792)"
+},
+"tested": ""
+},
+"vpp": {
+"reasons": {},
+"tested": "VPP (FD.io) - wave 6.M8 / NPX-577,579. Ligato's vpp-agent build. RAM floor set\nabove FRR's since VPP itself (not just an agent) runs inside - matches the same\nmin_ram_mb the launch-time floor in docker_provider.py's _CONTAINER_NOS_LAUNCH\nenforces for \"ligato/vpp-agent\" (see that file), so the Library-shown default and\nthe enforced minimum agree (same discipline as the srlinux entry above)."
+},
+"vqfxpfe": {
+"reasons": {
+"console": "console corrected 2026-07-23 from a live cross-reference against EVE-NG PRO v7's own\nproduction template for this exact image (root@<eveng-box>:/opt/unetlab/html/\ntemplates/intel/vqfxpfe.yml): `qemu_options: ... -vga std -usbdevice tablet ...` -\nreal VGA + pointer hardware, the same signal that root-caused cumulus-vx's silent\nzero-console-output bug (NPX-297). NOT live-boot-verified here (unlike cumulus-vx,\nwhich got a real `virsh screenshot` proof) - applied from cross-reference evidence\nalone, disclosed per rule #31 rather than rounded up to a confirmed fix.",
+"vendor": "NPX-1245 (rule #59): 1 vCPU / e1000 / QEMU 2.0.2 = EVE vqfxpfe.yml (cpu_model qemu64 already matches EVE, which sets none); booted through the platform on VM .83, argv confirmed 2.0.2, -smp 1, e1000, VNC console answers."
+},
+"tested": ""
+},
+"vqfxre": {
+"reasons": {
+"day0_channel": "NPX-1213 ROOT CAUSE FOUND (2026-09-16): the earlier attempt tagged this\nprofile with \"juniper-config-drive\" (JuniperConfigDriveChannel) and hit a\nreal, reproducible 25+ minute hang with zero console output. That channel\nwas simply the WRONG one for this device - its own sibling class,\nJuniperCdromMountChannel, documents in its own docstring (day0_channels.py)\nthat \"vmx/vqfxre use /dev/vtbd0\", i.e. this exact image belongs to the\ntyped-mount family (5-command mount+cli+configure+load-set+commit sequence,\ndisk attached as bus=\"virtio\"/device=\"disk\"), NOT the auto-read family\n(JuniperConfigDriveChannel, disk attached as bus=\"sata\"/device=\"cdrom\" -\nconfirmed the likely real cause of the hang: this profile's machine type is\n\"pc\" (i440fx) with a primary disk already on disk_bus=\"ide\", and a SECOND,\nsata-bus cdrom forces libvirt to add an AHCI controller SeaBIOS then hangs\nprobing). \"juniper-cdrom-mount-vtbd0\" is the correct, already-existing\nregistry entry: since this profile's own disk_bus is \"ide\" (not \"virtio\"),\nthe day0 channel's virtio-bus disk is the FIRST virtio block device the\nguest sees, i.e. /dev/vtbd0 - matching the exact device the channel's own\ndocstring names for this family (same reasoning that makes vsrx, whose\nprimary disk_bus IS \"virtio\", correctly use vtbd1 instead - its day0 disk is\nthe SECOND virtio device once the primary one is already vtbd0).",
+"vendor": "NPX-1245 (rule #59): RAM 3072 + QEMU 2.0.2 = EVE vqfxre.yml; booted through the platform (lab API, node start, console bytes) on VM .83, qemu argv confirmed /opt/netplex/qemu/2.0.2 + -m 3072."
+},
+"tested": "No entries existed for \"vqfxre\"/\"vqfxpfe\" (Juniper vQFX virtual switch: Routing\nEngine + Packet Forwarding Engine, split the same way vMX splits into VCP/VFP) -\nboth fell through to GENERIC_KVM_PROFILE (512MB RAM, disk_bus=\"virtio\"). Same two-\ntables-drifted class as barracuda/sonicwall/csp-vpn-gate/vmx above: image_profiles.py\nalready has \"vqfxre\": (\"ide\", ...) and \"vqfxpfe\": (\"ide\", ...). Found 2026-07-23 with\nDIRECT live evidence, not just the vendor minimum: a real vqfxre node hit 1970MB of\nactual usage against the old 512MB cap (385% - host-guard's hypervisor RAM cap kept\nit alive but starved). Juniper's own published vQFX minimum is 1024MB per component;\ndefault_ram_mb set to 2048 for both - comfortably above both the published minimum\nand the observed 1970MB real usage.\nboot_timeout_sec raised 360 -> 1500 (Wave 21 U6, 2026-09-07): a live isolated repro\nof vqfxre-10K-F-20.3R1.8 (needed 2 attempts to get a trustworthy read - see the\ntracker's Wave 21 U6 vqfxre subsection for the two contaminated/false-positive\nattempts first) showed a genuine console `login:` prompt at t=937.5s, syslog noise\nsettling by t=946.7s, then a fully idle console (only telnet keepalive NOPs) out to\nt=1775s with zero further boot text - i.e. the real boot-to-login time is ~950-960s,\nnearly 3x the old 360s cap. 1500s gives ~550s of margin above the observed time,\nconsistent with this file's margin convention for other slow-booting devices."
+},
+"vrnetlab-dell-sonic": {
+"reasons": {
+"boot_timeout_sec": "SONiC's own native profile (sonic-vs, below) already needs 300s; SONiC +\nvrnetlab's nested-QEMU/health-probe overhead (mikrotik's +60s pattern)\nbudgets more.",
+"image": "dell/dell_sonic/Makefile's own comment: a file named \"dell-sonic-4.2.1.qcow2\"\nbuilds \"vrnetlab/dell_sonic:4.2.1\" - that exact example version used verbatim.",
+"min_ram_mb": "dell/dell_sonic/README.md \"System requirements\": CPU 2 cores, RAM 4GB,\nDISK ~3.2GB. min_ram set a step below the stated floor (matches the\nmikrotik entry's pattern of min < default, since 4GB is Dell's own\nrecommended figure, not necessarily a hard minimum for the VM to boot)."
+},
+"tested": "── vrnetlab catalogue expansion (O7a, war-room 2026-08-10) ────────────────────\n5 genuinely-missing vrnetlab kinds, added after a real per-vendor audit of all\n44 kinds hellt/vrnetlab actually ships (github.com/hellt/vrnetlab, live tree\nread 2026-08-10 - README/Makefile/docker-compose content, NOT guessed - rule\n33's \"read the real source, don't guess\" applied to vrnetlab's own upstream\nsince EVE-NG has no equivalent Docker-wrapped-VM template concept at all for\nthese; where a vendor's real EVE-NG QEMU template WOULD be the reference\n(Juniper/Cisco/Arista/Nokia/Palo Alto/F5/... direct appliances), netplex\nalready has a native, template-verified direct-QEMU profile for that vendor -\nsee docs/reference/vrnetlab-catalogue-decisions-2026-08-10.md for the full\n44-kind, evidence-per-vendor table. Wrapping an already-natively-supported\nvendor in vrnetlab would be a straight regression (container + nested-QEMU\noverhead for something that already boots direct) - only these 5 have NO\nnative path (no taxonomy tile, no curated device_profiles entry, no\ndevice_registry.json fallback) anywhere in netplex today.\nImage tags/resource floors are read directly from each vendor's real\nvrnetlab Makefile (VENDOR/NAME -> IMG_REPOSITORY = vrnetlab/<vendor>_<name>,\nlowercased) and README \"System requirements\" section - never invented.\nSame generic infra the mikrotik entry above already uses covers all 5\nautomatically, no per-vendor frontend change needed: DockerProvider's\n\"vrnetlab/\" privileged launch profile (docker_provider.py), the nested-serial\nconsole bridge on 127.0.0.1:5000 (docker_exec.py), fixtures.ts's\nDATA_IFACE_NAMING 'vrnetlab/' -> eth{1} rule, and Shell.tsx/StudioHome.tsx's\nisVrnetlabImage()-driven RunChip/engine-pill/empty-state, all keyed on the\n\"vrnetlab/\" image prefix, not a per-vendor allowlist."
+},
+"vrnetlab-ipinfusion-ocnos": {
+"reasons": {
+"image": "ipinfusion/ocnos/Makefile via the standard IMG_REPOSITORY=$(REGISTRY)$(IMG_VENDOR)_$(IMG_NAME)\nrule (VENDOR=IPInfusion, NAME=OcNOS -> lowercased \"ipinfusion_ocnos\").\nVersion \"6.5.2-101\" is the version the vrnetlab README itself documents as\n\"Tested booting and responding to Telnet\" (README's own real evidence).",
+"min_ram_mb": "README \"System requirements\": CPU 2 core, RAM <4GB, Disk <4GB."
+},
+"tested": ""
+},
+"vrnetlab-mikrotik-routeros": {
+"reasons": {
+"boot_timeout_sec": "vrnetlab's own /health readiness probe (0 running) gates the container's\nentrypoint until the nested VM has actually booted RouterOS - budget more\nthan the bare-qcow2 CHR's 60s for the extra nested-boot + wrapper overhead.",
+"min_ram_mb": "RouterOS itself is as light as bare CHR (MikroTik's own min is 64MB/1vCPU),\nbut vrnetlab wraps a real QEMU VM inside the container (its own launch.py) -\ncontainer + nested-qemu overhead raises both floors a step over\n\"mikrotik-chr\"'s 64/256, matching the launch-time reality (no explicit\nmin_ram/min_cpu is enforced by docker_provider.py's\n_CONTAINER_NOS_LAUNCH[\"vrnetlab/\"] profile itself, so this is the only place\nthe floor is recorded - keep it in sync if that changes)."
+},
+"tested": "vrnetlab-wrapped CHR (Docker path, distinct from the direct-qcow2 \"mikrotik-chr\"\nabove - see taxonomy.py's \"mikrotik-router-chr-vrnetlab\" entry for the palette\ntile). Keyed on the REAL docker_image string (\"vrnetlab/mikrotik_routeros:7.2.1\"),\nNOT the taxonomy id - get_profile() matches by substring/prefix against whatever\n`node.image` actually is at launch time (node creation sets it to the taxonomy\nentry's docker_image verbatim, tag included), and \"mikrotik-router-chr-vrnetlab\"'s\ntoken order (\"router\"/\"chr\" before \"vrnetlab\") never appears inside\n\"vrnetlab/mikrotik_routeros:7.2.1\" at all. Before this entry existed, that image\nstring fell through to the PROFILES[\"mikrotik\"] alias (-> \"mikrotik-chr\" above,\nsince \"mikrotik\" substring-matches it too) and silently inherited the BARE-QCOW2\nprofile - wrong emulator (\"qemu\" instead of \"docker\"), wrong console (\"telnet\"\ninstead of the docker-exec bridge docker_exec.py's console_command() already wires\nfor any \"vrnetlab\" image), and wrong data-port naming (DATA_IFACE_NAMING's\n\"ether{2}\" instead of the wrapper's real \"eth1, eth2, ...\" - vrnetlab's launch.py\nreserves the container's eth0 for its own OOB/mgmt plumbing and numbers data ports\neth1.. up, a fixed convention of the `hellt/vrnetlab` packaging itself, not\nRouterOS's own \"ether1..\" numbering which only exists inside the nested VM).\nThis key is longer than both \"mikrotik-chr\" and the \"mikrotik\" alias, so\n_SORTED_KEYS's longest-match-first ordering picks it first."
+},
+"vrnetlab-nokia-cmglinux": {
+"reasons": {
+"image": "nokia/cmglinux/Makefile: standard IMG_REPOSITORY convention (VENDOR=Nokia,\nNAME=cmglinux -> \"nokia_cmglinux\"), NOT the README prose's inconsistent\n\"vrnetlab/cmglinux\" / \"vrnetlab/vr-cmglinux\" (the README contradicts itself\nbetween its two mentions - the Makefile is the actual executable source of\ntruth and was trusted over the prose per rule #33's spirit). Version\n\"24.3.R1\" matches both the Makefile's VERSION-extraction regex example and\nthe README's own worked example (\"cmg-linux-24.3.R1.qcow2\").",
+"min_ram_mb": "README \"Host requirements\": 4 vCPU, 6 GB RAM. NOT a router/switch/firewall -\nCMG Linux is a DB/control VM component of Nokia's MAG-C mobile-core platform,\nboots via cloud-init (not a CLI day-0 flow), console is a real Linux login\n(user \"clab\", vrnetlab-injected password) once cloud-init completes."
+},
+"tested": ""
+},
+"vrnetlab-plvision-sonic": {
+"reasons": {
+"image": "plvision/plvision_sonic/Makefile via the standard IMG_REPOSITORY rule\n(VENDOR=PLVision, NAME=sonic -> \"plvision_sonic\"). Version\n\"lite_1_13_202405\" is the Makefile's own worked example\n(\"plvision_sonic-vs-lite_1_13_202405.qcow2\" -> that exact tag).",
+"min_ram_mb": "README \"System requirements\": CPU 2 cores, RAM 4GB, DISK ~6.5GB."
+},
+"tested": ""
+},
+"vrnetlab-spirent-vstc": {
+"reasons": {
+"boot_timeout_sec": "README: \"wait for the 'Startup Completed' message... then rebooted to fully\napply the configuration\" - a two-phase boot, budget generously.",
+"image": "spirent/vstc/Makefile via the standard IMG_REPOSITORY rule (VENDOR=Spirent,\nNAME=vstc -> \"spirent_vstc\"). Version \"5.55.3216\" is the vrnetlab README's\nown worked topology example.",
+"min_ram_mb": "No explicit \"System requirements\" section in the vrnetlab README for this\nkind - it is a real traffic-generation/test appliance (Spirent Virtual Test\nCenter), same functional category as netplex's existing native\n\"test-traffic-ostinato\"/\"test-traffic-trex\" taxonomy entries; sized like\nthose (2 vCPU / 4GB is the documented floor for the *other* vrnetlab test\ntool README that DOES state one, ipinfusion/ocnos, used here as the nearest\ncomparable-class floor rather than an invented number). Default credentials\nper README: admin / spt_admin. eth0 reserved for vrnetlab mgmt (generic\nrule), data ports eth1+ used for actual test-generated traffic."
+},
+"tested": ""
+},
+"vsrx": {
+"reasons": {
+"day0_channel": "NPX-1138 - same reasoning as the \"juniper-vsrx\" entry above (this is the\nalias actually reachable for a bare \"vsrx\"-named image registration).\nNPX-1255 (2026-09-20): boot_timeout_sec bumped 360->600 to accommodate slower\nboot times on loaded systems - vSRX takes ~450s just to reach daemon startup,\nnot yet the login prompt that day-0 mount waits for.",
+"qemu_version_default": "default_ram_mb bumped 2048->4096 (2026-08-19, LLA-074) - same real evidence as\n\"juniper-vsrx\" above (this is the alias actually reachable for a bare \"vsrx\"-\nnamed image, so it needs the same fix, not just its sibling entry).",
+"vendor": "rule #59 reason: ram 4096 vs EVE 2048 - LLA-074 (2026-08-19) live evidence recorded in the comment below; do not lower."
+},
+"tested": "Bare product name from image-manager/detector.py's documented \"vSRX (legacy)\nvsrx-\" naming convention (e.g. image name \"vsrx\", version \"12.1X47-D20.7\").\nget_profile()'s prefix/substring match only ever tests whether a PROFILES key\nis a prefix of, or substring within, the normalized image name - never the\nreverse - so a short bare name like \"vsrx\" could never match the longer\n\"juniper-vsrx\"/\"vsrxng\"/\"juniper-vsrxng\" keys above and silently fell through\nto GENERIC_KVM_PROFILE (512MB/1cpu/e1000/120s timeout), reproducing the exact\nNPX device-audit boot-timeout failure. Root cause found 2026-07-18 tracing\ndevice 74441580-c55a-425f-9485-aa2ec7a931c8 (\"vsrx\" / 12.1X47-D20.7): its\nstored hardware_defaults.profile_key was \"generic:vsrx\", proving the fallback.\nThis explicit alias makes the (already-defined, already-correct-once-fixed)\n\"juniper-vsrx\" profile reachable for that exact registration shape."
+},
+"vsrx3bsd": {
+"reasons": {},
+"tested": "vSRX3 (x86-64) - image-manager/detector.py's other documented Juniper-firewall\nnaming convention (\"vsrx3bsd-...\"). Not a real gap THIS device hit (no vsrx3bsd\nimage is registered on this host today), but \"vsrx3bsd\" shares the \"vsrx\" prefix\nwith the alias just added above - _SORTED_KEYS is longest-key-first, so without\nthis explicit (longer) entry a future vsrx3bsd- image would incorrectly inherit\nthe legacy 12.1X47 \"vsrx\" profile instead of falling through to GENERIC_KVM_PROFILE\nas it does today. Mirrors juniper-vsrxng (same modern/Linux-based NG generation\nper detector.py's table) rather than inventing new numbers."
+},
+"vsrxng": {
+"reasons": {},
+"tested": "── Juniper ─────────────────────────────────────────────────────────────────\nAlso match \"vsrxng-*\" image folder format"
+},
+"vtbond": {
+"reasons": {
+"config_dialect": "NPX-818 (Wave 21 U3): Cisco's SD-WAN (Viptela) boxes carry vendor \"cisco\", which\nsent every one of them to VENDOR_CLI[\"cisco\"] - IOS verbs. Viptela is not IOS: it\nis a confd CLI whose configuration mode is entered with \"config\", committed with\n\"commit and-quit\" and paged off with \"paginate false\", and whose \"end\"/\"write\nmemory\" equivalents do not exist. VENDOR_CLI already carries the correct\n\"viptela\" dialect (authored and live-proved in an earlier wave); nothing ever\nreached it, because a dialect is only selected by the vendor string unless a\nprofile names it. This is the same shape as NPX-617 (IOS-XR reached the IOS\ndialect through vendor \"cisco\" and silently lost every config), so it is fixed\nthe same way and for the same reason.",
+"emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\nvtbond.yml (\"-cpu host\") - no comment ever addressed this field, unlike the RAM/CPU\nfloor above which is documented via min_enforcement.",
+"vendor": "rule #59 reason: ram 2048 / cpu 2 vs EVE 1024 / 1 - Viptela vBond vendor minimum (2 GB, 2 vCPU), enforced by min_enforcement below; EVE default is below vendor floor."
+},
+"tested": "── Cisco/Viptela legacy SD-WAN (vtbond/vtedge/vtsmart image folder naming) ──────\nUnlike the \"cisco-catc*\"/\"cisco-vtmgmt\" keys above (which only match names that\ncarry an explicit \"cisco-\" vendor prefix), these three images are catalogued on\nthis platform WITHOUT that prefix - image-manager's unpacked-folder auto-detector\nnames them straight off their folder (\"vtbond-16.2.11\" -> record.name \"vtbond\",\nsame for vtedge/vtsmart; confirmed live via GET /api/v1/images). None of the\n\"cisco-vt*\" keys above ever matched these three real images (verified with\nget_profile_key() against the live records: \"vtedge\" -> None before this fix,\n\"cisco-catc8k-1.0\" -> \"cisco-catc\" for comparison) - they silently fell through to\nGENERIC_KVM_PROFILE (512 MB / 1 vCPU) every time, an 8x CPU shortfall for vEdge vs.\nthe certified matrix in docs/platform/node-emulation.md (Cisco SD-WAN & Management\ntable). Keyed WITHOUT the \"cisco-\" prefix so they match both this platform's actual\nbare naming and a \"cisco-vtedge-...\" style name if one is ever imported (substring\nmatch, see get_profile() docstring) - \"vtedge\"/\"vtbond\"/\"vtsmart\" don't collide with\nany other key (\"catvedge\" - the newer Catalyst SD-WAN vEdge - does NOT contain the\nsubstring \"vtedge\", confirmed)."
+},
+"vtedge": {
+"reasons": {
+"config_dialect": "NPX-818 (Wave 21 U3): Cisco's SD-WAN (Viptela) boxes carry vendor \"cisco\", which\nsent every one of them to VENDOR_CLI[\"cisco\"] - IOS verbs. Viptela is not IOS: it\nis a confd CLI whose configuration mode is entered with \"config\", committed with\n\"commit and-quit\" and paged off with \"paginate false\", and whose \"end\"/\"write\nmemory\" equivalents do not exist. VENDOR_CLI already carries the correct\n\"viptela\" dialect (authored and live-proved in an earlier wave); nothing ever\nreached it, because a dialect is only selected by the vendor string unless a\nprofile names it. This is the same shape as NPX-617 (IOS-XR reached the IOS\ndialect through vendor \"cisco\" and silently lost every config), so it is fixed\nthe same way and for the same reason.",
+"emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\nvtedge.yml (\"-cpu host\") - no comment ever addressed this field.",
+"nic": "e1000 is MANDATORY, not just this platform's generic-fallback default: virtio-net-pci\nsilently drops 802.1Q VLAN-tagged frames on vEdge's data-plane interfaces under\nQEMU/KVM (docs/platform/node-emulation.md \"Key SD-WAN Configuration Notes\"). Pinning\nit explicitly here so it stays correct even if GENERIC_KVM_PROFILE's own default\never changes - it must never silently drift onto virtio-net-pci for this device.",
+"vendor": "NPX-893: boot timeout increased from 300 to 600s (Wave 21 U5 round 6: device was still reporting startup at 300s; needs more time to reach login prompt).\n2026-09-06 retest (Wave 21 U5, node d10a44f7): 600s was STILL not enough - the\nserial console produced literally zero bytes for the full window (opened\n13:32:23, still silent at 13:39:56, host otherwise idle at load 6.4/40 cores -\nruled out host contention). Doubled to 1200s rather than guessing a smaller\nbump, since 300->600 already proved once that this image's real boot time was\nbeing underestimated."
+},
+"tested": ""
+},
+"vtmgmt": {
+"reasons": {
+"config_dialect": "NPX-818 (Wave 21 U3): Cisco's SD-WAN (Viptela) boxes carry vendor \"cisco\", which\nsent every one of them to VENDOR_CLI[\"cisco\"] - IOS verbs. Viptela is not IOS: it\nis a confd CLI whose configuration mode is entered with \"config\", committed with\n\"commit and-quit\" and paged off with \"paginate false\", and whose \"end\"/\"write\nmemory\" equivalents do not exist. VENDOR_CLI already carries the correct\n\"viptela\" dialect (authored and live-proved in an earlier wave); nothing ever\nreached it, because a dialect is only selected by the vendor string unless a\nprofile names it. This is the same shape as NPX-617 (IOS-XR reached the IOS\ndialect through vendor \"cisco\" and silently lost every config), so it is fixed\nthe same way and for the same reason.",
+"emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\nvtmgmt.yml (\"-cpu host\") - no comment ever addressed this field.",
+"min_enforcement": "NPX-1918: dead \"multi_disk\" flag removed - real image is a single qcow2 file."
+},
+"tested": "NOTE: keyed bare as \"vtmgmt\" (not \"cisco-vtmgmt\") - see the \"vtmanage\"/\"vtmgmt\"\nalias block below the PROFILES dict for why the \"cisco-\" prefix made this profile\nunreachable for every real image name."
+},
+"vtsmart": {
+"reasons": {
+"config_dialect": "NPX-818 (Wave 21 U3): Cisco's SD-WAN (Viptela) boxes carry vendor \"cisco\", which\nsent every one of them to VENDOR_CLI[\"cisco\"] - IOS verbs. Viptela is not IOS: it\nis a confd CLI whose configuration mode is entered with \"config\", committed with\n\"commit and-quit\" and paged off with \"paginate false\", and whose \"end\"/\"write\nmemory\" equivalents do not exist. VENDOR_CLI already carries the correct\n\"viptela\" dialect (authored and live-proved in an earlier wave); nothing ever\nreached it, because a dialect is only selected by the vendor string unless a\nprofile names it. This is the same shape as NPX-617 (IOS-XR reached the IOS\ndialect through vendor \"cisco\" and silently lost every config), so it is fixed\nthe same way and for the same reason.",
+"emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\nvtsmart.yml (\"-cpu host\") - no comment ever addressed this field."
+},
+"tested": ""
+},
+"vwlc": {
+"reasons": {
+"emulator": "STATUS (2026-07-12): vWLC (AireOS) ships a 3.10.0 kernel that hits a\ndivide-error kernel panic in clockevents_config() under KVM\nhost-passthrough CPU mode - confirmed via live serial probe across\nmultiple releases (8.0.152/8.3.141/8.7.102). Pinning cpu_model away\nfrom \"host\" (the platform default) avoids whatever host-passthrough\nexposes that this old kernel's clock calibration can't handle -\nqemu64 is the same conservative baseline this codebase already uses\nfor other legacy/32-bit-era guests.\ndisk_bus corrected virtio -> megasas (2026-09-01, NPX-154): the real runtime\nbus comes from shared/image_profiles.py's disk_bus_for() table (\"vwlc\":\n\"megasas\"), matching the actual shipped file name (megasasa.qcow2) - this\nfield only feeds the UI Inspector's displayed hardware-defaults dropdown, but\nleaving it wrong here was a live footgun of the exact same class already\nfixed once for \"titanium\" above (see that entry's own comment): a user who\nedited a vWLC node's disk bus in the Inspector and saved would write\nconfig.disk_bus=\"virtio\", which DOES override the runtime default and would\nattach the real megasas-formatted disk over the wrong controller.\nconfig_dialect=\"aireos\" (2026-09-01, NPX-154): AireOS is not IOS-family and\nhas no enable/config CLI - see node_config.py's VENDOR_CLI[\"aireos\"] and\n_dismiss_aireos_wizard() for the full live-verified writeup (real wizard\ndriven end to end, real save+reboot confirmed to skip the wizard on the next\nboot, real login reaching \"(Cisco Controller) >\").\nboot_timeout_sec raised 300 -> 480: the wizard alone is ~28 sequential\nprompts: node_config.py's own _retry_deadline_s derives its console-exchange\nbudget from this field (minus an 80s margin), and 300 - 80 = 220s measured too\ntight against the live probe's real wall-clock run (needed comfortably more\nthan that for boot + the full wizard + save + reboot + login).",
+"qemu_version_default": "rule #59 (2026-09-21, NPX-1266): Reverted to EVE-NG's pin (2.4.0). The old 2.12.0 was only a fallback from before QEMU 2.4.0 could be built (NPX-457/NPX-1139, built+lane-verified 2026-09-16); that reason no longer exists."
+},
+"tested": ""
+},
+"vyos": {
+"reasons": {
+"boot_timeout_sec": "boot_timeout_sec bumped 10 -> 180 (NPX-567, 2026-08-26, live-timed): the\nimage's own first-boot default-config commit (what creates the \"vyos\" login\nuser docker_provider.py's new readiness_cmds now gates on) took 89s/83s across\ntwo clean throwaway-container runs. 10s left no margin at all - every apply\nagainst this profile raced a container that could not yet be considered\nRUNNING. 180s matches the margin convention used for the other docker NOS\nprofiles here (srlinux 120s for a comparably heavy app-manager boot)."
+},
+"tested": "── Docker built-ins ─────────────────────────────────────────────────────────\nNote: \"vyos\" Docker is the FRR-based lightweight version.\n\"vyos-qemu\" above is the full VyOS QEMU image from labhub (VERIFIED 2026-06-01).\n2026-08-08 (REAL BUG, found by 83-device-matrix's \"VyOS - real Power on click reaches\nrunning state\"): this said `vyos/vyos:latest`, a reference that DOES NOT EXIST. The\n`vyos/vyos` Docker Hub repository is not published at all - verified live, both\n`docker manifest inspect vyos/vyos:latest` and `:1.4-rolling` return \"no such manifest\",\nand node-manager logs the pull as\ndocker.errors.NotFound: failed to resolve reference \"docker.io/vyos/vyos:latest\": not found\nso the built-in VyOS palette device could never boot for ANY user, on any install.\nThe platform already ships the working community image everywhere else it matters -\ndocker_provider.py's _CONTAINER_NOS_LAUNCH has a live-verified privileged/tmpfs profile\nkeyed on \"ghcr.io/sysoleg/vyos-container\" (2026-07-25), models.py lists it in\nPRIVILEGED_VENDOR_IMAGE_PREFIXES, and VendorIcon maps 'vyos-container' -> vyos - only\nthis catalog entry (and its frontend/taxonomy mirrors) still pointed at the dead one."
+},
+"vyos-qemu": {
+"reasons": {
+"day0_channel": "Day-0 (NPX-4988): written onto the node's own overlay BEFORE power-on (VyosConfigPartitionChannel,\nday0_disk_channels.py): this bundled 1.5-rolling image has no cloud-init and no CD reader (measured 2026-07-28:\n/etc/cloud missing, vyos-config-cloud-init.service never runs), and console typing is banned by the project owner's\nno-console-automation rule. VyOS's own boot loads <rw>/opt/vyatta/etc/config/config.boot and runs\nconfig/scripts/vyos-postconfig-bootup.script, so that is where the pasted config is put.",
+"emulator": "VERIFIED 2026-06-01: VyOS 1.5 rolling boots on virtio/x86_64.\nlabhub: \"VyOS vRouter/vyos-1.5-rolling-amd64.tgz\" → virtioa.qcow2",
+"min_ram_mb": "RAM bumped 512 -> 1024 (2026-07-28, live-found): the guest ran at 108% of its\n512 MB cap continuously for its ENTIRE lifetime while merely idling at a login\nprompt (node-manager's own monitor logged \"[OOM] VM node vy1 at 108% of RAM cap\n(553/512 MB)\" every ~10s, non-stop). Confirmed live that 1024 MB eliminates the\nOOM pressure entirely (zero such warnings across the same idle window). VyOS\n1.5-rolling's own documented minimum is 1 GB - 512 MB was undersized from the\nstart, not a regression.",
+"nic": "nic virtio-net-pci vs EVE-NG vyos.yml e1000 (rule #59 drift, reviewed 2026-09-20 Wave 17): VyOS 1.5 rolling\nboots + passes traffic on virtio (VERIFIED 2026-06-01, live sweep 2026-09-20 import+boot), virtio is the\nnetplex default paravirtual NIC for KVM Linux guests; this image does not need e1000."
+},
+"tested": "── VyOS (QEMU image) ────────────────────────────────────────────────────────"
+},
+"westermo-weos": {
+"reasons": {
+"vendor": "GNS3's own template gives a real explicit vCPU count (1)."
+},
+"tested": ""
+},
+"xrd": {
+"reasons": {
+"vendor": "Containerized IOS XR control-plane (Cisco's own open-source XRd Control\nPlane image) - docker, not qemu. EVE-NG's own xrd.yml: ram 4096, needs\n/dev/fuse + SYS_ADMIN/NET_ADMIN + --net=none (netplex's own DockerProvider\nalready does network_mode=none by default per HARD rule #2, so no\nnetplex-specific change needed there) and a large MTU (9500) for its\ninternal linux-networking datapath."
+},
+"tested": "── Cisco - Wave 38.12 gap fill (NPX-1167, catalog-diff §1 \"Cisco\" group) ────\nNone of these 5 profiles has a netplex-held image yet (checked the <vendor-box>\nvendor library and this fleet's own /netplex/images - no match for any of\nthem) - hardware defaults only, sourced directly from EVE-NG's own real\nproduction templates (root@<eveng-box>:/opt/unetlab/html/templates/intel/\n{xrd,cat9kv,cat9kvuadp,cat9kvq200,c9800cl}.yml, read live this session), NOT\ninvented. Matches this file's own existing honest-placeholder convention\n(see e.g. several vrnetlab entries below) - not yet live-boot-verified, say\nso plainly rather than claim a DoD pass that wasn't done (rule #14/#31)."
+},
+"xrv9k": {
+"reasons": {
+"config_dialect": "IOS-XR, not IOS: its config save is a two-stage commit, so the CLI dialect\ncannot be inferred from vendor=\"cisco\" (which means IOS). Live-proved\n2026-08-30 on a real booted xrv - see VENDOR_CLI[\"iosxr\"] in node_config.py.",
+"console_port_mode": "NPX-4688: EVE xrv9k.yml, 3 dead extra ports",
+"emulator": "machine/nic fix: see \"cisco-xrv9k\" above for the root cause and evidence -\nthis bare \"xrv9k\" key is the duplicate that real image lookups actually hit."
+},
+"tested": "ROOT CAUSE (2026-07-18, device audit for image \"xrv9k-fullk9\"): get_profile()\nonly matches when the normalized image name CONTAINS the normalized key, and\nthe real catalog image is imported as \"xrv9k-fullk9\" (folder name, no \"cisco-\"\nprefix) - it never contained \"cisco-xrv9k\", so it silently fell through to\nGENERIC_KVM_PROFILE (512 MB RAM / 1 vCPU / 120s boot_timeout / machine=pc)\ninstead of this profile's 16 GB / 2 vCPU / 900s / machine=q35. A real XRv9k\nimage cannot even start IOS XR's control plane with 512 MB RAM, so every boot\nguaranteed-failed. \"csr1000v\"/\"asav\" already carry this same bare-key duplicate\nalongside their \"cisco-*\" key (see below) for exactly this reason - do the same\nhere so any \"xrv9k*\"-named image (with or without a vendor prefix) matches."
+},
+"zabbix": {
+"reasons": {
+"description": "58): reaches the real Rocky Linux 8.10 'appliance login:' prompt with nginx and the Zabbix Agent both started - no profile drift needed, this device already matched the vendor reference template. Wave 38.12/NPX-1167.\",",
+"vendor": "EVE-NG zabbix.yml (catalog-diff/eveng-catalog.md row 193): no\nexplicit -cpu flag - kept qemu64 per row 38.9's rule."
+},
+"tested": "openmediavault / proxmox-mg / digium-asterisk (NAS, mail-gateway, PBX\nappliances) deliberately REMOVED 2026-09-17 (the project owner, verbatim: \"we don't\nmention those unknown devices! ... The ISO image installation stuff and\nthe QEMU scenarios stuff are generic and must apply to any image whether\nit's proxmox or openmediavalue. These are unknown and we mustn't care\nabout them. We care about major network vendors... Everything else is\nstandard qemu or ISO generic management.\") - netplex does not maintain\nnamed device support for generic, non-network server software. Once the\ngeneric \"install any OS from an ISO\" + golden-image workflow (NPX-1222,\nWave 39) exists, a user can bring any of these themselves with no\nbespoke profile needed. See NPX-1167's tracker row for the full account."
+}
+}

@@ -1,0 +1,29 @@
+{
+ "key": "cisco-dcnm",
+ "source": "netplex-tested",
+ "tested": "── Cisco security/DC management (Wave 38.12/NPX-1167, 2026-09-16) ──────────\nDCNM, Firepower, NGIPS, WSA - confirmed real gaps by NPX-1167's phase 1b\naudit (final-gap-classification.md, \"Cisco\" group). Sourced from EVE-NG's\nown real templates (catalog-diff/eveng-catalog.md rows 52/56-57/63/75, rule\n33/#59). No netplex-held image for any of these 4 - NOT live-boot-verified.",
+ "reasons": {
+  "vendor": "EVE-NG dcnm.yml: qemu 2.12.0, no explicit -cpu flag (\"-machine\ntype=pc,accel=kvm -vga std -usbdevice tablet -boot order=dc\") - per\nrow 38.9's own rule, kept at qemu64 rather than forced host."
+ },
+ "settings": {
+  "boot_timeout_sec": 480,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 8192,
+  "description": "Cisco DCNM (Data Center Network Manager). No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

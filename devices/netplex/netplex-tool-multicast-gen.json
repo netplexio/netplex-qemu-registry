@@ -1,0 +1,28 @@
+{
+ "key": "netplex-tool-multicast-gen",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 12,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 1,
+  "default_ram_mb": 384,
+  "emulator": "docker",
+  "image": "netplex-tool-multicast-gen:latest",
+  "interfaces": 2,
+  "min_ram_mb": 192,
+  "node_class": "host",
+  "reserved_interfaces": [
+   {
+    "label": "Web access",
+    "name": "eth1",
+    "role": "oob-web"
+   }
+  ],
+  "role": "host",
+  "vendor": "netplex"
+ },
+ "group": "tool-node"
+}

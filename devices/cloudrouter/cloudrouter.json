@@ -1,0 +1,23 @@
+{
+ "key": "cloudrouter",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 2048,
+  "description": "CloudRouter Community. Genuine external blocker, confirmed 2026-09-17 (NPX-1167): the project's own image repo (repo.cloudrouter.org) no longer resolves at all - the project is abandoned and no image exists anywhere to obtain, including community mirrors. No netplex-held image - hardware defaults only, NOT live-boot-verified, and cannot be until a real image resurfaces somewhere.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "role": "router",
+  "vendor": "cloudrouter"
+ }
+}

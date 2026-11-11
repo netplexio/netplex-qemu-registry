@@ -1,0 +1,29 @@
+{
+ "key": "cisco-wsa",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "EVE-NG coeus.yml: qemu 2.12.0, no explicit -cpu flag (\"-machine\ntype=pc,accel=kvm -nographic -rtc base=utc\") - kept at qemu64 per\nrow 38.9's own rule, same reasoning as DCNM above."
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 4096,
+  "description": "Cisco WSA (Web Security Appliance). No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "e1000",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

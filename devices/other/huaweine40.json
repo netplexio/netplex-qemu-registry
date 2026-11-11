@@ -1,0 +1,17 @@
+{
+ "key": "huaweine40",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "console": "telnet",
+  "cpu": 2,
+  "default_ram_mb": 2048,
+  "emulator": "qemu",
+  "interfaces": 12,
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "vmxnet3",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64"
+ }
+}

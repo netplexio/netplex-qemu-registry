@@ -1,0 +1,17 @@
+{
+ "key": "web-security-virtual-appliance",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "firewall",
+  "console": "telnet",
+  "default_ram_mb": 4096,
+  "emulator": "qemu",
+  "interfaces": 5,
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "cisco"
+ }
+}

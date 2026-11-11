@@ -1,0 +1,23 @@
+{
+ "key": "vrnetlab-nokia-cmglinux",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "image": "nokia/cmglinux/Makefile: standard IMG_REPOSITORY convention (VENDOR=Nokia,\nNAME=cmglinux -> \"nokia_cmglinux\"), NOT the README prose's inconsistent\n\"vrnetlab/cmglinux\" / \"vrnetlab/vr-cmglinux\" (the README contradicts itself\nbetween its two mentions - the Makefile is the actual executable source of\ntruth and was trusted over the prose per rule #33's spirit). Version\n\"24.3.R1\" matches both the Makefile's VERSION-extraction regex example and\nthe README's own worked example (\"cmg-linux-24.3.R1.qcow2\").",
+  "min_ram_mb": "README \"Host requirements\": 4 vCPU, 6 GB RAM. NOT a router/switch/firewall -\nCMG Linux is a DB/control VM component of Nokia's MAG-C mobile-core platform,\nboots via cloud-init (not a CLI day-0 flow), console is a real Linux login\n(user \"clab\", vrnetlab-injected password) once cloud-init completes."
+ },
+ "settings": {
+  "boot_timeout_sec": 240,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 4,
+  "default_ram_mb": 6144,
+  "description": "Nokia CMG Linux via vrnetlab (containerized QEMU wrapper) - a DB/control-plane VM component of Nokia's MAG-C platform, not a router/switch. No native netplex profile of any kind exists.",
+  "emulator": "docker",
+  "image": "vrnetlab/nokia_cmglinux:24.3.R1",
+  "min_ram_mb": 4096,
+  "node_class": "appliance",
+  "role": "appliance",
+  "vendor": "nokia"
+ }
+}

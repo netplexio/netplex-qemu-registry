@@ -1,0 +1,29 @@
+{
+ "key": "ucspe",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "qemu_version_default": "rule #59: ucspe.yml has no EVE qemu_version pin; 2.12.0 = netplex no-pin fallback (csp-vpn-gate/NPX-1792)"
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 2048,
+  "description": "Cisco UCS Platform Emulator (hardware simulation for UCS Manager) - not yet boot-verified (no netplex-held image); defaults from vendor-published specs.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "appliance",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "appliance",
+  "vendor": "cisco"
+ }
+}

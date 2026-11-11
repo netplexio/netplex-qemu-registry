@@ -1,0 +1,34 @@
+{
+ "key": "alienvault",
+ "source": "netplex-tested",
+ "tested": "Wave 21 U2/U3 (2026-09-05): the image IS held now - `alienvault-ossim-5.8.5.tgz` was\nimported from Downloads. What the vendor ships is an INSTALL SET, not a pre-installed\nappliance: a blank 50 GiB `hda.qcow2` (196 KiB allocated, measured with `qemu-img info`)\nplus a 756 MB bootable `cdrom.iso`. EVE-NG runs it exactly this way - their\n`alienvault.yml` carries `-boot order=cd`, which in QEMU means \"hard disk first, CD-ROM\nsecond\". That order is safe to pin statically (unlike the cdrom-FIRST order rejected for\nopenbsd above): the blank disk simply falls through to the installer, and once OSSIM is\ninstalled the same static order boots the disk instead. `ethernet: 2`, `cpu: 4`,\n`ram: 6144` and `console: vnc` below already match their template.",
+ "reasons": {},
+ "settings": {
+  "boot_order": [
+   "hd",
+   "cdrom"
+  ],
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "host",
+  "default_ram_mb": 6144,
+  "description": "AlienVault USM/OSSIM (Unified Security Management) - SIEM/threat detection. Ships as a blank disk plus a bootable installer ISO; the node opens on the vendor's own graphical installer over VNC.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "extra_disks": [
+   "cdrom.iso"
+  ],
+  "machine": "pc",
+  "min_ram_mb": 6144,
+  "nic": "e1000",
+  "node_class": "appliance",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "appliance",
+  "vendor": "alienvault"
+ }
+}

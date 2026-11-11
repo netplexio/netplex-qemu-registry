@@ -1,0 +1,29 @@
+{
+ "key": "juniper-vmxvfp",
+ "source": "netplex-tested",
+ "tested": "No profile existed for \"vmxvfp\" (Juniper vMX Virtual Forwarding Plane - the\ncompanion node to juniper-vmxvcp above) - every vmxvfp image silently fell\nthrough to GENERIC_KVM_PROFILE. Sourced from EVE-NG's own real vmxvfp.yml\ntemplate (rule #33/#43/#57, docs/reference/eveng-implementation/raw/templates/\nvmxvfp.yml): cpu=3, ram=4096, 12 ethernet interfaces (fxp0, int, ge-0/0/0..9),\nsame qemu_options (pc/kvm/host-cpu) as vmxvcp. EVE-NG's own config-scripts\ncatalog (08-config-scripts-catalog.md) lists a dedicated driver for \"vmxvcp\"\nbut none for \"vmxvfp\" - the VFP is a headless forwarding engine with no Junos\nCLI of its own; it never receives a day-0 config push (day0_channel\ndeliberately NOT set here, matching EVE-NG's own behavior exactly, not a gap).\nIt boots and is wired to its VCP companion purely via the ordinary \"int\"\ninterface (index 1) - an ORDINARY netplex link between two ORDINARY nodes, the\nsame mechanism used for every other inter-device cable; no special multi-node\ntopology feature is needed (confirmed by reading EVE-NG's own vmxvcp.yml/\nvmxvfp.yml templates directly - each is just a plain two-interface-plus qemu\nnode like any other device in this file).",
+ "reasons": {
+  "nic": "disk_bus corrected virtio -> ide (NPX-1101 burn-down, 2026-09-20, rule #59):\nEVE-NG's own real vmxvfp.yml template declares no `qemu_disk_interface` field\nat all - the same as vmx-17.2R1's template, which this file's own\ntest_family_splits_survive_the_single_source already pins to \"ide\" - so EVE-NG's\nunqualified default (ide) is what applies here too. The previous \"virtio\" was\nunexplained drift (likely copied from the neighbouring vmxvcp entry, which\ngenuinely IS virtio because its family key matches the file-naming table's\n\"virtide\" token - vmxvfp has no entry in that table at all)."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 3,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "notes": "Forwarding Plane - requires VMX VCP companion, no day-0 config of its own",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "router",
+  "vendor": "juniper"
+ }
+}

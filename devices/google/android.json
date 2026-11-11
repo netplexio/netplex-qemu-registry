@@ -1,0 +1,29 @@
+{
+ "key": "android",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "qemu_version_default": "rule #59 (2026-09-21, NPX-1266): Reverted to EVE-NG's pin (2.4.0). The old 2.12.0 was only a fallback from before QEMU 2.4.0 could be built (NPX-457/NPX-1139, built+lane-verified 2026-09-16); that reason no longer exists."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 4096,
+  "description": "Android-x86 VM (mobile app / client testing) - not yet boot-verified (no netplex-held image); defaults from vendor-published specs.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "e1000",
+  "node_class": "appliance",
+  "qemu_version_compatible": [
+   "2.4.0"
+  ],
+  "qemu_version_default": "2.4.0",
+  "role": "appliance",
+  "vendor": "google"
+ }
+}

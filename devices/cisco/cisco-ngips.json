@@ -1,0 +1,29 @@
+{
+ "key": "cisco-ngips",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "EVE-NG fips7.yml: qemu 2.4.0 (already in QEMU_BUILT_VERSIONS), explicit\n-cpu host."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "host",
+  "default_ram_mb": 8192,
+  "description": "Cisco Firepower NGIPS (intrusion prevention). No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "e1000",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "2.4.0"
+  ],
+  "qemu_version_default": "2.4.0",
+  "role": "firewall",
+  "vendor": "cisco"
+ }
+}

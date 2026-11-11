@@ -1,0 +1,5 @@
+{
+ "key": "fmc",
+ "source": "netplex-tested",
+ "alias_of": "cisco-fmc"
+}

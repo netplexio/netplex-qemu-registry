@@ -1,0 +1,27 @@
+{
+ "key": "jspacepolicy",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 8192,
+  "description": "Juniper Junos Space Security Director Policy Enforcer - not yet boot-verified (no netplex-held image); defaults from vendor-published specs.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "virtio-net-pci",
+  "node_class": "appliance",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "appliance",
+  "vendor": "juniper"
+ }
+}

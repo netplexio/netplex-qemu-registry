@@ -1,0 +1,26 @@
+{
+ "key": "fortinet-fgt",
+ "source": "netplex-tested",
+ "tested": "Alias: images are imported to disk as .../fortinet/fortinet-FGT-<version>/...\n(no \"fortigate\" path segment - see vendor-images/fortinet/fortigate/ source\ntree vs. the flattened /netplex/images/qemu/fortinet/fortinet-FGT-7.2.4.F/\nimport layout). get_profile() matches on substring/prefix of the resolved\nbase_image_path, so \"fortinet-fortigate\" above never matched any real\nimported FortiGate image - every FortiGate node silently fell back to\nGENERIC_KVM_PROFILE (512 MB RAM / 120s boot_timeout instead of the 4096 MB /\n240s this platform actually needs), crash-looping under memory pressure and\nnever reaching RUNNING (same failure shape as the isrv/NX-OS bugs documented\nelsewhere in this file). Found live 2026-07-18 chasing a device-audit\ntimeout for device \"fortinet-FGT\" (registered image name, also with no\n\"fortigate\" segment) - confirmed by normalizing both the real imported path\nand the \"fortinet-fortigate\" key and finding no substring match either way.",
+ "reasons": {
+  "day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+  "emulator": "cpu_model \"qemu64\", not \"host\" (NPX-1527 PROFILES-TOOLS pass-3, rule #59):\nEVE-NG's real fortinet.yml (the one template all 4 FortiOS-family keys in this\nfile map to) sets NO -cpu flag at all, which QEMU defaults to qemu64 - \"host\" here\nwas undocumented drift with no cited crash/boot evidence (unlike the RAM values on\nthese same entries, which do carry real cited evidence). Matching EVE's real,\nverified-safe default until/unless a live boot specifically justifies \"host\".\nNOT live-boot-verified either way this pass - if a future boot needs \"host\",\ncite the evidence here per rule #59 before changing it back."
+ },
+ "settings": {
+  "boot_timeout_sec": 240,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "qemu64",
+  "day0_channel": "fortigate-config-drive",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "role": "firewall",
+  "vendor": "fortinet"
+ }
+}

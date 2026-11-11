@@ -1,0 +1,21 @@
+{
+ "key": "ciscotestautomation-pyats",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 60,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 1,
+  "default_ram_mb": 2048,
+  "description": "Cisco pyATS + Genie test-automation tool node (Docker).",
+  "emulator": "docker",
+  "image": "ciscotestautomation/pyats:latest-full",
+  "min_ram_mb": 1024,
+  "node_class": "host",
+  "role": "appliance",
+  "vendor": "cisco"
+ },
+ "group": "tool-node"
+}

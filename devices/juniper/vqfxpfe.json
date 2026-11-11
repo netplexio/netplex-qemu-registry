@@ -1,0 +1,30 @@
+{
+ "key": "vqfxpfe",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "NPX-1245 (rule #59): 1 vCPU / e1000 / QEMU 2.0.2 = EVE vqfxpfe.yml (cpu_model qemu64 already matches EVE, which sets none); booted through the platform on VM .83, argv confirmed 2.0.2, -smp 1, e1000, VNC console answers.",
+  "console": "console corrected 2026-07-23 from a live cross-reference against EVE-NG PRO v7's own\nproduction template for this exact image (root@<eveng-box>:/opt/unetlab/html/\ntemplates/intel/vqfxpfe.yml): `qemu_options: ... -vga std -usbdevice tablet ...` -\nreal VGA + pointer hardware, the same signal that root-caused cumulus-vx's silent\nzero-console-output bug (NPX-297). NOT live-boot-verified here (unlike cumulus-vx,\nwhich got a real `virsh screenshot` proof) - applied from cross-reference evidence\nalone, disclosed per rule #31 rather than rounded up to a confirmed fix."
+ },
+ "settings": {
+  "boot_timeout_sec": 360,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 1,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 2048,
+  "description": "Juniper vQFX Packet Forwarding Engine.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "e1000",
+  "node_class": "switch",
+  "qemu_version_compatible": [
+   "2.0.2"
+  ],
+  "qemu_version_default": "2.0.2",
+  "role": "switchL3",
+  "vendor": "juniper"
+ }
+}

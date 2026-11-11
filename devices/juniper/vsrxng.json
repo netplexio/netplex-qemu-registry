@@ -1,0 +1,28 @@
+{
+ "key": "vsrxng",
+ "source": "netplex-tested",
+ "tested": "── Juniper ─────────────────────────────────────────────────────────────────\nAlso match \"vsrxng-*\" image folder format",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 360,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "day0_channel": "juniper-config-drive",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "firewall",
+  "vendor": "juniper"
+ }
+}

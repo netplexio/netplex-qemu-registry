@@ -1,0 +1,17 @@
+{
+ "key": "dell-os9",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "router",
+  "console": "telnet",
+  "default_ram_mb": 1024,
+  "emulator": "qemu",
+  "interfaces": 6,
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "imported-default",
+  "qemu_arch": "i386",
+  "vendor": "dell-inc"
+ }
+}

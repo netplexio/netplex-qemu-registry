@@ -1,0 +1,26 @@
+{
+ "key": "mikrotik-chr",
+ "source": "netplex-tested",
+ "tested": "── MikroTik ─────────────────────────────────────────────────────────────────",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 60,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 256,
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 64,
+  "nic": "e1000-82545em",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "router",
+  "vendor": "mikrotik"
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "key": "stormshield-sns",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "EVE-NG utm.yml (catalog-diff/eveng-catalog.md row 175): explicit\n-cpu host."
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "description": "Stormshield SNS UTM. No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "e1000",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "firewall",
+  "vendor": "stormshield"
+ }
+}

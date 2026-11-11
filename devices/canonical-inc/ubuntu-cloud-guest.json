@@ -1,0 +1,17 @@
+{
+ "key": "ubuntu-cloud-guest",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "guest",
+  "console": "telnet",
+  "default_ram_mb": 1024,
+  "emulator": "qemu",
+  "interfaces": 1,
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "canonical-inc"
+ }
+}

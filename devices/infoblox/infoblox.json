@@ -1,0 +1,29 @@
+{
+ "key": "infoblox",
+ "source": "netplex-tested",
+ "tested": "── Other confirmed real network-vendor gaps (Wave 38.12/NPX-1167, 2026-09-16)\nConfirmed real gaps by NPX-1167's phase 1b audit (final-gap-classification.md,\n\"Other confirmed real network-vendor gaps\" group). No netplex-held image for\nany of these 11 - NOT live-boot-verified. (Onos, also named in that group, is\na Docker-only appliance with NO real image reference captured by either\ncatalog extraction - not added this pass rather than guessing a docker image\nname; named honestly as a remaining gap.)",
+ "reasons": {
+  "vendor": "EVE-NG infoblox.yml (catalog-diff/eveng-catalog.md row 113): no explicit\n-cpu flag - kept qemu64 per row 38.9's rule. Real adapter pattern\n\"LAN{1}\"."
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 2048,
+  "description": "Infoblox DDI/DNS appliance. No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "server",
+  "vendor": "infoblox"
+ }
+}

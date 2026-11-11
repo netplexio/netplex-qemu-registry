@@ -1,0 +1,23 @@
+{
+ "key": "generic-vm",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 120,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 512,
+  "description": "Generic KVM appliance - e1000 NICs, works with any x86 image.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "generic",
+  "qemu_arch": "x86_64",
+  "role": "host",
+  "vendor": "generic"
+ }
+}

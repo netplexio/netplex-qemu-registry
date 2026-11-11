@@ -1,0 +1,25 @@
+{
+ "key": "c1700",
+ "source": "netplex-tested",
+ "tested": "── Cisco Dynamips platforms ─────────────────────────────────────────────\nemulator=dynamips: node-manager uses DynamipsProvider, not QEMU.\nRAM recommendations from GNS3/EVE-NG community defaults.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 120,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 96,
+  "description": "Cisco 1700 series router (Dynamips).",
+  "disk_bus": null,
+  "emulator": "dynamips",
+  "max_cpu": 1,
+  "max_ram_mb": 160,
+  "min_ram_mb": 64,
+  "nic": "c1700-mb-1fe",
+  "node_class": "router",
+  "platform": "c1700",
+  "recommended_ram_mb": 128,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

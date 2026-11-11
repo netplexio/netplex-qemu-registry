@@ -1,0 +1,31 @@
+{
+ "key": "vsrx",
+ "source": "netplex-tested",
+ "tested": "Bare product name from image-manager/detector.py's documented \"vSRX (legacy)\nvsrx-\" naming convention (e.g. image name \"vsrx\", version \"12.1X47-D20.7\").\nget_profile()'s prefix/substring match only ever tests whether a PROFILES key\nis a prefix of, or substring within, the normalized image name - never the\nreverse - so a short bare name like \"vsrx\" could never match the longer\n\"juniper-vsrx\"/\"vsrxng\"/\"juniper-vsrxng\" keys above and silently fell through\nto GENERIC_KVM_PROFILE (512MB/1cpu/e1000/120s timeout), reproducing the exact\nNPX device-audit boot-timeout failure. Root cause found 2026-07-18 tracing\ndevice 74441580-c55a-425f-9485-aa2ec7a931c8 (\"vsrx\" / 12.1X47-D20.7): its\nstored hardware_defaults.profile_key was \"generic:vsrx\", proving the fallback.\nThis explicit alias makes the (already-defined, already-correct-once-fixed)\n\"juniper-vsrx\" profile reachable for that exact registration shape.",
+ "reasons": {
+  "vendor": "rule #59 reason: ram 4096 vs EVE 2048 - LLA-074 (2026-08-19) live evidence recorded in the comment below; do not lower.",
+  "qemu_version_default": "default_ram_mb bumped 2048->4096 (2026-08-19, LLA-074) - same real evidence as\n\"juniper-vsrx\" above (this is the alias actually reachable for a bare \"vsrx\"-\nnamed image, so it needs the same fix, not just its sibling entry).",
+  "day0_channel": "NPX-1138 - same reasoning as the \"juniper-vsrx\" entry above (this is the\nalias actually reachable for a bare \"vsrx\"-named image registration).\nNPX-1255 (2026-09-20): boot_timeout_sec bumped 360->600 to accommodate slower\nboot times on loaded systems - vSRX takes ~450s just to reach daemon startup,\nnot yet the login prompt that day-0 mount waits for."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "day0_channel": "junos-config-partition",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "firewall",
+  "vendor": "juniper"
+ }
+}

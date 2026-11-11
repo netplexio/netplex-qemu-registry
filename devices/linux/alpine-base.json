@@ -1,0 +1,24 @@
+{
+ "key": "alpine-base",
+ "source": "netplex-tested",
+ "tested": "Wave 21 U2 (NPX-819). netplex ships an Alpine qcow2 as well as the Docker image, and\nthe two are DIFFERENT runtimes with different hardware: /netplex/images/qemu/linux/\nalpine-base-3-19-1/virtioa.qcow2 is a real KVM guest. Before this key existed, the\nname matcher found the Docker \"alpine\" profile just below, image-manager threw it\naway as a runtime mismatch (a QEMU upload cannot use \"emulator\": \"docker\") and the\nimage fell back to GENERIC_KVM_PROFILE - so a device netplex actually ships had no\ncurated hardware at all. Same shape and same reason as \"vyos-qemu\" sitting beside\nthe Docker \"vyos\" entry; the longer key wins the longest-match rule, so the Docker\nentry is untouched for real Docker nodes.\nLive boot 2026-09-05 (probe: -machine pc -cpu host -m 512 -smp 1, virtio disk, NO\nNICs at all, system QEMU 10.2.1) - reached, verbatim:\nWelcome to Alpine Linux 3.19\nKernel 6.6.16-0-virt on an x86_64 (/dev/ttyS0)\nlocalhost login: root\nlocalhost:~#\nSo: text console on the first serial port, root with no password, and it boots with\nzero network interfaces (nothing in the guest waits on a NIC). Wave 21 classes it C\n(shell) - its config channel is the generic shell dialect, marker-only fidelity,\nexactly like the other Linux images netplex ships.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 120,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 512,
+  "description": "Alpine Linux 3.19 (QEMU qcow2) - minimal Linux host.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "host",
+  "qemu_arch": "x86_64",
+  "role": "host",
+  "vendor": "linux"
+ }
+}

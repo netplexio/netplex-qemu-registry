@@ -1,0 +1,21 @@
+{
+ "key": "netplex-tool-terminal-server",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 10,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 1,
+  "default_ram_mb": 64,
+  "emulator": "docker",
+  "image": "netplex-tool-terminal-server:latest",
+  "interfaces": 17,
+  "min_ram_mb": 32,
+  "node_class": "host",
+  "role": "host",
+  "vendor": "netplex"
+ },
+ "group": "tool-node"
+}

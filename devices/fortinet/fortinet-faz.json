@@ -1,0 +1,28 @@
+{
+ "key": "fortinet-faz",
+ "source": "netplex-tested",
+ "tested": "FortiAnalyzer - had NO entry at all (found 2026-07-18 device audit: device_id\n1f5a2e4a-3e7a-488c-ad36-03c0ab04f30d, image \"fortinet-FAZ-6-4\"). Every other\nlookup path (image-manager detector.py taxonomy, image_profiles.py disk-bus table)\nalready recognises \"fortianalyzer\"/\"faz\", but this file - the authoritative table\nnode-manager's QemuProvider actually reads for RAM/vCPU - had nothing, so\nget_profile() silently fell through to GENERIC_KVM_PROFILE (512MB/1 vCPU). Live\nrepro (2026-07-18, isolated single-node lab, host otherwise idle): the domain\nreached libvirt RUNNING quickly (process launched fine - NOT a disk-bus/machine-type\nproblem, virtio already matches the virtioa.qcow2 filename) but then sat pinned at\n~99% CPU / ~484MB of its 512MB cap (94%) indefinitely with zero settling over 100+s\nof polling - the classic signature of a guest that can never finish booting inside\nits memory ceiling. Fortinet's own KVM admin guide (docs.fortinet.com, all versions\n6.4-8.0) states FortiAnalyzer-VM's minimum is 4 vCPU / 8GB RAM (16GB for 7.4.1+);\nthis image is the 6.4 build, so 8GB is the correct floor. Matches the\nfortinet-fortigate entry above precedent: set default = the real vendor minimum,\nnot the generic fallback.",
+ "reasons": {
+  "emulator": "cpu_model \"qemu64\", not \"host\" (NPX-1527 PROFILES-TOOLS pass-3, rule #59):\nEVE-NG's real fortinet.yml (the one template all 4 FortiOS-family keys in this\nfile map to) sets NO -cpu flag at all, which QEMU defaults to qemu64 - \"host\" here\nwas undocumented drift with no cited crash/boot evidence (unlike the RAM values on\nthese same entries, which do carry real cited evidence). Matching EVE's real,\nverified-safe default until/unless a live boot specifically justifies \"host\".\nNOT live-boot-verified either way this pass - if a future boot needs \"host\",\ncite the evidence here per rule #59 before changing it back.",
+  "config_dialect": "Wave 21 (2026-09-10): FortiAnalyzer is NOT FortiOS's CLI, despite sharing a\nvendor string with FortiGate - live-measured on a real boot (rule #22/#30):\n`show full-configuration` (the \"fortinet\"/FortiOS dialect's capture command)\ngets \"command parse error before 'full-configuration'\"; plain `show` at the\nsame prompt returns the full config. See VENDOR_CLI[\"fortianalyzer\"]."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "fortianalyzer",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 8192,
+  "description": "Fortinet FortiAnalyzer VM - vendor minimum is 4 vCPU / 8GB RAM (docs.fortinet.com KVM admin guide); the generic 512MB fallback never finishes booting (guest pins at ~99% CPU / ~94% RAM forever).",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "virtio-net-pci",
+  "node_class": "appliance",
+  "recommended_ram_mb": 8192,
+  "role": "logmanager",
+  "vendor": "fortinet"
+ }
+}

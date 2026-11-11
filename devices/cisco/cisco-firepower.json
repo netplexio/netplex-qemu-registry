@@ -1,0 +1,30 @@
+{
+ "key": "cisco-firepower",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "EVE-NG has two templates for this product (firepower.yml, older, no\nqemu_version pin; firepower6.yml, newer, pins 4.1.0 + explicit -cpu\nhost) - this profile follows the newer/current one.",
+  "min_ram_mb": "rule #59 (2026-09-21, NPX-1266): RAM 8192 matches EVE-NG's newer firepower6.yml (ram 8192, cpu 4, qemu 4.1.0), which this profile follows; only the older firepower.yml says 4096."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "host",
+  "default_ram_mb": 8192,
+  "description": "Cisco Firepower Threat Defense (NGFW). No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "e1000",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "firewall",
+  "vendor": "cisco"
+ }
+}

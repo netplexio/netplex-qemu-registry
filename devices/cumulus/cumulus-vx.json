@@ -1,0 +1,26 @@
+{
+ "key": "cumulus-vx",
+ "source": "netplex-tested",
+ "tested": "── Cumulus Linux ────────────────────────────────────────────────────────────",
+ "reasons": {
+  "emulator": "VERIFIED 2026-06-01: Cumulus VX 2.5.3 boots (hda.qcow2 = ide bus).\nTelnet IAC negotiation at start. Login prompt: cumulus login:\nREGRESSED, found + FIXED 2026-07-23 (NPX-297) - a real 3-part compounding bug:\n(1) bare \"pc\" resolves to whichever pc-i440fx-<newest> is aliased on the host\n(confirmed via `ps aux`: \"-machine pc-i440fx-10.2\") and this ~2016-era guest\nkernel hangs under it (~100% CPU, zero output, 100+ min) - fixed by pinning\n\"machine\" below to pc-i440fx-yakkety, the oldest i440fx variant this host's\nQEMU still ships. (2) that older machine type then made libvirt pick a\n\"256k-compat\" NIC option-ROM this host's qemu package doesn't expose on\nlibvirt's ROM search path, so the domain failed to even start (\"failed to\nfind romfile ... compat-256k-efi-e1000.rom\") - fixed via `<rom bar='off'/>`\non every QEMU node's NIC (providers/qemu.py's _build_interface_xml; no\nnetplex node ever PXE-boots, so the option ROM has no purpose for any\nvendor). (3) with (1)+(2) fixed the domain booted the guest kernel fully\n(confirmed via `virsh qemu-monitor-command --hmp \"info registers\"`: RIP in\nkernel space, HLT=1 - genuinely idling, not hung) but produced zero output on\nthe telnet/serial console netplex was watching. Mounted the actual qcow2\n(qemu-nbd) and read its real /boot/grub/grub.cfg: the boot menuentry is\n`linux /bzImage root=/dev/sda2` with NO \"console=\" kernel argument at all -\nthis image's kernel was never configured to use a serial console, full stop;\nit only ever outputs to the VGA framebuffer (confirmed by a VNC screenshot\nshowing a genuine working \"cumulus login:\" prompt while serial.log stayed\nempty the whole time). A same-day attempt to \"fix\" this by adding a\n\"video\": \"none\" opt-in (removing the VGA device entirely, mirroring EVE-NG's\n`-nographic`) was TRIED AND REVERTED - it does not help, because nothing in\nthis image's boot chain was ever told to use ttyS0 either; removing VGA just\nmakes the (still VGA-only) output invisible on every channel netplex has,\nincluding breaking the VNC screenshot check itself (\"no console to take a\nscreendump from\"). netplex never edits a user's imported image (no rewriting\ngrub.cfg), so the correct fix is the one already used for other VGA-only\nguests: \"console\": \"vnc\" below instead of \"telnet\" (matching esxi/vtmgmt/\ncisco-fmc/cisco-dnac/cisco-catmanager) - this is the one console channel this\nimage has ever actually produced output on. Separately, image_profiles.py's\ndisk_bus_for() had NO entry for the \"cumulus\" vendor token and silently\ndefaulted to virtio, ignoring this entry's own correct \"disk_bus\": \"ide\"\nbelow (that field is only consulted via an explicit per-node override - the\nnormal boot path always calls disk_bus_for()) - fixed by adding a \"cumulus\"\nentry to image_profiles.py's _PROFILES table; also directly confirmed via a\nraw qemu-system-x86_64 repro that this grub.cfg's `root=/dev/sda2` kernel\nargument only resolves under ide (which enumerates as /dev/sda) - under\nvirtio (/dev/vda) the kernel can't find root and panic-reboot-loops. This\nimage's disk file is misleadingly named `virtioa.qcow2` per the\nvendor-images naming convention, but its real on-disk content and baked-in\nkernel argument both require ide - do NOT \"correct\" disk_bus to \"virtio\"\nfrom the filename alone (that exact mistake was made and reverted once\nalready this same day chasing this bug).",
+  "nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/cumulus.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824.\nThe bare \"cumulus\" key is an alias of this same dict, so it moves with it."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "cumulus",
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 1024,
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc-i440fx-yakkety",
+  "min_ram_mb": 512,
+  "nic": "virtio-net-pci",
+  "node_class": "switch",
+  "role": "switchL3",
+  "vendor": "cumulus"
+ }
+}

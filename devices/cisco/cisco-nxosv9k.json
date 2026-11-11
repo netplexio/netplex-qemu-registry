@@ -1,0 +1,32 @@
+{
+ "key": "cisco-nxosv9k",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+  "emulator": "rule #59 (NPX-1527, NPX-4405): every field = EVE nxosv9k.yml (pc, no disk_bus, cpu 2, ram 8192, ethernet 8, telnet, qemu 4.1.0, -cpu host);\nmin_ram_mb 6144 = NX-OS reboot-loop floor; no EVE `multifunction` knob, no UEFI in the template; runtime sata -> libvirt q35.\nProof + the field-by-field table: tests/unit/test_npx4405_nxosv9k_profile.py.",
+  "nic": "NPX-4767 #59: EFI-boot disk, SeaBIOS = empty serial (live 5 Nov)"
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "day0_channel": "nxos-config-iso",
+  "default_ram_mb": 8192,
+  "emulator": "qemu",
+  "firmware": "uefi",
+  "interfaces": 8,
+  "machine": "pc",
+  "min_ram_mb": 6144,
+  "nic": "e1000",
+  "node_class": "switch",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "switchL3",
+  "vendor": "cisco"
+ }
+}

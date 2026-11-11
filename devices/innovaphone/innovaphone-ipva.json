@@ -1,0 +1,25 @@
+{
+ "key": "innovaphone-ipva",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "GNS3's real innovaphone-ipva.gns3a (row 131) also gives a real vCPU\ncount (1)."
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 256,
+  "description": "Innovaphone IPVA (VoIP/UC). No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "vmxnet3",
+  "node_class": "server",
+  "role": "server",
+  "vendor": "innovaphone"
+ }
+}

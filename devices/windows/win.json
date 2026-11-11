@@ -1,0 +1,29 @@
+{
+ "key": "win",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 1,
+  "cpu_model": "host,+pcid,+kvm_pv_unhalt,+kvm_pv_eoi,hv_spinlocks=0x1fff,hv_vapic,hv_time,hv_reset,hv_vpindex,hv_runtime,hv_relaxed,hv_synic,hv_stimer",
+  "default_ram_mb": 4096,
+  "description": "Windows (client). No netplex-held image - hardware defaults only, copied from the vendor's reference template, NOT live-boot-verified (boot test waived by the project owner 2026-10-02).",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "e1000",
+  "node_class": "host",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "host",
+  "vendor": "windows"
+ },
+ "group": "windows"
+}

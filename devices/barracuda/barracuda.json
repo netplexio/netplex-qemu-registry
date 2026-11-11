@@ -1,0 +1,31 @@
+{
+ "key": "barracuda",
+ "source": "netplex-tested",
+ "tested": "── Barracuda ────────────────────────────────────────────────────────────────\nNo entry existed for \"barracuda\" - get_profile()/get_profile_key() silently fell\nthrough to GENERIC_KVM_PROFILE (disk_bus=\"virtio\", 512MB RAM cap). The on-disk\nimage (barracuda-fw8, id 97396424-2590-4473-b119-9763441a38b1) is IDE-formatted,\nso virtio meant the guest never saw a bootable disk; separately, the 512MB cap is\nunder Barracuda CloudGen NGFW's real footprint - live-observed the node sitting at\n563/512 MB (110% of cap) under the hypervisor's soft RAM ceiling. Same class of gap\nalready fixed once for \"esxi\" above (2026-07-18) and \"isrv\"/\"titanium\" before that.",
+ "reasons": {
+  "nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/barracuda.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824.",
+  "console": "console corrected 2026-07-23 from a live cross-reference against EVE-NG PRO v7's own\nproduction template for this exact image (root@<eveng-box>:/opt/unetlab/html/\ntemplates/intel/barracuda.yml): `qemu_options: -machine type=pc,accel=kvm -vga std\n-usbdevice tablet -boot order=dc` - real VGA + pointer hardware, the same signal\nthat root-caused cumulus-vx's silent zero-console-output bug (NPX-297). NOT\nlive-boot-verified here (unlike cumulus-vx's real `virsh screenshot` proof) -\napplied from cross-reference evidence alone, disclosed per rule #31."
+ },
+ "settings": {
+  "boot_timeout_sec": 240,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 2,
+  "default_ram_mb": 2048,
+  "description": "Barracuda CloudGen NGFW.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 512,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "recommended_ram_mb": 2048,
+  "role": "firewall",
+  "vendor": "barracuda"
+ }
+}

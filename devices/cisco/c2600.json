@@ -1,0 +1,27 @@
+{
+ "key": "c2600",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "min_ram_mb": "NPX-1724 (rule #59 written deviation): default 96 MB boot-loops\nc2600-adventerprisek9-mz.124-15.T14 (\"Configured I/O memory percentage was too\nlarge ... %Software-forced reload\", live on twin-a via the platform, 2026-09-25);\n256 MB boots. The real EVE-NG c2600.yml was unreachable (<eveng-box>) and is not\nin docs/reference, so 256 is set from that live evidence + EVE's own c2691/c3725\n256 MB defaults. Re-check against the real template when the box is reachable."
+ },
+ "settings": {
+  "boot_timeout_sec": 120,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 256,
+  "description": "Cisco 2600 series router (Dynamips).",
+  "disk_bus": null,
+  "emulator": "dynamips",
+  "max_cpu": 1,
+  "max_ram_mb": 256,
+  "min_ram_mb": 64,
+  "nic": "c2600-mb-2fe",
+  "node_class": "router",
+  "platform": "c2600",
+  "recommended_ram_mb": 256,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

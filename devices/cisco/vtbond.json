@@ -1,0 +1,34 @@
+{
+ "key": "vtbond",
+ "source": "netplex-tested",
+ "tested": "── Cisco/Viptela legacy SD-WAN (vtbond/vtedge/vtsmart image folder naming) ──────\nUnlike the \"cisco-catc*\"/\"cisco-vtmgmt\" keys above (which only match names that\ncarry an explicit \"cisco-\" vendor prefix), these three images are catalogued on\nthis platform WITHOUT that prefix - image-manager's unpacked-folder auto-detector\nnames them straight off their folder (\"vtbond-16.2.11\" -> record.name \"vtbond\",\nsame for vtedge/vtsmart; confirmed live via GET /api/v1/images). None of the\n\"cisco-vt*\" keys above ever matched these three real images (verified with\nget_profile_key() against the live records: \"vtedge\" -> None before this fix,\n\"cisco-catc8k-1.0\" -> \"cisco-catc\" for comparison) - they silently fell through to\nGENERIC_KVM_PROFILE (512 MB / 1 vCPU) every time, an 8x CPU shortfall for vEdge vs.\nthe certified matrix in docs/platform/node-emulation.md (Cisco SD-WAN & Management\ntable). Keyed WITHOUT the \"cisco-\" prefix so they match both this platform's actual\nbare naming and a \"cisco-vtedge-...\" style name if one is ever imported (substring\nmatch, see get_profile() docstring) - \"vtedge\"/\"vtbond\"/\"vtsmart\" don't collide with\nany other key (\"catvedge\" - the newer Catalyst SD-WAN vEdge - does NOT contain the\nsubstring \"vtedge\", confirmed).",
+ "reasons": {
+  "vendor": "rule #59 reason: ram 2048 / cpu 2 vs EVE 1024 / 1 - Viptela vBond vendor minimum (2 GB, 2 vCPU), enforced by min_enforcement below; EVE default is below vendor floor.",
+  "config_dialect": "NPX-818 (Wave 21 U3): Cisco's SD-WAN (Viptela) boxes carry vendor \"cisco\", which\nsent every one of them to VENDOR_CLI[\"cisco\"] - IOS verbs. Viptela is not IOS: it\nis a confd CLI whose configuration mode is entered with \"config\", committed with\n\"commit and-quit\" and paged off with \"paginate false\", and whose \"end\"/\"write\nmemory\" equivalents do not exist. VENDOR_CLI already carries the correct\n\"viptela\" dialect (authored and live-proved in an earlier wave); nothing ever\nreached it, because a dialect is only selected by the vendor string unless a\nprofile names it. This is the same shape as NPX-617 (IOS-XR reached the IOS\ndialect through vendor \"cisco\" and silently lost every config), so it is fixed\nthe same way and for the same reason.",
+  "emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\nvtbond.yml (\"-cpu host\") - no comment ever addressed this field, unlike the RAM/CPU\nfloor above which is documented via min_enforcement."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "viptela",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 2048,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "Viptela vBond requires minimum 2 GB RAM and 2 vCPUs",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "recommended_ram_mb": 4096,
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

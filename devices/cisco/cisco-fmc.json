@@ -1,0 +1,28 @@
+{
+ "key": "cisco-fmc",
+ "source": "netplex-tested",
+ "tested": "── Cisco FMC / FTD ─────────────────────────────────────────────────────────",
+ "reasons": {
+  "emulator": "rule #59 (2026-09-21, NPX-1266): machine reverted to EVE-NG fmc7/ftd7 (pc); q35 came from the 2026-06-04 bulk table with no boot evidence.",
+  "min_ram_mb": "rule #59 (2026-09-21, NPX-1266): default RAM 28672 (= Cisco's 28 GB FMC minimum, min_ram_mb) instead of 32768; EVE-NG's 28762 is not a multiple of RAM_STEP_MB (128) so the nearest allowed step below it is used. 32768 stays as recommended_ram_mb."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 4,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 28672,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "FMC requires minimum 28 GB RAM and 4 vCPUs",
+  "min_ram_mb": 28672,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "recommended_ram_mb": 32768,
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

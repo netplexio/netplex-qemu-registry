@@ -1,0 +1,23 @@
+{
+ "key": "sonic-vs",
+ "source": "netplex-tested",
+ "tested": "── SONiC (open-source NOS) ──────────────────────────────────────────────────\nSONiC-VS = the community \"Virtual Switch\" KVM image - the standard emulation\nroute for SONiC. It boots a full containerised NOS internally, so it is slow\nto come up and RAM-hungry. Login: admin / YourPaSsWoRd. Serial console over telnet.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "e1000",
+  "node_class": "switch",
+  "recommended_ram_mb": 4096,
+  "role": "switchL3",
+  "vendor": "sonic"
+ }
+}

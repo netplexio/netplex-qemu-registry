@@ -1,0 +1,31 @@
+{
+ "key": "pfsense",
+ "source": "netplex-tested",
+ "tested": "── pfSense ──────────────────────────────────────────────────────────────────",
+ "reasons": {
+  "emulator": "NPX-1200 (2026-09-16, the project owner's own correction: \"pfsense is not juniper. it's\na standalone vendor. if you have old version, then download a new one.\"):\nreplaces the old VGA-only pfsense-2.3.3 image (NPX-821's own console: \"vnc\"\nentry, kept below in spirit but now wrong) with pfSense CE's OWN official\n\"memstick-serial\" build - a real, current, free/open-source download (no\nvendor-licensing barrier, unlike this project's other vendor images), built\nby pfSense specifically for a serial-getty-only boot, no VGA/keyboard.\nLIVE-VERIFIED 2026-09-16 on VM 702 (<test-vm>, netplex-qtest-02, real\nQEMU/KVM, not a claim): pfSense CE 2.7.2 (pfSense-CE-memstick-serial-\n2.7.2-RELEASE-amd64.img.gz, sha256 bc3ee3d82b8195387114a64c3398505f238a6cb\n5393ae9b2d45d1bf9408ed192, from pfSense's own official download mirror\natxfiles.netgate.com - 2.8.x exists on the download page but that mirror has\nno memstick-serial build for it yet, checked directly, 404) - real console\nshows \"uart0: <16550 or compatible> ... console (115200,n,8,1)\" and \"Dual\nConsole: Serial Primary, Video Secondary\" on every boot, and a real\nunattended install (bsdinstall, UFS auto-partition) + interface assignment\n(WAN=vtnet0, LAN=vtnet1) produced a golden image that reaches pfSense's own\nnumbered \"Enter an option:\" console menu with NO VGA framebuffer involved.",
+  "console": "console: \"telnet\" (serial), not \"vnc\" - the whole point of the memstick-\nserial build. console_init sends a blank line first since pfSense's console\ntype prompt (\"Console type [vt100]:\") accepts Enter for its own default.",
+  "day0_channel": "NPX-1200: real, verified EVE-NG convention (config_pfsense.py on the real\nEVE-NG box, <eveng-box>) adapted for netplex's own golden image, which - unlike\nEVE-NG's virgin image - is pre-assigned at build time and so boots straight to\nthe numbered menu with no VLAN/interface-assignment prompt. See\nday0_channels.py's PfsenseCdromCopyChannel docstring for the full, live-\nverified command sequence and boot evidence."
+ },
+ "settings": {
+  "boot_timeout_sec": 240,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "day0_channel": "pfsense-ecl-disk",
+  "default_ram_mb": 2048,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "firewall",
+  "vendor": "pfsense"
+ }
+}

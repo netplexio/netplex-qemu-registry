@@ -1,0 +1,40 @@
+{
+ "key": "viosl2",
+ "source": "netplex-tested",
+ "tested": "W17 gaps (NPX-1814, rule #59): \"cisco-iosvl2\"/\"iosvl2\" used to be their OWN profiles\n(512 MB, no QEMU pin, virtio-net-pci) - a second, undocumented set of hardware defaults for\nthe SAME Cisco IOSvL2 product EVE-NG ships as viosl2.yml (1024 MB, QEMU 2.4.0, e1000). A\nfolder named \"iosvl2-<ver>\" imported through the API therefore booted on system QEMU with half\nthe RAM of the identical file imported through the drop-folder (named vios_l2-*, viosl2\nprofile). Live-proven on VM 708 (2026-09-26): same iosvl2-2020 qcow2, API import -> 512 MB /\nQEMU 10.2, drop-folder import -> 1024 MB / QEMU 2.4.0. They are now plain aliases of \"viosl2\"\n(see the PROFILES[\"iosvl2\"] alias block below) so the two names can never disagree again.\n\"viosl2-adventerprisek9-m-*\" image folder format - VERIFIED 2026-06-01\nNPX-457/NPX-496: EVE-NG pins this template to qemu_version 2.4.0, which\nisn't in netplex's built major-line set (see QEMU_BUILT_VERSIONS) - 2.4.0\nsnaps to 2.12.0, the built representative of the same 2.x major line and\nalready the single most-common EVE pin across all templates (97/155).\nNOT YET live-boot-verified under 2.12.0 - this is NPX-496's open Wave 3\nblocker (rule 22 - no unverified claims until a real console prompt is seen).",
+ "reasons": {
+  "day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+  "emulator": "cpu_model host + qemu_arch x86_64 (2026-08-20, netplex rule #33 - EVE-NG's real\nviosl2.yml: `qemu_arch: x86_64`, `-cpu host`; previously qemu64/i686 here, the\nLLA-008 divergence). Live serial.log on netplex's own viosl2-15.2.4.55e with the old\nvalues: a memory-pool corruption dump -> %Software-forced reload, then on reboot\n\"CPU exception occurred: Overflow(4) ... Unexpected exception to CPU: vector 4,\nPC/EIP = 0x8E1659\" - deterministic, CPU-level, reproduced with virtio extras OFF.",
+  "qemu_version_default": "NPX-1810 rule #59: EVE viosl2.yml pin; 2.4.0 is built since NPX-1139 (same revert as vios, NPX-1266); needs live re-verify",
+  "min_ram_mb": "min/default_ram_mb 512/1024, not 512/768 (2026-09-12, Wave 21 close, netplex rule\n#33 - rechecked EVE-NG's own viosl2.yml: `ram: 1024`, not 768). Live-reproduced on\nnetplex's own viosl2-15.2.4.55e with the OLD 768 value: the exact same\n\"Corrupted redzone blk ... alloc ... InUse\" heap-corruption panic this profile's own\ncomment already documents, immediately followed by the \"CPU exception ... vector 4\"\ncrash - both symptoms are consistent with IOS's internal memory pools running out of\nroom at 768MB (a redzone/guard-byte corruption report IS a heap allocator complaining\nabout running out of headroom, not a CPU/virtio config issue, which the 2026-08-20 fix\nabove already ruled out as the sole cause). 1024MB matches EVE-NG's real template\nexactly - not a guess.\nmin_ram_mb ALSO raised to 1024 (not left at 512), found live while proving the fix\nabove: `providers/qemu.py`'s RAM-floor bump (`_eff_ram = int(node.ram or 512)`, then\nbump only `if _eff_ram < _min_ram`) never fires when a caller creates a node with no\nexplicit `ram` at all, because `NodeDefinition.ram`'s own default (512) is NOT below\na min_ram_mb of 512 - the exact same \"no unset-sentinel\" gap this file's own qemu.py\ncomment already documents for `cpu` (bump only fires when the model default of 1 is\nbelow the profile's cpu, which was always true for cpu but was never true for RAM\nhere since both defaulted to 512). Confirmed live: a node created with no explicit\nram genuinely booted at 512MB (`virsh dumpxml` showed `<memory unit='KiB'>524288`)\neven with default_ram_mb=1024 above. EVE-NG's own viosl2.yml has only one RAM value\n(1024) with no separate floor, so setting min == default here matches it exactly and\nis the narrow, single-profile fix - NOT touching qemu.py's shared bump logic itself\n(rule #26: that would change every other profile's floor behaviour too).",
+  "boot_timeout_sec": "boot_timeout_sec 400, not 240 (2026-08-22, LLA-074) - same IOSv-family boot-banner\nevidence as \"iosvl2\"/\"cisco-iosvl2\" above, which already carry 400s for this exact\nreason; this profile's node_config.py/serial_manager.py retry-window budgets scale\noff this value, so 240s was cutting day-0 read windows short even before the\ncpu_quota_period_us fix below existed.",
+  "virtio_extras": "virtio_extras=False (2026-08-20, Wave 3 real serial.log evidence, EVE-NG parity -\n`-nodefaults`): IOSvL2 15.2.4.55e logs \"%VIRTIO-3-INIT_FAIL ... PCI 0/6/0/1002\" and\n\"PCI 0/7/0/1005 ... device is disabled, not supported\" for libvirt's default\nmemballoon (0x1002) and rng (0x1005) devices on every boot. Omit both for this image.",
+  "cpu_quota_period_us": "cpu_quota_period_us=1000000 (LLA-074, 2026-08-22, unchanged): 1,000,000us is also\nlibvirt's hard ceiling for <cputune><global_period> (\"Value of cputune 'global_period'\nmust be in range [1000, 1000000]\", confirmed live 2026-09-29 trying to widen it further\nfor the NPX-1220 fix below - node start failed 422 on this exact schema error) - the\nperiod cannot be widened past what LLA-074 already set.",
+  "cpu_quota_burst": "cpu_quota_burst=2.5 (2026-09-29, NPX-1220): period is already at libvirt's max (above),\nso the only remaining lever against 1s-period throttling is the quota SIZE. Live cgroup\ncpu.stat on a fresh viosl2-15.2.4.55e boot with this profile's real 12 e1000 NICs (EVE-NG\nparity, not a test artifact), doing \"crypto key generate rsa modulus 2048\" at day-0,\nreproduced identically across 3 separate node instances: nr_periods=122/nr_throttled=105\n(86%) at the default 1x-cpu quota (providers/qemu.py's global_quota = cpu*period) - worse\nthan the 41% LLA-074 validated, because that validation never exercised this image's real\n12-NIC topology. qemu.py's own <cputune> comment already documents this exact domain's\nUNCAPPED usage peaking at 140-240% CPU (vcpu + emulator + per-NIC iothread work combined)\nbefore global_quota was introduced to cap it at 100% - so a 2.5x quota multiplier still\ncaps well under that observed peak (never re-opening the original 140-240% runaway\n`<cputune><quota>` was added to fix) while giving the emulator thread's 12-NIC I/O work\nand the RSA keygen CPU spike enough combined headroom to land inside one 1s window\ninstead of tripping the hard cutoff mid-computation. `cpu` (vCPU count, still 1, EVE-NG\nparity) is intentionally NOT raised - this widens only the burst ceiling the whole-domain\ncgroup is allowed, not the guest's own visible core count. See providers/qemu.py's\n`_cpu_quota_burst` for how this multiplies into <global_quota>."
+ },
+ "settings": {
+  "boot_timeout_sec": 400,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "cpu_quota_burst": 2.5,
+  "cpu_quota_period_us": 1000000,
+  "day0_channel": "ios-config-disk",
+  "default_ram_mb": 1024,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "e1000",
+  "node_class": "switch",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "2.4.0"
+  ],
+  "qemu_version_default": "2.4.0",
+  "role": "switchL2",
+  "vendor": "cisco",
+  "virtio_extras": false
+ }
+}

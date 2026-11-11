@@ -1,0 +1,17 @@
+{
+ "key": "aos",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "console": "vnc",
+  "cpu": 8,
+  "default_ram_mb": 16384,
+  "emulator": "qemu",
+  "interfaces": 1,
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64"
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "key": "cisco-cat-ios-xe-9000v",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "multilayer_switch",
+  "console": "telnet",
+  "cpu": 4,
+  "default_ram_mb": 24576,
+  "emulator": "qemu",
+  "interfaces": 9,
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "cisco"
+ }
+}

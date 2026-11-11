@@ -1,0 +1,27 @@
+{
+ "key": "csr1000vng-ucmk9",
+ "source": "netplex-tested",
+ "tested": "NPX-1035 (2026-09-11): the SD-WAN (ucmk9) CSR1000v build copies cisco-csr1000vng and adds config_dialect cisco-sdwan - its SD-WAN control plane refuses `configure terminal`, so plain IOS typing lands as EXEC gibberish (live-proved, same failure shape as NPX-818 vtedge). Keyed csr1000vng-ucmk9 (16 chars after normalisation) so it wins the longest-match over the shorter csr1000vng. NPX-5053C: day0_channel is deliberately NOT set - CVAC is only live-proven on the universalk9 image (rule #22).",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 3600,
+  "config_dialect": "cisco-sdwan",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "vmxnet3",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

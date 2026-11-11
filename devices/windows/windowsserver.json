@@ -1,0 +1,29 @@
+{
+ "key": "windowsserver",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 1,
+  "cpu_model": "host,+fsgsbase",
+  "default_ram_mb": 8192,
+  "description": "Windows Server. No netplex-held image - hardware defaults only, copied from the vendor's reference template, NOT live-boot-verified (boot test waived by the project owner 2026-10-02).",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "e1000",
+  "node_class": "server",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "server",
+  "vendor": "windows"
+ },
+ "group": "windows"
+}

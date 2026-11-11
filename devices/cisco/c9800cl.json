@@ -1,0 +1,29 @@
+{
+ "key": "c9800cl",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "EVE-NG c9800cl.yml: qemu 2.12.0 (already netplex's own most-common pin),\nvmxnet3 NIC, plain -serial mon:stdio (no VGA) - a genuinely simple,\ntelnet-console-only profile, unlike cat9kv's ISO-boot family above."
+ },
+ "settings": {
+  "boot_timeout_sec": 480,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "description": "Cisco Catalyst 9800-CL wireless LAN controller. No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "vmxnet3",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

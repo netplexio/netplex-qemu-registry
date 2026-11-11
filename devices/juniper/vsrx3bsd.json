@@ -1,0 +1,23 @@
+{
+ "key": "vsrx3bsd",
+ "source": "netplex-tested",
+ "tested": "vSRX3 (x86-64) - image-manager/detector.py's other documented Juniper-firewall\nnaming convention (\"vsrx3bsd-...\"). Not a real gap THIS device hit (no vsrx3bsd\nimage is registered on this host today), but \"vsrx3bsd\" shares the \"vsrx\" prefix\nwith the alias just added above - _SORTED_KEYS is longest-key-first, so without\nthis explicit (longer) entry a future vsrx3bsd- image would incorrectly inherit\nthe legacy 12.1X47 \"vsrx\" profile instead of falling through to GENERIC_KVM_PROFILE\nas it does today. Mirrors juniper-vsrxng (same modern/Linux-based NG generation\nper detector.py's table) rather than inventing new numbers.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 360,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_arch": "x86_64",
+  "role": "firewall",
+  "vendor": "juniper"
+ }
+}

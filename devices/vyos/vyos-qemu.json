@@ -1,0 +1,28 @@
+{
+ "key": "vyos-qemu",
+ "source": "netplex-tested",
+ "tested": "── VyOS (QEMU image) ────────────────────────────────────────────────────────",
+ "reasons": {
+  "emulator": "VERIFIED 2026-06-01: VyOS 1.5 rolling boots on virtio/x86_64.\nlabhub: \"VyOS vRouter/vyos-1.5-rolling-amd64.tgz\" → virtioa.qcow2",
+  "min_ram_mb": "RAM bumped 512 -> 1024 (2026-07-28, live-found): the guest ran at 108% of its\n512 MB cap continuously for its ENTIRE lifetime while merely idling at a login\nprompt (node-manager's own monitor logged \"[OOM] VM node vy1 at 108% of RAM cap\n(553/512 MB)\" every ~10s, non-stop). Confirmed live that 1024 MB eliminates the\nOOM pressure entirely (zero such warnings across the same idle window). VyOS\n1.5-rolling's own documented minimum is 1 GB - 512 MB was undersized from the\nstart, not a regression.",
+  "nic": "nic virtio-net-pci vs EVE-NG vyos.yml e1000 (rule #59 drift, reviewed 2026-09-20 Wave 17): VyOS 1.5 rolling\nboots + passes traffic on virtio (VERIFIED 2026-06-01, live sweep 2026-09-20 import+boot), virtio is the\nnetplex default paravirtual NIC for KVM Linux guests; this image does not need e1000.",
+  "day0_channel": "Day-0 (NPX-4988): written onto the node's own overlay BEFORE power-on (VyosConfigPartitionChannel,\nday0_disk_channels.py): this bundled 1.5-rolling image has no cloud-init and no CD reader (measured 2026-07-28:\n/etc/cloud missing, vyos-config-cloud-init.service never runs), and console typing is banned by the project owner's\nno-console-automation rule. VyOS's own boot loads <rw>/opt/vyatta/etc/config/config.boot and runs\nconfig/scripts/vyos-postconfig-bootup.script, so that is where the pasted config is put."
+ },
+ "settings": {
+  "boot_timeout_sec": 120,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "day0_channel": "vyos-config-partition",
+  "default_ram_mb": 1024,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "role": "router",
+  "vendor": "vyos"
+ }
+}

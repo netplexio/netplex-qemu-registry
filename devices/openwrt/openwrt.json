@@ -1,0 +1,25 @@
+{
+ "key": "openwrt",
+ "source": "netplex-tested",
+ "tested": "── OpenWrt ──────────────────────────────────────────────────────────────────",
+ "reasons": {
+  "emulator": "rule #59: no EVE template exists; nic/disk/RAM chosen by NPX-1769 (GNS3 openwrt.gns3a), no qemu pin.",
+  "nic": "NPX-1769: GNS3 openwrt.gns3a value (rule #59); LEDE kernel lacks virtio-blk"
+ },
+ "settings": {
+  "boot_timeout_sec": 60,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 256,
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 128,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "role": "router",
+  "vendor": "openwrt"
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "key": "acs",
+ "source": "netplex-tested",
+ "tested": "=========================================================================\nEVE-NG PARITY WAVE 4 (2026-07-21) - hardware defaults for the 73 EVE-NG-template\ngaps (docs/reference/eveng-template-coverage-matrix-2026-07-21.md). RAM/CPU are the\nvendor-recommended specs from EVE-NG's own live template YAMLs (pulled 2026-07-21),\nnot guessed. NOT boot-verified against a real image (netplex holds none of these\nyet) - machine/cpu_model/nic/disk_bus/console/boot_timeout_sec are the same safe\ngeneric QEMU-appliance defaults every not-yet-verified profile in this file uses;\ncorrect them from real boot evidence the day a BYO image is actually tested.\n=========================================================================",
+ "reasons": {
+  "qemu_version_default": "rule #59: acs.yml has no EVE qemu_version pin; 2.12.0 = netplex no-pin fallback (csp-vpn-gate/NPX-1792)"
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 4096,
+  "description": "Cisco Secure Access Control Server (AAA/RADIUS/TACACS+) - not yet boot-verified (no netplex-held image); defaults from vendor-published specs.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "appliance",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "appliance",
+  "vendor": "cisco"
+ }
+}

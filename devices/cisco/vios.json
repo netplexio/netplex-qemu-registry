@@ -1,0 +1,34 @@
+{
+ "key": "vios",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+  "emulator": "cpu_model host + qemu_arch x86_64 (2026-09-10, NPX-460): this entry had never\ngotten the same fix its switch sibling \"viosl2\" got on 2026-08-20 for the\nidentical documented crash (netplex rule #33) - EVE-NG's own vios.yml pins\n`qemu_arch: x86_64`, `-cpu host`, same as viosl2.yml. See viosl2's own comment\na few entries below for the exact live crash signature (memory-pool\ncorruption -> CPU exception vector 4) this class of mismatch produces.",
+  "qemu_version_default": "rule #59 (2026-09-21, NPX-1266): Reverted to EVE-NG's pin (2.4.0). The old 2.12.0 was only a fallback from before QEMU 2.4.0 could be built (NPX-457/NPX-1139, built+lane-verified 2026-09-16); that reason no longer exists.",
+  "boot_timeout_sec": "boot_timeout_sec 240 -> 400 (2026-09-11, Wave 21 U7 + NPX-1031/1032 live\nretest): this entry's own comment at the top says \"identical underlying\nsoftware\" to \"iosv\" above, which already carries 400s - the 240s here was\nan inconsistency, not a deliberately-measured-lower value. Live-reproduced\non this exact image (vios-adventerprisek9-m-SPA.157-3.M3/159-3.M4, node-manager\nreq af4aafa0/deda8b50): the initial-config-dialog genuinely needed more than\none apply_config_serial retry cycle to clear (each cycle costs 30-90s of real\nwall clock: boot-banner read + _dismiss_setup_dialog's own poll + the send/\nread round trip) - `_retry_deadline_s`'s floor (max(180, boot_timeout-80))\nonly gave this device 180s (240-80=160, below the 180 floor), enough for\nroughly 2 real attempts, not enough for the dialog to reliably clear. 400s\nmatches iosv's own already-evidenced value and gives max(180, 320)=320s."
+ },
+ "settings": {
+  "boot_timeout_sec": 400,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "day0_channel": "ios-config-disk",
+  "default_ram_mb": 1024,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "router",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "2.4.0"
+  ],
+  "qemu_version_default": "2.4.0",
+  "recommended_ram_mb": 1024,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "key": "ovs-switch",
+ "source": "netplex-tested",
+ "tested": "── Built-in virtual nodes (zero external image, OVS does the real work) ──",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 2,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 1,
+  "default_ram_mb": 64,
+  "emulator": "docker",
+  "image": "alpine:latest",
+  "min_ram_mb": 16,
+  "node_class": "switch",
+  "role": "switchL2",
+  "vendor": "generic"
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "key": "tacacsgui",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "guest",
+  "console": "telnet",
+  "default_ram_mb": 4096,
+  "emulator": "qemu",
+  "interfaces": 1,
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "tacacsgui"
+ }
+}

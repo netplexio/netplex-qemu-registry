@@ -1,0 +1,25 @@
+{
+ "key": "netapp-ontapsim",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "GNS3's own template gives a real explicit vCPU count (2)."
+ },
+ "settings": {
+  "boot_timeout_sec": 480,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 8192,
+  "description": "NetApp ONTAP Simulator. No netplex-held image yet - hardware defaults only (kvm required), NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "e1000",
+  "node_class": "server",
+  "role": "server",
+  "vendor": "netapp"
+ }
+}

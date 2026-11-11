@@ -1,0 +1,27 @@
+{
+ "key": "tpgen-adventerprisek9",
+ "source": "netplex-tested",
+ "tested": "NPX-137 (2026-09-12): a real IOL L3 binary imported and registered as\n\"tpgen-adventerprisek9-124\" (the vendor-image DIRECTORY name was used as the\nregistry `name`, not the actual binary filename inside it,\n`i86bi-linux-l3-tpgen-adventerprisek9-12.4.bin`) - the same class of \"bare-named\nIOL build\" this section's \"l2-adventerprisek9\"/\"l3-adventerprisek9\" entries already\nexist for, just with a \"tpgen-\" prefix neither of those two keys' prefix/substring\nmatching covers. Without this entry, `_match_profile_key`/`_match_data_iface_key`\nboth silently fail to recognize this image as IOL at all, and\n`data_interface_name()` falls all the way back to the generic-Linux \"eth0\" instead\nof this platform's real \"Ethernet0/0\" - live-reproduced: boot_verify.py's\ndataplane-verify stage sent a real \"no shutdown\" to a data-plane interface named\n\"eth0\" that does not exist on this device, so the real interface stayed\nadministratively down and the check correctly (if unhelpfully) reported zero\nframes forwarded, even though the image itself boots and takes console commands\ncompletely normally (confirmed via a direct single-node reproduction).",
+ "reasons": {
+  "min_ram_mb": "default_ram_mb 512 -> 1024 (NPX-1527 PROFILES-TOOLS pass-3, rule #59): EVE-NG's\nreal iol.yml sets ram: 1024 with no separate default/floor split - the old 512\nhere had no written reason, matching EVE exactly now.",
+  "nic": "NPX-1527 review (Wave 38): IolProvider.get_console returns ConsoleType.SERIAL (raw PTY bridge), so the profile must say \"serial\" - not EVE's \"telnet\" label; verified in iol_provider.py get_console. No consumer treats the two differently today."
+ },
+ "settings": {
+  "boot_timeout_sec": 60,
+  "console": "serial",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 1024,
+  "description": "Cisco IOL L3 router (bare-named build, tpgen- vendor-directory naming) - requires 32-bit userspace libc.",
+  "disk_bus": null,
+  "emulator": "iol",
+  "max_cpu": 1,
+  "min_ram_mb": 256,
+  "nic": null,
+  "node_class": "router",
+  "platform": "i86bi",
+  "recommended_ram_mb": 1024,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

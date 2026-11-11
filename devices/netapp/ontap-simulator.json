@@ -1,0 +1,18 @@
+{
+ "key": "ontap-simulator",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "guest",
+  "console": "vnc",
+  "cpu": 2,
+  "default_ram_mb": 8192,
+  "emulator": "qemu",
+  "interfaces": 4,
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "netapp"
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "key": "cznic-bird",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "GNS3's real bird.gns3a specifies a scsi disk interface (the same real\nsignal used for nethesis-nethsecurity above) - machine left at bare\n\"pc\", letting qemu.py's own disk_bus heuristic auto-upgrade to q35.",
+  "description": "58): reaches the real 'debian login:' prompt with bird.service started - this fix depended on NPX-1167's own virtio-scsi controller fix (this profile's disk_bus is scsi; before the fix, the kernel's initramfs could not find the root filesystem device at all under the wrong emulated SCSI controller). Wave 38.12/NPX-1167.\","
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 512,
+  "description": "CZ.NIC BIRD internet routing daemon. Real image sourced 2026-09-17 from a ready-made Debian+bird2 qcow2 build (BIRD's own upstream project distributes only a Linux package, not a VM image) - md5-verified byte-for-byte against the published checksum (029cf1756201ee79497c169502b08b88). Live-boot-verified through netplex's real platform (rule #58): reaches the real 'debian login:' prompt with bird.service started - this fix depended on NPX-1167's own virtio-scsi controller fix (this profile's disk_bus is scsi; before the fix, the kernel's initramfs could not find the root filesystem device at all under the wrong emulated SCSI controller). Wave 38.12/NPX-1167.",
+  "disk_bus": "scsi",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 512,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "role": "router",
+  "vendor": "cznic"
+ }
+}

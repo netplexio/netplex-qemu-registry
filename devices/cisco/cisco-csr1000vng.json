@@ -1,0 +1,32 @@
+{
+ "key": "cisco-csr1000vng",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "emulator": "VERIFIED 2026-06-01: CSR1000v 17.03.08a boots in <5s with host-passthrough.\nConsole prompt appears immediately: CSR1000V",
+  "boot_timeout_sec": "NPX-5053C: see below - measured twice, 360 was a guess, 2400 was one sample",
+  "node_class": "NPX-5053C (10 Nov 2026, live on VM .68, 6-vCPU KVM): run csr3 took 1792 s from power-on to\n\"%CVAC-4-CONFIG_DONE\" (the \"<5 s\" above is the bootloader prompt, not IOS-XE); with 360 s the user saw\n\"Startup config did not apply\" while CVAC applied it 24 min later. Run csr5: the fresh overlay's first boot\nfsck-repaired its 10 partitions for 32 min (%IOSXEBOOT-4-FILESYS_REPAIR, I/O bound), IOS-XE up at 2717 s,\n2400 had expired 5 min earlier. 3600 = slower sample + 1/3; the CVAC marker watch spans this same budget.",
+  "day0_channel": "NPX-5053C (10 Nov 2026, live on VM .68): the real vendor file csr1000vng-17.03.08a.qcow2\nresolves HERE (longest prefix \"cisco-csr1000vng\" beats \"csr1000v\"), and this key had no\nday0_channel - so a pasted startup config built no CVAC ISO and the guest sat in the\n\"initial configuration dialog\" for the whole 45 min budget. Same IOS-XE CVAC as the\n\"csr1000v\" key below (CvacChannel, iosxe_config.txt on a CD-ROM)."
+ },
+ "settings": {
+  "boot_timeout_sec": 3600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "day0_channel": "cvac",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "vmxnet3",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

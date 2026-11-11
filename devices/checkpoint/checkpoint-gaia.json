@@ -1,0 +1,25 @@
+{
+ "key": "checkpoint-gaia",
+ "source": "netplex-tested",
+ "tested": "── Security / UTM (Wave 38.12/NPX-1167, 2026-09-16) ────────────────────────\nConfirmed real gaps by NPX-1167's phase 1b audit (final-gap-classification.md,\n\"Security / UTM\" group). No netplex-held image for any of these 5 - NOT\nlive-boot-verified.",
+ "reasons": {
+  "vendor": "No EVE-NG template - sourced from GNS3's real checkpoint-gaia.gns3a\n(catalog-diff/gns3-catalog.md row 45)."
+ },
+ "settings": {
+  "boot_timeout_sec": 420,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "description": "Checkpoint Gaia OS. No netplex-held image yet - hardware defaults only (kvm required), NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "e1000",
+  "node_class": "firewall",
+  "role": "firewall",
+  "vendor": "checkpoint"
+ }
+}

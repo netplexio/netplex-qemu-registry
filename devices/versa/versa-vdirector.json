@@ -1,0 +1,27 @@
+{
+ "key": "versa-vdirector",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 360,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 8192,
+  "description": "Versa Networks vDirector - NOT live-boot-verified (no netplex-held image; RAM/CPU/NIC from the vendor reference template)",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "server",
+  "vendor": "versa"
+ }
+}

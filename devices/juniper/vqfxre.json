@@ -1,0 +1,31 @@
+{
+ "key": "vqfxre",
+ "source": "netplex-tested",
+ "tested": "No entries existed for \"vqfxre\"/\"vqfxpfe\" (Juniper vQFX virtual switch: Routing\nEngine + Packet Forwarding Engine, split the same way vMX splits into VCP/VFP) -\nboth fell through to GENERIC_KVM_PROFILE (512MB RAM, disk_bus=\"virtio\"). Same two-\ntables-drifted class as barracuda/sonicwall/csp-vpn-gate/vmx above: image_profiles.py\nalready has \"vqfxre\": (\"ide\", ...) and \"vqfxpfe\": (\"ide\", ...). Found 2026-07-23 with\nDIRECT live evidence, not just the vendor minimum: a real vqfxre node hit 1970MB of\nactual usage against the old 512MB cap (385% - host-guard's hypervisor RAM cap kept\nit alive but starved). Juniper's own published vQFX minimum is 1024MB per component;\ndefault_ram_mb set to 2048 for both - comfortably above both the published minimum\nand the observed 1970MB real usage.\nboot_timeout_sec raised 360 -> 1500 (Wave 21 U6, 2026-09-07): a live isolated repro\nof vqfxre-10K-F-20.3R1.8 (needed 2 attempts to get a trustworthy read - see the\ntracker's Wave 21 U6 vqfxre subsection for the two contaminated/false-positive\nattempts first) showed a genuine console `login:` prompt at t=937.5s, syslog noise\nsettling by t=946.7s, then a fully idle console (only telnet keepalive NOPs) out to\nt=1775s with zero further boot text - i.e. the real boot-to-login time is ~950-960s,\nnearly 3x the old 360s cap. 1500s gives ~550s of margin above the observed time,\nconsistent with this file's margin convention for other slow-booting devices.",
+ "reasons": {
+  "vendor": "NPX-1245 (rule #59): RAM 3072 + QEMU 2.0.2 = EVE vqfxre.yml; booted through the platform (lab API, node start, console bytes) on VM .83, qemu argv confirmed /opt/netplex/qemu/2.0.2 + -m 3072.",
+  "day0_channel": "NPX-1213 ROOT CAUSE FOUND (2026-09-16): the earlier attempt tagged this\nprofile with \"juniper-config-drive\" (JuniperConfigDriveChannel) and hit a\nreal, reproducible 25+ minute hang with zero console output. That channel\nwas simply the WRONG one for this device - its own sibling class,\nJuniperCdromMountChannel, documents in its own docstring (day0_channels.py)\nthat \"vmx/vqfxre use /dev/vtbd0\", i.e. this exact image belongs to the\ntyped-mount family (5-command mount+cli+configure+load-set+commit sequence,\ndisk attached as bus=\"virtio\"/device=\"disk\"), NOT the auto-read family\n(JuniperConfigDriveChannel, disk attached as bus=\"sata\"/device=\"cdrom\" -\nconfirmed the likely real cause of the hang: this profile's machine type is\n\"pc\" (i440fx) with a primary disk already on disk_bus=\"ide\", and a SECOND,\nsata-bus cdrom forces libvirt to add an AHCI controller SeaBIOS then hangs\nprobing). \"juniper-cdrom-mount-vtbd0\" is the correct, already-existing\nregistry entry: since this profile's own disk_bus is \"ide\" (not \"virtio\"),\nthe day0 channel's virtio-bus disk is the FIRST virtio block device the\nguest sees, i.e. /dev/vtbd0 - matching the exact device the channel's own\ndocstring names for this family (same reasoning that makes vsrx, whose\nprimary disk_bus IS \"virtio\", correctly use vtbd1 instead - its day0 disk is\nthe SECOND virtio device once the primary one is already vtbd0)."
+ },
+ "settings": {
+  "boot_timeout_sec": 1500,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "day0_channel": "junos-config-partition",
+  "default_ram_mb": 3072,
+  "description": "Juniper vQFX Routing Engine.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "virtio-net-pci",
+  "node_class": "switch",
+  "qemu_version_compatible": [
+   "2.0.2"
+  ],
+  "qemu_version_default": "2.0.2",
+  "role": "switchL3",
+  "vendor": "juniper"
+ }
+}

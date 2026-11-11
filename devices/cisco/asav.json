@@ -1,0 +1,32 @@
+{
+ "key": "asav",
+ "source": "netplex-tested",
+ "tested": "\"asav-*\" image folder format - same profile",
+ "reasons": {
+  "day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+  "emulator": "qemu_version_default: see cisco-asav's comment above - corrected to match\nEVE-NG's real asav.yml pin (2.12.0), not the earlier 4.2.0 guess.",
+  "virtio_extras": "NPX-1180 (rule #59 deviation from a plain default): EVE-NG's real asav.yml\npasses -nodefaults, so its guest never sees libvirt's default memballoon/rng\nvirtio devices. Match that (see qemu.py virtio_extras). Live-boot proven below."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "day0_channel": "asav-day0",
+  "default_ram_mb": 2048,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc-i440fx-focal",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "firewall",
+  "vendor": "cisco",
+  "virtio_extras": false
+ }
+}

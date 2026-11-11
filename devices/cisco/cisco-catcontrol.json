@@ -1,0 +1,31 @@
+{
+ "key": "cisco-catcontrol",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\ncatcontrol.yml, which pins \"-cpu host\" - this field had no comment addressing it\nand no evidenced reason to differ, so it was a leftover qemu64 default, not a decision."
+ },
+ "settings": {
+  "boot_timeout_sec": 360,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "Catalyst SD-WAN Controller requires minimum 4 GB RAM and 2 vCPUs",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "recommended_ram_mb": 8192,
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

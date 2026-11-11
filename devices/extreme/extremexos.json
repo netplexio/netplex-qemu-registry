@@ -1,0 +1,28 @@
+{
+ "key": "extremexos",
+ "source": "netplex-tested",
+ "tested": "\"extremexos-*\" image folder format",
+ "reasons": {
+  "console": "NPX-821 (Wave 21 U3): see the identical note on \"extreme-xos\" above - same\nproduct, same measurement, both image-name shapes must agree or the class a\ndevice gets would depend on which folder name it was ingested under."
+ },
+ "settings": {
+  "boot_timeout_sec": 180,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 2048,
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 512,
+  "nic": "e1000",
+  "node_class": "switch",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "switchL3",
+  "vendor": "extreme"
+ }
+}

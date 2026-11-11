@@ -1,0 +1,27 @@
+{
+ "key": "a10-vthunder",
+ "source": "netplex-tested",
+ "tested": "── Load balancers / ADCs (Wave 38.12/NPX-1167, 2026-09-16) ─────────────────\nA10 vThunder + Radware Alteon confirmed real gaps by NPX-1167's phase 1b\naudit (final-gap-classification.md, \"Load balancers / ADCs\" group). Sourced\nfrom EVE-NG's own real templates (catalog-diff/eveng-catalog.md rows 8/10) -\nboth leave qemu_version unpinned (\"n/a\") and use the old \"pc-1.0\" machine\nalias; per this file's own established convention (every OTHER profile\nnormalizes machine to plain \"pc\", not a literal EVE-NG machine-type string -\nconfirmed no profile in this whole file uses \"pc-1.0\"), kept at \"pc\" here\ntoo rather than an unverified old alias that may not exist in netplex's\nbuilt QEMU binaries. Defaulted to qemu_version 2.12.0 (this file's own\ndominant, well-verified pin for old-but-common appliances) since EVE-NG\nitself gives no specific pin to follow - disclosed honestly, not guessed as\n\"verified\". Neither template passes an explicit -cpu flag, so kept at\nqemu64 per row 38.9's rule (no forced host passthrough without evidence).\nNo netplex-held image for either - NOT live-boot-verified.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 2048,
+  "description": "A10 Networks vThunder ADC. No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "loadbalancer",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "load_balancer",
+  "vendor": "a10"
+ }
+}

@@ -1,0 +1,32 @@
+{
+ "key": "cisco-xrv",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "config_dialect": "IOS-XR, not IOS: its config save is a two-stage commit, so the CLI dialect\ncannot be inferred from vendor=\"cisco\" (which means IOS). Live-proved\n2026-08-30 on a real booted xrv - see VENDOR_CLI[\"iosxr\"] in node_config.py.",
+  "nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/xrv.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824.\nThe bare \"xrv\" key is an alias of this same dict (see the PROFILES[\"xrv\"] line lower down), so it moves with it."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "iosxr",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 3072,
+  "description": "Cisco XRv (IOS-XR) - needs 3 GB+ RAM.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 3072,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "recommended_ram_mb": 4096,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "key": "cisco-sourcefire",
+ "source": "netplex-tested",
+ "tested": "── Cisco Sourcefire NGIPS (acquired 2013; still shipped as its own EVE-NG image\nfamily, \"sourcefire-<ver>\") - had no profile at all, falling through to\nGENERIC_KVM_PROFILE. Sized like its sibling NGIPS product FTD above (same\ninspection-engine class of appliance) - W1 audit 2026-08-30.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 480,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 8192,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "q35",
+  "min_enforcement": true,
+  "min_enforcement_msg": "Sourcefire NGIPS requires minimum 8 GB RAM and 4 vCPUs",
+  "min_ram_mb": 8192,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "recommended_ram_mb": 16384,
+  "role": "firewall",
+  "vendor": "cisco"
+ }
+}

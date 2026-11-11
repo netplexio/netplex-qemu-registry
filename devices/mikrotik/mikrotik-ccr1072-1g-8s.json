@@ -1,0 +1,17 @@
+{
+ "key": "mikrotik-ccr1072-1g-8s",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "router",
+  "console": "telnet",
+  "default_ram_mb": 16384,
+  "emulator": "qemu",
+  "interfaces": 9,
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "mikrotik"
+ }
+}

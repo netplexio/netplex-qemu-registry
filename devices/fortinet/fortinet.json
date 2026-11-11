@@ -1,0 +1,5 @@
+{
+ "key": "fortinet",
+ "source": "netplex-tested",
+ "alias_of": "fortinet-fortigate"
+}

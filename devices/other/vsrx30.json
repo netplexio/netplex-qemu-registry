@@ -1,0 +1,17 @@
+{
+ "key": "vsrx30",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "console": "telnet",
+  "cpu": 2,
+  "default_ram_mb": 4096,
+  "emulator": "qemu",
+  "interfaces": 8,
+  "machine": "pc-1.0",
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64"
+ }
+}

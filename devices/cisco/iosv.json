@@ -1,0 +1,29 @@
+{
+ "key": "iosv",
+ "source": "netplex-tested",
+ "tested": "Bare \"iosv-*\" image folder format (no \"cisco-\" prefix) - some real IOSv uploads use\nthis naming instead of \"cisco-iosv-*\". Found missing 2026-07-22 (the project owner: \"How hard can\nit be to categorise those IOL images properly?\") chasing a live failure: image\n\"iosv-159-3-m6\" had NO profile match at all (get_profile_key returned None), so it fell\nthrough to GENERIC_KVM_PROFILE's 120s boot_timeout_sec and got none of the extended\nbusy-console retry treatment node_config._retry_deadline_s gives any profiled device -\nit was still running the original fixed-2-attempt budget the whole night. Same specs as\n\"cisco-iosv\" above (identical underlying software, just a different upload naming\nconvention) - see that entry's comment for the 400s boot_timeout_sec evidence.",
+ "reasons": {
+  "day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+  "emulator": "cpu_model host + qemu_arch x86_64 (NPX-1527 GW-AUTH/PROFILES-TOOLS pass-3, rule #59):\nsame fix as \"vios\"/\"viosl2\" (NPX-460) for the identical documented live crash\n(memory-pool corruption -> CPU exception vector 4) - this key is what\nPROFILES[\"cisco-iosv\"] is actually aliased to below, so this is the value real\nimports of either naming convention boot with."
+ },
+ "settings": {
+  "boot_timeout_sec": 400,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "day0_channel": "ios-config-disk",
+  "default_ram_mb": 512,
+  "description": "Cisco IOSv (bare-named build, no cisco- prefix).",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "router",
+  "qemu_arch": "x86_64",
+  "recommended_ram_mb": 1024,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

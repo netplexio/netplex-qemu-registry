@@ -1,0 +1,23 @@
+{
+ "key": "ubuntu-desktop",
+ "source": "netplex-tested",
+ "tested": "Longest-prefix guard: an \"ubuntu-desktop-*\" (or k/x/lubuntu desktop) image is NOT a\ncloud image - keep the registry's own desktop defaults (VNC console, 4 GB, no cidata).",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 240,
+  "console": "vnc",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "default_ram_mb": 4096,
+  "description": "Ubuntu Desktop (installed image) - VNC console, no cloud-init channel.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "generic",
+  "qemu_arch": "x86_64",
+  "role": "host",
+  "vendor": "generic"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "key": "cvp",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 8,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 22528,
+  "description": "Arista CloudVision Portal (CVP) - network-wide telemetry and automation - not yet boot-verified (no netplex-held image); defaults from vendor-published specs.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 22528,
+  "nic": "virtio-net-pci",
+  "node_class": "appliance",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "appliance",
+  "vendor": "arista"
+ }
+}

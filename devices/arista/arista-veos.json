@@ -1,0 +1,26 @@
+{
+ "key": "arista-veos",
+ "source": "netplex-tested",
+ "tested": "── Arista ───────────────────────────────────────────────────────────────────",
+ "reasons": {
+  "vendor": "NPX-1245 (rule #59): RAM 6144 / 2 vCPU = EVE veos.yml. The platform applied them (argv -m 6144 -smp 2) but NO boot proof: the library only holds the unsupported full vEOS 4.14.x, not a vEOS-lab image (open blocker in NPX-1245).",
+  "day0_channel": "SUPPORTED VARIANT = vEOS-lab only (2026-08-22, the project owner decision, NPX-516): matches\nEVE-NG's own veos.yml (no cdrom line at all, boots straight from hd) and Arista's own\nsupport boundary - vEOS-lab is the only Arista-virtualization-supported build, it is\nself-booting (Aboot embedded in the primary disk). Full production vEOS (needs a\nseparate external Aboot boot ISO - confirmed live: an imported \"veos-4.14.5F\" full-vEOS\nimage's MBR boot code is genuinely all zero, and it hangs indefinitely - zero console\noutput on VGA or serial, CPU pegged - at the post-Aboot kernel handoff under plain KVM)\nis explicitly NOT supported here, same as EVE-NG. Earlier revisions of this profile\n(2026-08-20) added an extra_disks=[\"cdrom.iso\"]/boot_order=[\"cdrom\",\"hd\"] requirement to\ntry to boot that full-vEOS build - removed: wrong scope, not a netplex bug to fix.\nday0_channel=\"veos\" (2026-07-29): qemu-nbd-mounts the node's own primary disk and\nwrites startup-config directly onto it pre-boot - vEOS-lab's Aboot bootloader has no\nexternal CD-ROM/config-drive convention, unlike CVAC/Juniper/VyOS (see\nday0_channels.py's VeosChannel docstring)."
+ },
+ "settings": {
+  "boot_timeout_sec": 360,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "day0_channel": "veos",
+  "default_ram_mb": 6144,
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "e1000",
+  "node_class": "switch",
+  "role": "switchL3",
+  "vendor": "arista"
+ }
+}

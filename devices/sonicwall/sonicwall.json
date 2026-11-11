@@ -1,0 +1,31 @@
+{
+ "key": "sonicwall",
+ "source": "netplex-tested",
+ "tested": "── SonicWall ────────────────────────────────────────────────────────────────\nNo entry existed for \"sonicwall\" - fell through to GENERIC_KVM_PROFILE\n(disk_bus=\"virtio\"), while backend/shared/image_profiles.py (the separate table\nthat governs the ON-DISK file the image importer writes, e.g. sataa.qcow2 vs\nvirtioa.qcow2) already has \"sonicwall\": (\"sata\", ...) - the same two-tables-\ndrifted class of bug already found for \"barracuda\" above. QEMU was being launched\nwith `disk_bus=virtio` attaching a file that was actually written as sataa.qcow2 -\na guaranteed no-bootable-disk mismatch regardless of which table is \"right\".",
+ "reasons": {
+  "vendor": "NPX-1245 (rule #59): RAM 6144 / 4 vCPU = EVE sonicwall.yml; booted through the platform on VM .83 (argv -m 6144 -smp 4, VNC console answers).",
+  "nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). Evidence, not a guess: EVE-NG\nPRO v7's own production template for this exact image says `qemu_nic:\nvirtio-net-pci` (docs/reference/eveng-implementation/raw/templates/sonicwall.yml), so a\nshipping product has run this guest on virtio for years - the driver is in the\nimage. e1000 is emulated packet-by-packet in userspace and can never use the\nkernel fast path; virtio can (vhost-net, NPX-823). Live-booted on netplex before\nthis landed - run recorded in docs/status/PLATFORM-AUDIT.md NPX-824.",
+  "console": "console corrected 2026-07-23 from a live cross-reference against EVE-NG PRO v7's own\nproduction template for this exact image (root@<eveng-box>:/opt/unetlab/html/\ntemplates/intel/sonicwall.yml): `qemu_options: -machine type=pc,accel=kvm\n-nographic -rtc base=utc -cpu host` reports console: vnc in the SAME template\ndespite -nographic - the same \"no serial output despite serial being requested\"\nsignal that root-caused cumulus-vx (NPX-297). NOT live-boot-verified here (unlike\ncumulus-vx's real `virsh screenshot` proof) - applied from cross-reference evidence\nalone, disclosed per rule #31."
+ },
+ "settings": {
+  "boot_timeout_sec": 240,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 4,
+  "default_ram_mb": 6144,
+  "description": "SonicWall NSv (SonicOS).",
+  "disk_bus": "sata",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 512,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "firewall",
+  "vendor": "sonicwall"
+ }
+}

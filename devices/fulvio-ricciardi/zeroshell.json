@@ -1,0 +1,17 @@
+{
+ "key": "zeroshell",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "router",
+  "console": "vnc",
+  "default_ram_mb": 256,
+  "emulator": "qemu",
+  "interfaces": 4,
+  "min_ram_mb": 256,
+  "nic": "e1000",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "fulvio-ricciardi"
+ }
+}

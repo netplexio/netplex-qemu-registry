@@ -1,0 +1,26 @@
+{
+ "key": "debian",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "boot_timeout_sec": "boot_timeout_sec 180 -> 400 (NPX-1527 PROFILES-TOOLS pass-3, rule #59/#60): same\nday0_channel=\"cloud-init\" mechanism as \"ubuntu\" above, which was already fixed from\n180 to 400 for this exact reason (live-reproduced: cloud-init's \"ready marker\nconfirmed\" line doesn't land within 180s) - this sibling used the identical\nmechanism and was left at the old, already-disproven value."
+ },
+ "settings": {
+  "boot_timeout_sec": 400,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "day0_channel": "cloud-init",
+  "default_ram_mb": 1024,
+  "description": "Debian cloud image - cloud-init NoCloud day-0, serial console, root/netplex.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 512,
+  "nic": "virtio-net-pci",
+  "node_class": "generic",
+  "qemu_arch": "x86_64",
+  "role": "host",
+  "vendor": "generic"
+ }
+}

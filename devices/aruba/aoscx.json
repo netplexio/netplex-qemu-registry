@@ -1,0 +1,33 @@
+{
+ "key": "aoscx",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "qemu_version_default": "NPX-1657 rule #59: pc-1.0 only in QEMU <6.2 (EVE default 2.x)",
+  "min_ram_mb": "rule #59 (Wave 17): default = EVE-NG arubacx RAM 4096; the old 2048 had no written reason",
+  "config_dialect": "W177-G1 (2026-08-30): the vendor string \"aruba\" has NO CLI dialect and must not\nget one - Aruba's other products in this file (aruba-vmc, arubaamp, arubafc,\narubanet, clearpass) are all `\"console\": \"vnc\"` appliances with entirely\ndifferent CLIs. ArubaOS-CX's verbs were proven on a real netplex boot of this\nimage (ArubaOS-CX 10.07.0004) and match EVE-NG's own config_arubacx.py verb for\nverb. Named per-IMAGE, which is the NPX-617 lesson: one vendor, several\nproducts, only one of them speaks this CLI. Set on BOTH keys - \"arubacx\" and its\ncanonical alias \"aoscx\" are the same image and must not disagree."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "arubacx",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "default_ram_mb": 4096,
+  "description": "ArubaOS-CX virtual switch - needs ≥1.5 GB RAM to boot.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc-1.0",
+  "min_ram_mb": 1536,
+  "nic": "virtio-net-pci",
+  "node_class": "switch",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "recommended_ram_mb": 4096,
+  "role": "switchL2",
+  "vendor": "aruba"
+ }
+}

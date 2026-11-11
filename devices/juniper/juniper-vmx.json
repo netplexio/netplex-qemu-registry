@@ -1,0 +1,5 @@
+{
+ "key": "juniper-vmx",
+ "source": "netplex-tested",
+ "alias_of": "vmx"
+}

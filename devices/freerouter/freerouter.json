@@ -1,0 +1,25 @@
+{
+ "key": "freerouter",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "description": "58) and genuinely blocked, but NOT by netplex: the image is a GraalVM native-image build that hard-requires a CPU with AVX2/BMI2/FMA/F16C (its own boot log names the exact missing features) - VM 702's own underlying physical/virtual CPU only exposes AVX (confirmed via /proc/cpuinfo on the host), a real hardware limit of this specific test machine, not a netplex bug (host-passthrough CPU mode was confirmed correctly wired in the live domain XML). Worth retrying on a host with a newer CPU. NOT live-boot-verified yet for this reason. Wave 38.12/NPX-1167.\","
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 2048,
+  "description": "freeRouter. Real image sourced 2026-09-17 directly from the project's own live download server (dl.nop.hu/rtr-x86_64.qcow2, freeRouter/26.9.16-cur - free/open-source, no vendor account needed) and imported into the Library the normal way. Live-boot ATTEMPTED through netplex's real platform (rule #58) and genuinely blocked, but NOT by netplex: the image is a GraalVM native-image build that hard-requires a CPU with AVX2/BMI2/FMA/F16C (its own boot log names the exact missing features) - VM 702's own underlying physical/virtual CPU only exposes AVX (confirmed via /proc/cpuinfo on the host), a real hardware limit of this specific test machine, not a netplex bug (host-passthrough CPU mode was confirmed correctly wired in the live domain XML). Worth retrying on a host with a newer CPU. NOT live-boot-verified yet for this reason. Wave 38.12/NPX-1167.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "e1000",
+  "node_class": "router",
+  "role": "router",
+  "vendor": "freerouter"
+ }
+}

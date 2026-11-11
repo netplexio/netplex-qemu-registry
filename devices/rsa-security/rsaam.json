@@ -1,0 +1,30 @@
+{
+ "key": "rsaam",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "emulator": "Wave 38 row 38.6 (2026-09-15): EVE-NG's live template pins 6.0.0\n(was on 6.2.0, the nearest already-built version) - cpu_model\n\"host\" is unchanged/correct here, EVE-NG's own real template also\nforces -cpu host for this appliance (row 38.9's \"stop forcing\nhost\" finding does not apply to every profile, only where EVE-NG\nitself passes no -cpu flag). EVE-NG's template also carries an\n-smbios type=2 override this appliance needs to license - no\nnetplex schema field for that yet (NPX-1139's own named gap,\nseparate from this row, not fixed here)."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 8192,
+  "description": "RSA Authentication Manager (SecurID two-factor auth) - not yet boot-verified (no netplex-held image); defaults from vendor-published specs.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "e1000",
+  "node_class": "appliance",
+  "qemu_version_compatible": [
+   "6.0.0",
+   "6.2.0"
+  ],
+  "qemu_version_default": "6.0.0",
+  "role": "appliance",
+  "vendor": "rsa-security"
+ }
+}

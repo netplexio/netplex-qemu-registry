@@ -1,0 +1,17 @@
+{
+ "key": "cisco-asa",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "firewall",
+  "console": "telnet",
+  "default_ram_mb": 512,
+  "emulator": "qemu",
+  "interfaces": 4,
+  "min_ram_mb": 256,
+  "nic": "i82559er",
+  "node_class": "imported-default",
+  "qemu_arch": "i386",
+  "vendor": "cisco"
+ }
+}

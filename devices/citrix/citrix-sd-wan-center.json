@@ -1,0 +1,18 @@
+{
+ "key": "citrix-sd-wan-center",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "guest",
+  "console": "telnet",
+  "cpu": 4,
+  "default_ram_mb": 8192,
+  "emulator": "qemu",
+  "interfaces": 4,
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "citrix"
+ }
+}

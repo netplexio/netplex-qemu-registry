@@ -1,0 +1,29 @@
+{
+ "key": "clavister-netshield",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "EVE-NG clavisterc.yml (Clav-cOS, catalog-diff/eveng-catalog.md row 87) -\nthe same cOS engine underlies both NetShield (cOS Stream) and NetWall\n(cOS Core) below; GNS3's own separate templates list smaller RAM\n(1024/512MB) for each, but EVE-NG's real template is preferred per\nrule #33's \"EVE-NG first\" ordering."
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 2048,
+  "description": "Clavister NetShield (cOS Stream). No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "e1000",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "firewall",
+  "vendor": "clavister"
+ }
+}

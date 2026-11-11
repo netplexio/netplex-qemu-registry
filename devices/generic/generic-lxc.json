@@ -1,0 +1,17 @@
+{
+ "key": "generic-lxc",
+ "source": "netplex-tested",
+ "tested": "── Generic-LXC fallback ─────────────────────────────────────────────────────\nNo nic/disk_bus/machine/qemu_arch - LXC has none of those concepts. max_cpu is\ndeliberately left unset so _build_hardware_defaults' os.cpu_count() ceiling applies -\nlxc.py's limits.cpu genuinely honours a per-container core count, unlike namespace.",
+ "reasons": {},
+ "settings": {
+  "console": "lxc-attach",
+  "cpu": 1,
+  "default_ram_mb": 256,
+  "description": "Generic LXC container - no curated profile.",
+  "emulator": "lxc",
+  "min_ram_mb": 64,
+  "node_class": "generic",
+  "role": "host",
+  "vendor": "generic"
+ }
+}

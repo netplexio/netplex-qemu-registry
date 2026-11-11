@@ -1,0 +1,31 @@
+{
+ "key": "veos",
+ "source": "netplex-tested",
+ "tested": "Bare \"veos-*\" image folder format (no \"arista-\" prefix) - same gap class as\niosv/cisco-iosv fixed earlier tonight. Real registered image (veos-4.14.5F) uses\nthis exact bare naming and had NO profile match at all, falling through to\nGENERIC_KVM_PROFILE's disk_bus=\"virtio\" against an on-disk image resolved as\nhda.qcow2 (IDE) - image_profiles.py already has \"veos\": (\"ide\", 1, True) - a\nguaranteed no-bootable-disk mismatch, plus none of arista-veos's own RAM settings.\nMirrors \"arista-veos\" exactly (identical product, different upload naming convention).",
+ "reasons": {
+  "vendor": "NPX-1245 (rule #59): RAM 6144 / 2 vCPU = EVE veos.yml, same as arista-veos above (same no-vEOS-lab-image blocker, NPX-1245).",
+  "day0_channel": "vEOS-lab only - see \"arista-veos\" above."
+ },
+ "settings": {
+  "boot_timeout_sec": 360,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "day0_channel": "veos",
+  "default_ram_mb": 6144,
+  "description": "Arista vEOS (bare-named build, no arista- prefix).",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "e1000",
+  "node_class": "switch",
+  "qemu_version_compatible": [
+   "5.2.0"
+  ],
+  "qemu_version_default": "5.2.0",
+  "role": "switchL3",
+  "vendor": "arista"
+ }
+}

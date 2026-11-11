@@ -1,0 +1,17 @@
+{
+ "key": "cisco-catalyst-8000v",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "router",
+  "console": "telnet",
+  "default_ram_mb": 4096,
+  "emulator": "qemu",
+  "interfaces": 4,
+  "min_ram_mb": 256,
+  "nic": "vmxnet3",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "cisco"
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "key": "cisco-dnac",
+ "source": "netplex-tested",
+ "tested": "── Cisco DNA Center / Catalyst Center ──────────────────────────────────────",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 1200,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 16,
+  "cpu_model": "host",
+  "default_ram_mb": 65536,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "q35",
+  "min_enforcement": true,
+  "min_enforcement_msg": "Cisco DNA Center (Catalyst Center) requires minimum 32 GB RAM and 16 vCPUs - ensure your host has sufficient resources",
+  "min_ram_mb": 32768,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "recommended_ram_mb": 65536,
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

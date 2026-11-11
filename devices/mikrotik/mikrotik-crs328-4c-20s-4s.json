@@ -1,0 +1,18 @@
+{
+ "key": "mikrotik-crs328-4c-20s-4s",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "multilayer_switch",
+  "console": "telnet",
+  "cpu": 1,
+  "default_ram_mb": 512,
+  "emulator": "qemu",
+  "interfaces": 28,
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "mikrotik"
+ }
+}

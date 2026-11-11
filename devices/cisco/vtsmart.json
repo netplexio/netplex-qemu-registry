@@ -1,0 +1,33 @@
+{
+ "key": "vtsmart",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "config_dialect": "NPX-818 (Wave 21 U3): Cisco's SD-WAN (Viptela) boxes carry vendor \"cisco\", which\nsent every one of them to VENDOR_CLI[\"cisco\"] - IOS verbs. Viptela is not IOS: it\nis a confd CLI whose configuration mode is entered with \"config\", committed with\n\"commit and-quit\" and paged off with \"paginate false\", and whose \"end\"/\"write\nmemory\" equivalents do not exist. VENDOR_CLI already carries the correct\n\"viptela\" dialect (authored and live-proved in an earlier wave); nothing ever\nreached it, because a dialect is only selected by the vendor string unless a\nprofile names it. This is the same shape as NPX-617 (IOS-XR reached the IOS\ndialect through vendor \"cisco\" and silently lost every config), so it is fixed\nthe same way and for the same reason.",
+  "emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\nvtsmart.yml (\"-cpu host\") - no comment ever addressed this field."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "viptela",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 2048,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "Viptela vSmart requires minimum 2 GB RAM and 2 vCPUs",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "recommended_ram_mb": 4096,
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

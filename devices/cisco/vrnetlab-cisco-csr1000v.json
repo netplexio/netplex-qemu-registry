@@ -1,0 +1,21 @@
+{
+ "key": "vrnetlab-cisco-csr1000v",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 2700,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 1,
+  "default_ram_mb": 4096,
+  "description": "Cisco CSR1000v via vrnetlab (containerized QEMU wrapper) - launched through DockerProvider; needs the full 4096 MB of the inner IOS-XE VM.",
+  "emulator": "docker",
+  "image": "vrnetlab/cisco_csr1000v:9.03.13",
+  "min_ram_mb": 4096,
+  "node_class": "router",
+  "role": "router",
+  "vendor": "cisco"
+ },
+ "group": "vrnetlab"
+}

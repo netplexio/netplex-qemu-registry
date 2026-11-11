@@ -1,0 +1,17 @@
+{
+ "key": "vedgecloud",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "router",
+  "console": "telnet",
+  "default_ram_mb": 2048,
+  "emulator": "qemu",
+  "interfaces": 5,
+  "min_ram_mb": 256,
+  "nic": "vmxnet3",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "cisco"
+ }
+}

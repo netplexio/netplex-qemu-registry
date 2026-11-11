@@ -1,0 +1,23 @@
+{
+ "key": "f5-bigiq",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 420,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "description": "F5 BIG-IQ Centralized Management. No netplex-held image yet - hardware defaults only (kvm required), NOT live-boot-verified.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "role": "server",
+  "vendor": "f5"
+ }
+}

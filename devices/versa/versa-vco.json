@@ -1,0 +1,27 @@
+{
+ "key": "versa-vco",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 480,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "host",
+  "default_ram_mb": 16384,
+  "description": "Versa Networks VCO (SD-WAN Orchestrator) - NOT live-boot-verified (no netplex-held image; RAM/CPU/NIC from the vendor reference template)",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 16384,
+  "nic": "e1000",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "server",
+  "vendor": "versa"
+ }
+}

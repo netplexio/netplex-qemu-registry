@@ -1,0 +1,28 @@
+{
+ "key": "cat9kvuadp",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 900,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "host",
+  "day0_channel": "cvac",
+  "default_ram_mb": 18432,
+  "description": "Cisco Catalyst 9000v UADP variant. No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 12288,
+  "nic": "e1000",
+  "node_class": "switch",
+  "qemu_version_compatible": [
+   "5.2.0"
+  ],
+  "qemu_version_default": "5.2.0",
+  "role": "switch",
+  "vendor": "cisco"
+ }
+}

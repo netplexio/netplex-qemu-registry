@@ -1,0 +1,32 @@
+{
+ "key": "catalyst8000v",
+ "source": "netplex-tested",
+ "tested": "\"catalyst8000v\" (the spelled-out image name image-manager's own detector.py\nrecognizes as a DISTINCT alias from \"cat8000v\"/\"c8000v\" - see detector.py's\ncomment at ~line 476 explaining they're deliberately not merged there to avoid\na false match against \"catalyst9000v\"/cat9k) had NO key here, so an image\nliterally named \"catalyst8000v\" never matched the \"cisco-cat8000v\" key above:\nget_profile()'s substring match needs \"cat8000v\" to appear in the normalized\nimage name, and \"catalyst8000v\" does not contain that substring (\"catA-LYST\"\nbreaks it up). Every catalyst8000v import silently fell through to\nGENERIC_KVM_PROFILE (512MB/1cpu/qemu64), not this 4096MB/2cpu/host-passthrough\nprofile - live-confirmed 2026-07-18: GET /images showed\nhardware_defaults={\"cpu\":1,\"ram_mb\":512,\"profile_key\":\"generic:catalyst8000v\"}\nfor the installed catalyst8000v image. Same bug class as the isrv fix below\n(2026-07-12) - IOS-XE's first-boot crypto keygen + package extraction crash-loops\nunder 512MB, so the node never reaches RUNNING and the boot-wait times out.\nMirrors the csr1000v/cisco-csr1000vng duplicate-key pattern already used above.",
+ "reasons": {
+  "vendor": "NPX-1245 (rule #59): RAM 8192 / 4 vCPU = EVE c8000v.yml (same product as cisco-cat8000v above); booted through the platform on VM .83.",
+  "virtio_extras": "NPX-1224 (rule #59): EVE c8000v.yml passes -nodefaults (no libvirt default memballoon/rng); match it. Live-booted via the platform on VM .59.",
+  "day0_channel": "Same product as \"cisco-cat8000v\" above under a different image naming\nconvention - see that key's comment for why CVAC applies (IOS-XE family,\nCvacChannel's own docstring names it explicitly). Tagged 2026-07-28."
+ },
+ "settings": {
+  "boot_timeout_sec": 480,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "host",
+  "day0_channel": "cvac",
+  "default_ram_mb": 8192,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "vmxnet3",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "router",
+  "vendor": "cisco",
+  "virtio_extras": false
+ }
+}

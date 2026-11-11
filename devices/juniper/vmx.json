@@ -1,0 +1,29 @@
+{
+ "key": "vmx",
+ "source": "netplex-tested",
+ "tested": "No entry existed for \"vmx\" (Juniper's full vMX virtual router) - fell through to\nGENERIC_KVM_PROFILE (512MB RAM, disk_bus=\"virtio\"). Same two-tables-drifted class as\nbarracuda/sonicwall/csp-vpn-gate above: image_profiles.py already has \"vmx\": (\"ide\",\n1, False) - the disk was ALWAYS going to mismatch regardless of RAM. RAM/vCPU from\nJuniper's own published vMX datasheet: \"Lite Mode\" (the lab/simulation profile, vs.\n\"Performance Mode\"'s 16GB/9vCPU for real throughput) needs a minimum of 4 vCPUs (1\nVCP + 3 VFP) and 5GB RAM. Found 2026-07-23 (the project owner: \"fix what you can\" after the IOL\ncategorisation gap) - live-observed at the generic 512MB/1vCPU default the console\nnever reached a working prompt.",
+ "reasons": {
+  "vendor": "rule #59 reason: ram 6144 / cpu 4 vs EVE 2048 / 1 - netplex runs vMX as one combined VCP+VFP guest in Lite Mode (min_ram_mb 5120 floor, description below); EVE splits VCP/VFP so its per-VM values do not apply."
+ },
+ "settings": {
+  "boot_timeout_sec": 480,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 6144,
+  "description": "Juniper vMX virtual router (Lite Mode sizing).",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 5120,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "router",
+  "vendor": "juniper"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "key": "generic-namespace",
+ "source": "netplex-tested",
+ "tested": "── Generic-Namespace fallback ──────────────────────────────────────────────\nDeliberately NO \"cpu\" key at all (D3: CPU stays a global cgroup quota for namespace\nnodes, nothing per-node to set - _build_hardware_defaults' existing\nmin_cpu===max_cpu convention, already used for Dynamips/IOL, renders the control inert).",
+ "reasons": {},
+ "settings": {
+  "console": "nsenter",
+  "default_ram_mb": 128,
+  "description": "Generic network namespace - no curated profile.",
+  "emulator": "namespace",
+  "min_ram_mb": 32,
+  "node_class": "generic",
+  "role": "host",
+  "vendor": "generic"
+ }
+}

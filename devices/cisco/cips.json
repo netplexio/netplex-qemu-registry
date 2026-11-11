@@ -1,0 +1,30 @@
+{
+ "key": "cips",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "emulator": "Wave 38 row 38.6/38.9 (2026-09-15): EVE-NG's own live template\n(intel+amd, identical) pins qemu_version 1.3.1 with no forced\n-cpu flag - was silently running on 1.7.0/host here, the nearest\nalready-built version, not the one this old-kernel appliance was\nactually validated against. Now built (see\ninfra/scripts/build-qemu-versions.sh) - fixed to match.\n\"cpu_model\" must be an EXPLICIT non-\"host\" value here, never just\nomitted - qemu.py's own resolver treats a missing key the same as\n\"host\" (`profile.get(\"cpu_model\") or \"host\"`), so \"qemu64\" (QEMU's\nown safe old default, what a bare no -cpu-flag actually resolves\nto) has to be spelled out or this profile silently keeps forcing\nhost-passthrough onto a 2013-era kernel - the exact failure class\nalready confirmed once in this project (vwlc)."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 2048,
+  "description": "Cisco IPS (Intrusion Prevention System) virtual sensor - not yet boot-verified (no netplex-held image); defaults from vendor-published specs.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "appliance",
+  "qemu_version_compatible": [
+   "1.3.1",
+   "1.7.0"
+  ],
+  "qemu_version_default": "1.3.1",
+  "role": "appliance",
+  "vendor": "cisco"
+ }
+}

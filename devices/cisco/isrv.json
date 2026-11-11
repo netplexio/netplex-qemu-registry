@@ -1,0 +1,29 @@
+{
+ "key": "isrv",
+ "source": "netplex-tested",
+ "tested": "ISRv (Integrated Services Virtual Router) - same IOS-XE family as CSR1000v,\ndocumented together in Cisco's own \"CSR 1000v and Cisco ISRv Software\nConfiguration Guide\". Had no entry here before 2026-07-12 - unmatched image\nnames fall through to GENERIC_KVM_PROFILE (512MB/1cpu), which is nowhere near\nenough: first-boot crypto keygen + package extraction under that much memory\npressure crash-loops (repeated \"Failed to format /dev/vdaN. Rebooting.\"),\neasily misread as a broken image (same failure shape as the dynamips\nout-of-range-RAM SIGSEGV found the same day - see DYNAMIPS_MAX_RAM_MB above).\n4096MB/2cpu mirrors this table's existing csr1000v entry (same vendor family\nminimum); EVE-NG's own isrv-17.03.02 howto independently confirms 4096MB is\nthe correct order of magnitude (they run 1 vCPU/4096MB for a lighter profile).\ndefault_ram_mb is 6144, not 4096 (2026-07-21, re-applied 2026-07-23 - see that date's\ncommit for why): same fix and same reason as the sibling csr1000v entry above (both\nare Cisco IOS-XE platforms, documented together in Cisco's own \"CSR1000v and ISRv\nSoftware Configuration Guide\"): min_ram_mb==default_ram_mb left zero real-world\nheadroom above the bare floor. Live-observed 2026-07-21 (config-lifecycle sweep round\n8): 2 different isrv instances (isrv-21e32d3e, isrv-ucmk9-0beacd55) both climbed to\n97-100% of the 4096MB cap and sat there for 4.5+ minutes - the same \"hung under memory\npressure\" signature already root-caused for csr1000v. min_ram_mb stays at 4096,\nunchanged. RE-CONFIRMED live 2026-07-23: a bulk catalog-regeneration commit\n(309ff0f7, \"populate the 73 EVE-NG-template gaps\") silently reverted this same fix\nback to 4096/4096 without anyone noticing, re-exposing the exact same OOM-hang this\nentry already fixed once - caught only because a live sweep hit isrv again and this\nRAM value was the first thing checked. If you're regenerating/bulk-populating this\ntable from a template, please diff against evidence-backed comments like this one\nfirst - a template regen has no way to know a manually-tuned value came from a real,\nreproduced incident.",
+ "reasons": {
+  "day0_channel": "ISRv is IOS-XE, same family as csr1000v/cat8000v - CvacChannel's own\ndocstring explicitly names it in scope (\"CSR1000v, ISRv, Catalyst 8000v,\ncat9kv\"), and Cisco documents CSR1000v + ISRv together in one Software\nConfiguration Guide (see this profile's own comment above). Tagged\n2026-07-28 to complete the CVAC family started with csr1000v."
+ },
+ "settings": {
+  "boot_timeout_sec": 480,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "day0_channel": "cvac",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "vmxnet3",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

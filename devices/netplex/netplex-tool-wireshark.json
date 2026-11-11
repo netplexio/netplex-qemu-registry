@@ -1,0 +1,28 @@
+{
+ "key": "netplex-tool-wireshark",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 30,
+  "console": "rdp",
+  "console_init": "",
+  "cpu": 1,
+  "default_ram_mb": 1024,
+  "emulator": "docker",
+  "image": "netplex-tool-wireshark:latest",
+  "interfaces": 2,
+  "min_ram_mb": 512,
+  "node_class": "host",
+  "reserved_interfaces": [
+   {
+    "label": "Web access",
+    "name": "eth1",
+    "role": "oob-web"
+   }
+  ],
+  "role": "host",
+  "vendor": "netplex"
+ },
+ "group": "tool-node"
+}

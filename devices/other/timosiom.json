@@ -1,0 +1,16 @@
+{
+ "key": "timosiom",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "console": "telnet",
+  "cpu": 1,
+  "default_ram_mb": 2048,
+  "emulator": "qemu",
+  "interfaces": 10,
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64"
+ }
+}

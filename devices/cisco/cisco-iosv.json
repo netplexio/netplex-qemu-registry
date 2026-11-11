@@ -1,0 +1,5 @@
+{
+ "key": "cisco-iosv",
+ "source": "netplex-tested",
+ "alias_of": "iosv"
+}

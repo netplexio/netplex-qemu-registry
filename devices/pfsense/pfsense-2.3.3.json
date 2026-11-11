@@ -1,0 +1,26 @@
+{
+ "key": "pfsense-2.3.3",
+ "source": "netplex-tested",
+ "tested": "pfSense 2.3.3 - the LEGACY, VGA-only build (NPX-821's own measured image). Longest-prefix\nmatch (\"pfsense233\" beats \"pfsense\") sends any image under a pfsense-2.3.3 folder here.\nrule #59 reason (console only, everything else identical to the \"pfsense\" profile above):\nNPX-821 measured on 2026-09-05 that this image draws its whole \"Enter an option:\" menu on\nthe VGA framebuffer and writes 0 guest bytes to serial. NPX-1200 later changed the single\n\"pfsense\" key to serial/telnet for the new memstick-serial build, which left this legacy\nimage with a silent serial xterm and no VNC door (found live, Wave 17 sweep NPX-153:\nconsole tab opened, blank xterm, no VNC viewer). NPX-821's own comment promised a serial\nbuild would get its own key while this one stayed; this restores that. No day0_channel:\nthe pfsense-cdrom-copy channel types over serial, which this image never answers.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 240,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 2048,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "firewall",
+  "vendor": "pfsense"
+ }
+}

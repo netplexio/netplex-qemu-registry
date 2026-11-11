@@ -1,0 +1,28 @@
+{
+ "key": "kernelkit-infix",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "GNS3's own template gives a real explicit vCPU count (1), unlike most\nof this batch.",
+  "firmware": "firmware: \"uefi\" (NPX-1167, rule #59 deviation, live evidence not guessed):\nKernelKit's own official x86_64 release qcow2 (github.com/kernelkit/infix\nreleases) is a real GPT disk with an \"EFI System\" partition and NO BIOS boot\ncode at all (confirmed via `fdisk -l` on the raw image) - booted through\nnetplex's real platform per rule #58, it hung forever at SeaBIOS's \"Booting\nfrom Hard Disk...\" with the guest pinned near 100% CPU (a real screenshot\nconfirmed this, not guessed). GNS3's own infix.gns3a doesn't record a firmware\nfield either way, so this isn't drift from their template - it's this image's\nown real, upstream requirement. `ovmf` is already a documented netplex\ndependency for exactly this case (docs/DEPENDENCIES.md: \"UEFI/Secure-Boot\nguests\") - qemu.py just never had the loader/nvram wiring to use it until now.",
+  "description": "58): needs UEFI firmware (see firmware=uefi above) - reaches the real Infix/OpenWrt-style login banner on the console. Wave 38.12/NPX-1167.\","
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 512,
+  "description": "KernelKit Infix. Real image sourced 2026-09-17 from the project's own official GitHub release (infix-x86_64-v26.08.2.qcow2, github.com/kernelkit/infix) - free/open-source, no vendor account needed. Live-boot-verified through netplex's real platform (rule #58): needs UEFI firmware (see firmware=uefi above) - reaches the real Infix/OpenWrt-style login banner on the console. Wave 38.12/NPX-1167.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "firmware": "uefi",
+  "machine": "pc",
+  "min_ram_mb": 512,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "role": "router",
+  "vendor": "kernelkit"
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "key": "128t",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "nic": "rule #59 (2026-09-21, NPX-1266): nic reverted to EVE-NG 128t.yml (e1000); the old virtio value came from the 2026-07-22 bulk catalog fill with no boot evidence."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "host",
+  "default_ram_mb": 8192,
+  "description": "Juniper 128T Networks Session Smart Router (SD-WAN, pre-SSR branding) - not yet boot-verified (no netplex-held image); defaults from vendor-published specs.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 8192,
+  "nic": "e1000",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "5.2.0"
+  ],
+  "qemu_version_default": "5.2.0",
+  "role": "router",
+  "vendor": "juniper"
+ }
+}

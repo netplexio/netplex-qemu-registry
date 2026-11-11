@@ -1,0 +1,31 @@
+{
+ "key": "fortinet-fortigate",
+ "source": "netplex-tested",
+ "tested": "── Fortinet ─────────────────────────────────────────────────────────────────",
+ "reasons": {
+  "day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
+  "vendor": "rule #59 reason: ram 4096 vs EVE 1024 - 2026-07-12 live-reproduced guest OOM at 2048 (NPX-148/146), see comment below; do not lower.",
+  "min_ram_mb": "RAM bumped 2048->4096 (2026-07-12): live-reproduced a genuine guest OOM on\nFortiOS 7.2.4.F at 2048MB - the kernel OOM-killer repeatedly killed\nhttpsd/cmdbsvr/fgfmd/miglogd/forticron in a loop, so config never landed\nand the node was never actually usable despite booting and staying up\n(found chasing NPX-148/NPX-146: the OLDER 6.0-era build this profile's\n2048MB default was originally tuned for is much lighter than modern\nFortiOS's daemon set). Matches Fortinet's own current guidance: the 7.2.x\nKVM admin guide states \"minimum recommended RAM is 2GB\" but later doc\nrevisions (7.6/8.0) strengthen this to \"at least 4GB... recommended,\nespecially if UTM/ZTNA/proxy is enabled\" - 2GB was never comfortably\nsufficient for a full-featured modern build, just under-documented at the\ntime. min_ram_mb stays at 1024 (a real floor for older/lighter builds\nlike 6.0, which booted fine at 2048); default_ram_mb is what a NEW node\nactually gets, now matching modern FortiOS reality."
+ },
+ "settings": {
+  "boot_timeout_sec": 240,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "day0_channel": "fortigate-config-drive",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "firewall",
+  "vendor": "fortinet"
+ }
+}

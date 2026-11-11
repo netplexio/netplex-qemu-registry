@@ -1,0 +1,23 @@
+{
+ "key": "fortinet-fortisiem",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 16384,
+  "description": "Fortinet FortiSIEM - NOT live-boot-verified (no netplex-held image; RAM/NIC/disk from the vendor reference template, which marks KVM required)",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 16384,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "role": "server",
+  "vendor": "fortinet"
+ }
+}

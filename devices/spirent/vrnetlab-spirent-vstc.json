@@ -1,0 +1,24 @@
+{
+ "key": "vrnetlab-spirent-vstc",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "image": "spirent/vstc/Makefile via the standard IMG_REPOSITORY rule (VENDOR=Spirent,\nNAME=vstc -> \"spirent_vstc\"). Version \"5.55.3216\" is the vrnetlab README's\nown worked topology example.",
+  "min_ram_mb": "No explicit \"System requirements\" section in the vrnetlab README for this\nkind - it is a real traffic-generation/test appliance (Spirent Virtual Test\nCenter), same functional category as netplex's existing native\n\"test-traffic-ostinato\"/\"test-traffic-trex\" taxonomy entries; sized like\nthose (2 vCPU / 4GB is the documented floor for the *other* vrnetlab test\ntool README that DOES state one, ipinfusion/ocnos, used here as the nearest\ncomparable-class floor rather than an invented number). Default credentials\nper README: admin / spt_admin. eth0 reserved for vrnetlab mgmt (generic\nrule), data ports eth1+ used for actual test-generated traffic.",
+  "boot_timeout_sec": "README: \"wait for the 'Startup Completed' message... then rebooted to fully\napply the configuration\" - a two-phase boot, budget generously."
+ },
+ "settings": {
+  "boot_timeout_sec": 240,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 2,
+  "default_ram_mb": 4096,
+  "description": "Spirent vSTC (Virtual Test Center) via vrnetlab - a real traffic-generation/test appliance, not a router/switch. No native netplex profile of any kind exists.",
+  "emulator": "docker",
+  "image": "vrnetlab/spirent_vstc:5.55.3216",
+  "min_ram_mb": 2048,
+  "node_class": "appliance",
+  "role": "appliance",
+  "vendor": "spirent"
+ }
+}

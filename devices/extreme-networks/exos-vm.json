@@ -1,0 +1,16 @@
+{
+ "key": "exos-vm",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "multilayer_switch",
+  "console": "telnet",
+  "default_ram_mb": 1024,
+  "emulator": "qemu",
+  "interfaces": 13,
+  "min_ram_mb": 256,
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "extreme-networks"
+ }
+}

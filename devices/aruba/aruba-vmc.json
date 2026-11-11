@@ -1,0 +1,30 @@
+{
+ "key": "aruba-vmc",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "emulator": "NPX-1810 rule #59: EVE aruba.yml pin (was unpinned); not boot-proven"
+ },
+ "settings": {
+  "boot_timeout_sec": 240,
+  "console": "vnc",
+  "console_init": "\r\n",
+  "cpu": 3,
+  "default_ram_mb": 4096,
+  "description": "Aruba VMC (Virtual Mobility Controller).",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "recommended_ram_mb": 4096,
+  "role": "router",
+  "vendor": "aruba"
+ }
+}

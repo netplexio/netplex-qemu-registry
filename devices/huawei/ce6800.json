@@ -1,0 +1,25 @@
+{
+ "key": "ce6800",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "huawei",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "description": "Huawei CloudEngine CE6800 (VRP 8.180) - ToR switch.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "e1000",
+  "node_class": "switch",
+  "qemu_arch": "x86_64",
+  "role": "switchL3",
+  "vendor": "huawei"
+ }
+}

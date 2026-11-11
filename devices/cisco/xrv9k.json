@@ -1,0 +1,33 @@
+{
+ "key": "xrv9k",
+ "source": "netplex-tested",
+ "tested": "ROOT CAUSE (2026-07-18, device audit for image \"xrv9k-fullk9\"): get_profile()\nonly matches when the normalized image name CONTAINS the normalized key, and\nthe real catalog image is imported as \"xrv9k-fullk9\" (folder name, no \"cisco-\"\nprefix) - it never contained \"cisco-xrv9k\", so it silently fell through to\nGENERIC_KVM_PROFILE (512 MB RAM / 1 vCPU / 120s boot_timeout / machine=pc)\ninstead of this profile's 16 GB / 2 vCPU / 900s / machine=q35. A real XRv9k\nimage cannot even start IOS XR's control plane with 512 MB RAM, so every boot\nguaranteed-failed. \"csr1000v\"/\"asav\" already carry this same bare-key duplicate\nalongside their \"cisco-*\" key (see below) for exactly this reason - do the same\nhere so any \"xrv9k*\"-named image (with or without a vendor prefix) matches.",
+ "reasons": {
+  "config_dialect": "IOS-XR, not IOS: its config save is a two-stage commit, so the CLI dialect\ncannot be inferred from vendor=\"cisco\" (which means IOS). Live-proved\n2026-08-30 on a real booted xrv - see VENDOR_CLI[\"iosxr\"] in node_config.py.",
+  "emulator": "machine/nic fix: see \"cisco-xrv9k\" above for the root cause and evidence -\nthis bare \"xrv9k\" key is the duplicate that real image lookups actually hit.",
+  "console_port_mode": "NPX-4688: EVE xrv9k.yml, 3 dead extra ports"
+ },
+ "settings": {
+  "boot_timeout_sec": 900,
+  "config_dialect": "iosxr",
+  "console": "telnet",
+  "console_init": "\r\n\r\n",
+  "console_port_mode": "spare",
+  "console_spare_ports": 3,
+  "cpu": 4,
+  "cpu_model": "host",
+  "default_ram_mb": 16384,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 16384,
+  "nic": "e1000",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "5.2.0"
+  ],
+  "qemu_version_default": "5.2.0",
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "key": "c3660",
+ "source": "netplex-tested",
+ "tested": "c3660 was already a supported chassis at runtime (dynamips_provider.py's\n_C3600_CHASSIS = (\"3620\", \"3640\", \"3660\")) but had no profile entry here, so any\nuploaded c3660 image got no hardware defaults at all (found 2026-07-12: the Library\npanel wasn't showing for a real uploaded c3660-a3jk9s-mz image - not a display bug,\nthis profile was just missing). Same \"3600\" chassis family as c3620/c3640, same real\n256MB ceiling - not a guess, this is the runtime's own established value for the family.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 120,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 128,
+  "description": "Cisco 3660 router (Dynamips).",
+  "disk_bus": null,
+  "emulator": "dynamips",
+  "max_cpu": 1,
+  "max_ram_mb": 256,
+  "min_ram_mb": 64,
+  "nic": "c3600-mb-1fe",
+  "node_class": "router",
+  "platform": "c3660",
+  "recommended_ram_mb": 256,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

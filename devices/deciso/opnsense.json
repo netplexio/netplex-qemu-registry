@@ -1,0 +1,31 @@
+{
+ "key": "opnsense",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "EVE-NG opnsense.yml (catalog-diff/eveng-catalog.md row 156): no\nexplicit -cpu flag - kept at qemu64 per row 38.9's rule.\nnic corrected e1000 -> virtio-net-pci (Wave 38 row 38.12 live-boot pass,\n2026-09-16, rule #59): EVE-NG's real opnsense.yml says\n`qemu_nic: virtio-net-pci` - the earlier e1000 value was unexplained drift.",
+  "console": "console/day0: EVE-NG's own real opnsense.yml says `console: vnc` (its\n`-serial mon:stdio` flag only carries early boot-loader chatter, not the\ninteractive console) - this is a DELIBERATE, evidenced deviation (rule #59),\nnot drift: EVE-NG's own image is the plain \"vga\" OPNsense build, which has\nno real interactive serial console at all (the same class of gap NPX-1200\nalready found and fixed for pfSense). netplex instead uses OPNsense's own\nofficial \"serial\" build variant (`OPNsense-<ver>-serial-amd64.img`, a\nready-made raw disk image, sha256-verified against the vendor's own\npublished checksum before import) - a real, current, upstream-supported\nbuild with a genuine interactive serial getty, matching this project's own\nconsole-relay design (same \"just use the vendor's serial build\" choice\nthe project owner directed for pfSense). Live-confirmed 2026-09-16: this build's\nconsole is genuinely interactive over telnet (a live boot reached the\nBSD kernel boot menu on the real console, not silence).",
+  "description": "58): reaches the real BSD loader boot menu, boots the kernel, mounts its filesystem clean, and reaches its own real first-boot 'Press any key to start the configuration importer' prompt - a genuine, usable interactive console. Day-0/full setup-wizard automation not yet built, see NPX-1167's tracker row.\","
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 2048,
+  "description": "OPNsense (a distinct fork, not the same project as netplex's own pfSense support). Uses OPNsense's own official serial-console build (not the plain vga image) so the console is genuinely usable over telnet. Live-boot-verified 2026-09-16 (Wave 38 row 38.12, through the real platform per rule #58): reaches the real BSD loader boot menu, boots the kernel, mounts its filesystem clean, and reaches its own real first-boot 'Press any key to start the configuration importer' prompt - a genuine, usable interactive console. Day-0/full setup-wizard automation not yet built, see NPX-1167's tracker row.",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "firewall",
+  "vendor": "deciso"
+ }
+}

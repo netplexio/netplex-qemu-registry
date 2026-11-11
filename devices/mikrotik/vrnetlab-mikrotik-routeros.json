@@ -1,0 +1,23 @@
+{
+ "key": "vrnetlab-mikrotik-routeros",
+ "source": "netplex-tested",
+ "tested": "vrnetlab-wrapped CHR (Docker path, distinct from the direct-qcow2 \"mikrotik-chr\"\nabove - see taxonomy.py's \"mikrotik-router-chr-vrnetlab\" entry for the palette\ntile). Keyed on the REAL docker_image string (\"vrnetlab/mikrotik_routeros:7.2.1\"),\nNOT the taxonomy id - get_profile() matches by substring/prefix against whatever\n`node.image` actually is at launch time (node creation sets it to the taxonomy\nentry's docker_image verbatim, tag included), and \"mikrotik-router-chr-vrnetlab\"'s\ntoken order (\"router\"/\"chr\" before \"vrnetlab\") never appears inside\n\"vrnetlab/mikrotik_routeros:7.2.1\" at all. Before this entry existed, that image\nstring fell through to the PROFILES[\"mikrotik\"] alias (-> \"mikrotik-chr\" above,\nsince \"mikrotik\" substring-matches it too) and silently inherited the BARE-QCOW2\nprofile - wrong emulator (\"qemu\" instead of \"docker\"), wrong console (\"telnet\"\ninstead of the docker-exec bridge docker_exec.py's console_command() already wires\nfor any \"vrnetlab\" image), and wrong data-port naming (DATA_IFACE_NAMING's\n\"ether{2}\" instead of the wrapper's real \"eth1, eth2, ...\" - vrnetlab's launch.py\nreserves the container's eth0 for its own OOB/mgmt plumbing and numbers data ports\neth1.. up, a fixed convention of the `hellt/vrnetlab` packaging itself, not\nRouterOS's own \"ether1..\" numbering which only exists inside the nested VM).\nThis key is longer than both \"mikrotik-chr\" and the \"mikrotik\" alias, so\n_SORTED_KEYS's longest-match-first ordering picks it first.",
+ "reasons": {
+  "min_ram_mb": "RouterOS itself is as light as bare CHR (MikroTik's own min is 64MB/1vCPU),\nbut vrnetlab wraps a real QEMU VM inside the container (its own launch.py) -\ncontainer + nested-qemu overhead raises both floors a step over\n\"mikrotik-chr\"'s 64/256, matching the launch-time reality (no explicit\nmin_ram/min_cpu is enforced by docker_provider.py's\n_CONTAINER_NOS_LAUNCH[\"vrnetlab/\"] profile itself, so this is the only place\nthe floor is recorded - keep it in sync if that changes).",
+  "boot_timeout_sec": "vrnetlab's own /health readiness probe (0 running) gates the container's\nentrypoint until the nested VM has actually booted RouterOS - budget more\nthan the bare-qcow2 CHR's 60s for the extra nested-boot + wrapper overhead."
+ },
+ "settings": {
+  "boot_timeout_sec": 120,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 1,
+  "default_ram_mb": 512,
+  "description": "MikroTik RouterOS CHR via vrnetlab (containerized QEMU wrapper) - launched through DockerProvider, not QemuProvider; see the comment above this entry.",
+  "emulator": "docker",
+  "image": "vrnetlab/mikrotik_routeros:7.2.1",
+  "min_ram_mb": 128,
+  "node_class": "router",
+  "role": "router",
+  "vendor": "mikrotik"
+ }
+}

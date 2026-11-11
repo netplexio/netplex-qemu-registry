@@ -1,0 +1,31 @@
+{
+ "key": "juniper-vmxvcp",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "min_ram_mb": "RAM corrected 4096 -> 2048 (Wave 38 row 38.4, 2026-09-16, rule #59): EVE-NG's\nown real vmxvcp.yml template (docs/reference/eveng-implementation/raw/\ntemplates/vmxvcp.yml) says \"ram: 2048\", \"cpu: 1\" - the previous 4096 was\nunexplained drift with no comment justifying it. Real-world evidence this\nwas wrong, not just a template mismatch: live-booting a real vmxvcp+vmxvfp\npair on an 8GB test VM (vmxvfp alone already needs 4096MB per EVE-NG's own\nvmxvfp.yml) hit a genuine host-RAM admission refusal with the old 4096MB\nvmxvcp value - 2048+4096=6144MB fits comfortably where 4096+4096=8192MB did\nnot, on hardware EVE-NG's own reference deployment is sized for.",
+  "day0_channel": "NPX-4606 (the project owner 4 Nov, no console typing): EVE-NG's config_vmxvcp.py types a mount +\n\"load set\" sequence; netplex does not. vmxvcp is a FreeBSD Junos like vsrx/vqfxre, so\nits day-0 text goes into the /config partition of its own overlay while it is off."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "day0_channel": "junos-vmm-data-disk",
+  "default_ram_mb": 2048,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "notes": "Control Plane - requires VMX VFP companion",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "role": "router",
+  "vendor": "juniper"
+ }
+}

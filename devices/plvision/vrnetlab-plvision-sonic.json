@@ -1,0 +1,23 @@
+{
+ "key": "vrnetlab-plvision-sonic",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "image": "plvision/plvision_sonic/Makefile via the standard IMG_REPOSITORY rule\n(VENDOR=PLVision, NAME=sonic -> \"plvision_sonic\"). Version\n\"lite_1_13_202405\" is the Makefile's own worked example\n(\"plvision_sonic-vs-lite_1_13_202405.qcow2\" -> that exact tag).",
+  "min_ram_mb": "README \"System requirements\": CPU 2 cores, RAM 4GB, DISK ~6.5GB."
+ },
+ "settings": {
+  "boot_timeout_sec": 360,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 2,
+  "default_ram_mb": 4096,
+  "description": "PLVision Enterprise SONiC (access/campus/edge-optimised distro) via vrnetlab. A genuinely different SONiC packaging from both community sonic-vs and Dell's SONiC build - no native netplex profile exists for it.",
+  "emulator": "docker",
+  "image": "vrnetlab/plvision_sonic:lite_1_13_202405",
+  "min_ram_mb": 2048,
+  "node_class": "switch",
+  "role": "switchL3",
+  "vendor": "plvision"
+ }
+}

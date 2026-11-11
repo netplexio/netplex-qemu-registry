@@ -1,0 +1,30 @@
+{
+ "key": "fortinet-fmg",
+ "source": "netplex-tested",
+ "tested": "FortiManager - NO entry existed here at all (only FortiGate did), so\nget_profile(\"fortinet-FMG-7.2.2\"/\"fortinet-fortimanager-...\") fell all the way\nthrough to GENERIC_KVM_PROFILE (512MB RAM, 1 vCPU, e1000, 120s boot_timeout).\nLive-reproduced 2026-07-18 (device audit 93dd0297-19c4-4887-8fef-da65d2d4f0a5):\nbooting the real virtioa.qcow2 (FMG 7.2.2) at the generic-fallback 512MB\ndeterministically kernel-panics every single boot attempt -\n\"VFS: Unable to mount root fs on unknown-block(2,0)\" at ~5s uptime, looping\nforever (matches the audit's \"timeout\"/never-RUNNING and the UI run's\nRunning-pill-but-never-boot-ready symptom - the QEMU *process* stays up and\nlibvirt reports VIR_DOMAIN_RUNNING, restart-looping the guest kernel forever,\nso node-manager status flips to RUNNING immediately while the guest itself\nnever boots). Identical image at 8192MB (this profile's value, matching the\ndocumented spec in docs/platform/node-emulation.md's Fortinet appliance\nmatrix - \"FortiManager VM ... host ... 8192 MB ... 4 ... virtio-net-pci ...\nvirtio\") boots past that point straight into the FortiOS \"Serial\nnumber:FMG-VM...\" banner - same image, same disk bus, only RAM changed.\nmin_ram_mb enforces the floor; default_ram_mb is what a new node gets.",
+ "reasons": {
+  "emulator": "cpu_model \"qemu64\", not \"host\" (NPX-1527 PROFILES-TOOLS pass-3, rule #59):\nEVE-NG's real fortinet.yml (the one template all 4 FortiOS-family keys in this\nfile map to) sets NO -cpu flag at all, which QEMU defaults to qemu64 - \"host\" here\nwas undocumented drift with no cited crash/boot evidence (unlike the RAM values on\nthese same entries, which do carry real cited evidence). Matching EVE's real,\nverified-safe default until/unless a live boot specifically justifies \"host\".\nNOT live-boot-verified either way this pass - if a future boot needs \"host\",\ncite the evidence here per rule #59 before changing it back.",
+  "min_enforcement": "NPX-1918: dead \"multi_disk\" flag removed - real image is a single qcow2 file.",
+  "config_dialect": "FortiManager shares FortiAnalyzer's management-appliance CLI, not FortiGate's\nFortiOS - same \"no full-configuration keyword\" gap. See fortinet-faz's own\ncomment above (live-measured on FAZ; FMG hit the identical capture failure\nin the real Wave 21 fleet run, 2026-09-10)."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "fortianalyzer",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 8192,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "FortiManager requires minimum 4 GB RAM and 4 vCPUs (Fortinet recommends 8 GB) - too little RAM prevents the guest kernel from even mounting its own root filesystem, not just slow boot",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "recommended_ram_mb": 8192,
+  "role": "server",
+  "vendor": "fortinet"
+ }
+}

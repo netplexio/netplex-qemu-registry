@@ -1,0 +1,26 @@
+{
+ "key": "ubuntu",
+ "source": "netplex-tested",
+ "tested": "── Generic-KVM fallback ───────────────────────────────────────────────────\nUsed for any uploaded qcow2/vmdk that doesn't match a known vendor profile.\ne1000 NICs + virtio disk + x86_64 are the safest defaults for unknown VMs\n(they work with most OS images without needing paravirtual drivers).\n── Linux cloud images (cloud-init NoCloud day-0) ───────────────────────────\n2026-08-20 (Wave 3, LLA-064): the catalog's \"ubuntu-server\"/\"debian\" entries install\nupstream *cloudimg* builds - no loginable account until cloud-init provisions one, so\nthese MUST carry day0_channel=\"cloud-init\" (see day0_channels.LinuxCloudInitChannel).\nCurated here (rather than on generic-vm) so the cidata ISO is only ever attached to an\nimage family known to read it - generic-vm is also the fallback base for every\nregistry-imported NOS without a curated profile. Serial console (cloud images boot\nwith console=ttyS0), virtio NIC/disk (the registry's own values for these images).",
+ "reasons": {
+  "boot_timeout_sec": "boot_timeout_sec 180 -> 400 (2026-09-12, Wave 21 close): live-reproduced 3/3 on\nthe registered \"ubuntu-22.04\" image - node-manager's own day0 logs show\ncloud-init's \"ready marker confirmed\" line never lands within 180s of node\nstart (a sibling cloud image needed 274s for the SAME cloud-init channel/marker\nmechanism to confirm, and that one had enough budget to still pass) - the login\nprompt is real and un-injected (NPX-1040/1039 both working correctly), root's\npassword simply hasn't been seeded by cloud-init yet when apply_config_serial's\n180s deadline runs out. Same class of inconsistency-with-a-documented-sibling\ngap NPX-1033 already fixed for \"vios\"/\"iosv\" - 400s matches that fix's own value."
+ },
+ "settings": {
+  "boot_timeout_sec": 400,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "day0_channel": "cloud-init",
+  "default_ram_mb": 1024,
+  "description": "Ubuntu cloud image - cloud-init NoCloud day-0, serial console, root/netplex.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 512,
+  "nic": "virtio-net-pci",
+  "node_class": "generic",
+  "qemu_arch": "x86_64",
+  "role": "host",
+  "vendor": "generic"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "key": "windows-xp",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "guest",
+  "console": "vnc",
+  "default_ram_mb": 512,
+  "emulator": "qemu",
+  "interfaces": 2,
+  "min_ram_mb": 256,
+  "node_class": "imported-default",
+  "qemu_arch": "i386",
+  "vendor": "microsoft"
+ }
+}

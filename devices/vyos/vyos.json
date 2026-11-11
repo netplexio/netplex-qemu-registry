@@ -1,0 +1,21 @@
+{
+ "key": "vyos",
+ "source": "netplex-tested",
+ "tested": "── Docker built-ins ─────────────────────────────────────────────────────────\nNote: \"vyos\" Docker is the FRR-based lightweight version.\n\"vyos-qemu\" above is the full VyOS QEMU image from labhub (VERIFIED 2026-06-01).\n2026-08-08 (REAL BUG, found by 83-device-matrix's \"VyOS - real Power on click reaches\nrunning state\"): this said `vyos/vyos:latest`, a reference that DOES NOT EXIST. The\n`vyos/vyos` Docker Hub repository is not published at all - verified live, both\n`docker manifest inspect vyos/vyos:latest` and `:1.4-rolling` return \"no such manifest\",\nand node-manager logs the pull as\ndocker.errors.NotFound: failed to resolve reference \"docker.io/vyos/vyos:latest\": not found\nso the built-in VyOS palette device could never boot for ANY user, on any install.\nThe platform already ships the working community image everywhere else it matters -\ndocker_provider.py's _CONTAINER_NOS_LAUNCH has a live-verified privileged/tmpfs profile\nkeyed on \"ghcr.io/sysoleg/vyos-container\" (2026-07-25), models.py lists it in\nPRIVILEGED_VENDOR_IMAGE_PREFIXES, and VendorIcon maps 'vyos-container' -> vyos - only\nthis catalog entry (and its frontend/taxonomy mirrors) still pointed at the dead one.",
+ "reasons": {
+  "boot_timeout_sec": "boot_timeout_sec bumped 10 -> 180 (NPX-567, 2026-08-26, live-timed): the\nimage's own first-boot default-config commit (what creates the \"vyos\" login\nuser docker_provider.py's new readiness_cmds now gates on) took 89s/83s across\ntwo clean throwaway-container runs. 10s left no margin at all - every apply\nagainst this profile raced a container that could not yet be considered\nRUNNING. 180s matches the margin convention used for the other docker NOS\nprofiles here (srlinux 120s for a comparably heavy app-manager boot)."
+ },
+ "settings": {
+  "boot_timeout_sec": 180,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 1,
+  "default_ram_mb": 512,
+  "emulator": "docker",
+  "image": "ghcr.io/sysoleg/vyos-container:latest",
+  "min_ram_mb": 128,
+  "node_class": "router",
+  "role": "router",
+  "vendor": "vyos"
+ }
+}

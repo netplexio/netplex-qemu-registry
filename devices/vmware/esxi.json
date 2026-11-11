@@ -1,0 +1,31 @@
+{
+ "key": "esxi",
+ "source": "netplex-tested",
+ "tested": "── VMware ESXi (nested hypervisor) ─────────────────────────────────────────\nNo entry existed for \"esxi\"/\"vmware\" - the image (id 549b81d7.../da3ddd85...,\n/netplex/images/qemu/vmware/esxi-6.0/virtioa.qcow2) silently fell through to\nGENERIC_KVM_PROFILE (256/512 MB, 1 vCPU, no min_ram_mb enforcement - same class\nof bug already fixed once for \"isrv\" and \"titanium\" above). Live-repro'd\n2026-07-18 with the exact runtime params qemu.py derives from the fallback\nprofile (-m 512 -smp 1 -cpu host, virtio disk): the VMware bootloader gets partway\nthrough decompressing /s.v00 and HALTS with \"Fatal error: 10 (Out of resources)\" -\na textbook ESXi-under-provisioned-RAM crash, not a broken image (VMware's own\npublished minimum for ESXi 6.0 is 4 GB RAM / 2 cores; installer enforces it).\nRe-tested at 4096 MB / 2 vCPU: the boot-loader stage completes cleanly (all\nmodules load, \"Relocating modules and starting up the kernel...\" reached) -\nconfirming RAM/vCPU were the fallback profile's defect and this fix resolves it.\nNOTE: a separate \"#GP Exception 13 in world 32768:bootstrap\" purple-screen was\nobserved after the loader stage on THIS dev host regardless of RAM/cpu_model\n(host, Penryn)/machine type (pc, q35) - that reproduces identically because this\ndev box is itself a nested KVM guest (systemd-detect-virt=kvm), so booting ESXi\nhere is double-nested virtualization (L0 hw -> L1 this host -> L2 ESXi), a known\nfragile combination for a guest that is itself a Type-1 hypervisor. That is a\ntest-host environment limitation, not a netplex code defect - not addressed here;\na bare-metal (single-nesting-level) netplex host is expected to clear it once the\nRAM/vCPU floor below is in place. disk_bus stays virtio (unchanged) - the image is\nalready packaged virtioa.qcow2 and live-repro proved virtio storage IS readable by\nthis ESXi build's bootloader (it loaded every module fine over it); nic is set to\ne1000 (stock ESXi ships no inbox virtio-net driver - matches the platform's own\ngeneric-vm fallback NIC choice for exactly this reason).",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 480,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "description": "VMware ESXi 6.0 nested hypervisor - needs >=4 GB RAM to clear the boot loader (verified live: 512 MB halts with a boot-loader OOM before reaching the kernel).",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "VMware ESXi requires minimum 4 GB RAM and 2 vCPUs (VMware's published minimum) - below this the boot loader halts with \"Fatal error: 10 (Out of resources)\" while decompressing the kernel image.",
+  "min_ram_mb": 4096,
+  "nic": "e1000",
+  "node_class": "hypervisor",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "recommended_ram_mb": 8192,
+  "role": "hypervisor",
+  "vendor": "vmware"
+ }
+}

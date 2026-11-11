@@ -1,0 +1,18 @@
+{
+ "key": "mikrotik-rb1100ahx4-dude-edition",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "router",
+  "console": "telnet",
+  "cpu": 4,
+  "default_ram_mb": 1024,
+  "emulator": "qemu",
+  "interfaces": 13,
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "mikrotik"
+ }
+}

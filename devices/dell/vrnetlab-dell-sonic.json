@@ -1,0 +1,24 @@
+{
+ "key": "vrnetlab-dell-sonic",
+ "source": "netplex-tested",
+ "tested": "── vrnetlab catalogue expansion (O7a, war-room 2026-08-10) ────────────────────\n5 genuinely-missing vrnetlab kinds, added after a real per-vendor audit of all\n44 kinds hellt/vrnetlab actually ships (github.com/hellt/vrnetlab, live tree\nread 2026-08-10 - README/Makefile/docker-compose content, NOT guessed - rule\n33's \"read the real source, don't guess\" applied to vrnetlab's own upstream\nsince EVE-NG has no equivalent Docker-wrapped-VM template concept at all for\nthese; where a vendor's real EVE-NG QEMU template WOULD be the reference\n(Juniper/Cisco/Arista/Nokia/Palo Alto/F5/... direct appliances), netplex\nalready has a native, template-verified direct-QEMU profile for that vendor -\nsee docs/reference/vrnetlab-catalogue-decisions-2026-08-10.md for the full\n44-kind, evidence-per-vendor table. Wrapping an already-natively-supported\nvendor in vrnetlab would be a straight regression (container + nested-QEMU\noverhead for something that already boots direct) - only these 5 have NO\nnative path (no taxonomy tile, no curated device_profiles entry, no\ndevice_registry.json fallback) anywhere in netplex today.\nImage tags/resource floors are read directly from each vendor's real\nvrnetlab Makefile (VENDOR/NAME -> IMG_REPOSITORY = vrnetlab/<vendor>_<name>,\nlowercased) and README \"System requirements\" section - never invented.\nSame generic infra the mikrotik entry above already uses covers all 5\nautomatically, no per-vendor frontend change needed: DockerProvider's\n\"vrnetlab/\" privileged launch profile (docker_provider.py), the nested-serial\nconsole bridge on 127.0.0.1:5000 (docker_exec.py), fixtures.ts's\nDATA_IFACE_NAMING 'vrnetlab/' -> eth{1} rule, and Shell.tsx/StudioHome.tsx's\nisVrnetlabImage()-driven RunChip/engine-pill/empty-state, all keyed on the\n\"vrnetlab/\" image prefix, not a per-vendor allowlist.",
+ "reasons": {
+  "image": "dell/dell_sonic/Makefile's own comment: a file named \"dell-sonic-4.2.1.qcow2\"\nbuilds \"vrnetlab/dell_sonic:4.2.1\" - that exact example version used verbatim.",
+  "min_ram_mb": "dell/dell_sonic/README.md \"System requirements\": CPU 2 cores, RAM 4GB,\nDISK ~3.2GB. min_ram set a step below the stated floor (matches the\nmikrotik entry's pattern of min < default, since 4GB is Dell's own\nrecommended figure, not necessarily a hard minimum for the VM to boot).",
+  "boot_timeout_sec": "SONiC's own native profile (sonic-vs, below) already needs 300s; SONiC +\nvrnetlab's nested-QEMU/health-probe overhead (mikrotik's +60s pattern)\nbudgets more."
+ },
+ "settings": {
+  "boot_timeout_sec": 360,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 2,
+  "default_ram_mb": 4096,
+  "description": "Dell Enterprise SONiC via vrnetlab (containerized QEMU wrapper). No native netplex profile exists for Dell's SONiC build specifically (community SONiC-VS is a different, unbranded build - kept separate, matching netplex's own precedent of keeping CSR1000v/Cat8000v distinct despite shared IOS-XE lineage).",
+  "emulator": "docker",
+  "image": "vrnetlab/dell_sonic:4.2.1",
+  "min_ram_mb": 2048,
+  "node_class": "switch",
+  "role": "switchL3",
+  "vendor": "dell"
+ }
+}

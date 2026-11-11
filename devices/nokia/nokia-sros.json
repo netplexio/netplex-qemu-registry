@@ -1,0 +1,26 @@
+{
+ "key": "nokia-sros",
+ "source": "netplex-tested",
+ "tested": "── Short-name aliases for images that don't match longer profile keys ──",
+ "reasons": {
+  "nic": "NIC e1000 -> virtio-net-pci (NPX-824, 2026-09-05). The evidence here is\nnetplex's OWN live boot, which is stronger than the EVE-NG cross-reference used\nfor the other switches: the \"nokia-timos\" profile a few lines below carries a\n2026-06-01 note that Nokia SR OS 21.10.R1 boots on virtio, and the image this\nprofile resolves to (nokia-sros-21.10.R1) is that exact same OS at that exact\nsame version. Two profile keys for one guest disagreeing about its NIC was the\nbug. Re-booted on netplex before this landed - run recorded in\ndocs/status/PLATFORM-AUDIT.md NPX-824."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "default_ram_mb": 4096,
+  "description": "Nokia SR-OS virtual router.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "qemu_arch": "x86_64",
+  "recommended_ram_mb": 4096,
+  "role": "router",
+  "vendor": "nokia"
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "key": "innovaphone-app-platform",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "guest",
+  "console": "vnc",
+  "cpu": 1,
+  "default_ram_mb": 512,
+  "emulator": "qemu",
+  "interfaces": 1,
+  "min_ram_mb": 256,
+  "nic": "vmxnet3",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "innovaphone"
+ }
+}

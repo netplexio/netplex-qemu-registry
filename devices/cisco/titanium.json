@@ -1,0 +1,26 @@
+{
+ "key": "titanium",
+ "source": "netplex-tested",
+ "tested": "\"titanium-final-*\" image folder format (Nexus 9000v internal codename) - same profile.\nROOT CAUSE (2026-07-12): get_profile(\"titanium-final\") matched no PROFILES key,\nfell back to GENERIC_KVM_PROFILE with no min_ram_mb, so the QEMU provider never\nbumped RAM past the generic 512 MB default. NX-OS self-checks available DRAM at\nboot and reboots in an infinite loop (\"This Supervisor does not have sufficient\nDRAM to function\") when under its ~6 GB floor - confirmed via live serial-console\nprobe (repeated identical crash-restart every ~15s, never reached a prompt).\nROOT CAUSE #2 (2026-07-18): \"machine\": \"q35\" and \"disk_bus\": \"sata\" here were both\nwrong for Titanium - copy-pasted from the cisco-nxosv9k entry just above (which\ngenuinely needs q35+SATA+UEFI). Per docs/platform/node-emulation.md's own spec,\nTitanium is the OLDER product and needs the legacy `pc` (i440fx) machine + virtio\ndisk, not q35+SATA - unlike NX-OSv 9000, it predates AHCI/UEFI support entirely.\nConfirmed live 2026-07-18 with the real image (titanium-final-7.3.0.D1.1): under\nq35, the kernel boots the kickstart fine (\"Image verification OK\") but then prints\n\"Unknown boot option `ide_generic.probe_mask=0x0': ignoring\" followed by \"No disk\ndetected\" / \"There is a problem with the compact flash. It could not be\ninitialized.\" and drops to a permanent switch(boot)# recovery shell (a reload just\nrepeats the same failure - confirmed the disk never actually becomes writable, not\na one-off first-boot format). This reproduced byte-identically whether the disk was\nattached as virtio OR sata (ruling out disk_bus as the cause) - only switching the\n*machine type* to `pc` (i440fx) fixed it: the guest's IDE_GENERIC-era kernel needs\ni440fx's legacy PCI/ISA topology to enumerate its own disk at all, and q35 has no\nlegacy IDE controller. Re-probe with machine=pc: \"No disk detected\" never appears,\nboot proceeds through NX-OS module bring-up straight to \"User Access\nVerification / login:\". disk_bus reverted to virtio to match: it was never\nconsulted by the real disk-attach path (shared/image_profiles.disk_bus_for(),\nwhich already defaults unmatched vendors incl. titanium to virtio, matching this\nimage's actual virtioa.qcow2 file) - this field only feeds the UI's displayed\nhardware-defaults recommendation, but leaving it as \"sata\" there was a live footgun:\na user who edited a Titanium node's disk bus in the Inspector (which seeds its\ndropdown from this field) and saved would write config.disk_bus=\"sata\", which DOES\noverride the runtime default and reproduce the exact same lockup for real users\nfrom the UI.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "e1000",
+  "node_class": "switch",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "switchL3",
+  "vendor": "cisco"
+ }
+}

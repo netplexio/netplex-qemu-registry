@@ -1,0 +1,25 @@
+{
+ "key": "innovaphone-app",
+ "source": "netplex-tested",
+ "tested": "── Lower-priority / borderline network-adjacent gaps (Wave 38.12/NPX-1167,\n2026-09-16) - real products confirmed by NPX-1167's phase 1b audit\n(final-gap-classification.md, \"Lower-priority / borderline\" group), kept\nfor completeness even though several labs use them as monitoring/infra\ntargets rather than as network gear itself. No netplex-held image for any\nof these 6 - NOT live-boot-verified.",
+ "reasons": {
+  "vendor": "GNS3's real innovaphone-app.gns3a (catalog-diff/gns3-catalog.md row 130)\ngives a real explicit vCPU count (1)."
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 512,
+  "description": "Innovaphone App-Platform (VoIP/UC). No netplex-held image yet - hardware defaults only, NOT live-boot-verified.",
+  "disk_bus": "scsi",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 512,
+  "nic": "vmxnet3",
+  "node_class": "server",
+  "role": "server",
+  "vendor": "innovaphone"
+ }
+}

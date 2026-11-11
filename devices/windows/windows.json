@@ -1,0 +1,6 @@
+{
+ "key": "windows",
+ "source": "netplex-tested",
+ "alias_of": "win",
+ "group": "windows"
+}

@@ -1,0 +1,27 @@
+{
+ "key": "cisco-ftd",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "emulator": "rule #59 (2026-09-21, NPX-1266): machine reverted to EVE-NG fmc7/ftd7 (pc); q35 came from the 2026-06-04 bulk table with no boot evidence.\nrule #59 (NPX-1527 pass2b, 2026-09-24): cpu_model aligned to EVE-NG's real\nftd7.yml (\"-cpu host\") - same undocumented-drift class pass-1 already\nflagged for this profile's siblings (vtbond/vtedge/vtsmart/vtmgmt/\ncisco-catcontrol/cisco-catvalid/cisco-fmc), no comment ever addressed\nthis field, and FTD is Linux-KVM-based like those siblings (not\nconfirmed live-boot-verified against \"host\" here - no netplex-held FTD\nimage to test against yet, same as several other profiles in this\nsection)."
+ },
+ "settings": {
+  "boot_timeout_sec": 480,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "host",
+  "default_ram_mb": 8192,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "FTD requires minimum 8 GB RAM and 4 vCPUs",
+  "min_ram_mb": 8192,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "recommended_ram_mb": 16384,
+  "role": "firewall",
+  "vendor": "cisco"
+ }
+}

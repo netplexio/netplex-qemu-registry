@@ -1,0 +1,23 @@
+{
+ "key": "vrnetlab-ipinfusion-ocnos",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "image": "ipinfusion/ocnos/Makefile via the standard IMG_REPOSITORY=$(REGISTRY)$(IMG_VENDOR)_$(IMG_NAME)\nrule (VENDOR=IPInfusion, NAME=OcNOS -> lowercased \"ipinfusion_ocnos\").\nVersion \"6.5.2-101\" is the version the vrnetlab README itself documents as\n\"Tested booting and responding to Telnet\" (README's own real evidence).",
+  "min_ram_mb": "README \"System requirements\": CPU 2 core, RAM <4GB, Disk <4GB."
+ },
+ "settings": {
+  "boot_timeout_sec": 180,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 2,
+  "default_ram_mb": 4096,
+  "description": "IP Infusion OcNOS via vrnetlab (containerized QEMU wrapper). OcNOS is a full-featured disaggregated NOS (routing/MPLS/switching) with no native netplex profile of any kind (no taxonomy tile, no device_profiles entry, no community-registry fallback).",
+  "emulator": "docker",
+  "image": "vrnetlab/ipinfusion_ocnos:6.5.2-101",
+  "min_ram_mb": 2048,
+  "node_class": "router",
+  "role": "router",
+  "vendor": "ipinfusion"
+ }
+}

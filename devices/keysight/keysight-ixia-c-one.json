@@ -1,0 +1,21 @@
+{
+ "key": "keysight-ixia-c-one",
+ "source": "netplex-tested",
+ "tested": "Keysight Ixia-c-one (open-traffic-generator all-in-one). Vendor minimum\n(Keysight docs: 2 vCPU / 4GB for the all-in-one - inner dockerd + controller +\na traffic+protocol engine pair per port, protocol-engine image alone is 1.6GB;\nprobe-verified live 2026-07-16) - matches the launch-time floor already enforced\nin docker_provider.py's _CONTAINER_NOS_LAUNCH (\"min_cpu\": 2, \"min_ram_mb\": 4096)\nso the Library/palette-shown default and the actually-enforced minimum agree.\nFound 2026-07-18 device audit: this entry was MISSING, so image-manager fell back\nto the generic profile (1 vCPU / 512MB) for the Inspector-displayed hardware\ndefaults - launch-time enforcement in docker_provider.py meant the node still\nbooted correctly (floor bump live-verified), but rule 14 step 5 (\"hardware\ndefaults set from the vendor recommendation\") was violated: the displayed default\nsilently understated the real requirement by 8x RAM / 2x CPU.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 120,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 2,
+  "default_ram_mb": 4096,
+  "description": "Keysight Ixia-c-one all-in-one OTG traffic generator - needs >=2 vCPU / 4GB to boot cleanly (inner dockerd + controller + per-port engine pairs).",
+  "emulator": "docker",
+  "image": "ghcr.io/open-traffic-generator/ixia-c-one:1.55.0-1",
+  "min_ram_mb": 4096,
+  "node_class": "host",
+  "recommended_ram_mb": 4096,
+  "role": "host",
+  "vendor": "keysight"
+ }
+}

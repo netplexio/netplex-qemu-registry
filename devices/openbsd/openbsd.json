@@ -1,0 +1,22 @@
+{
+ "key": "openbsd",
+ "source": "netplex-tested",
+ "tested": "── OpenBSD ──────────────────────────────────────────────────────────────────\nwave 6.M8 / NPX-577/581. Sourced artifact (install79.iso) is an INSTALLER, not a\nbootable disk - closest EVE-NG precedent is freebsd.yml's \"-boot order=cd\"\npattern (netplex rule #43). Original plan was a per-node runtime autoinstall\n(extra_disks=[\"cdrom.iso\"], boot_order=[\"cdrom\",\"hd\"], an OpenbsdAutoinstallChannel\nday0_channel) - reverted 2026-08-26 once live testing showed boot_order is STATIC\n(applies every boot, confirmed via qemu.py), which would have forced the install\nmenu on every restart forever. Instead the sourced ISO was unattended-installed\nONCE, host-side, via a pexpect-driven serial-console script (openbsd_autoinstall.py,\nwave 6.M8 handoff), producing a normal pre-installed virtioa.qcow2 base image -\nverified live: boots straight to a real `login:` prompt with no CD-ROM attached,\nexactly like every other vendor's pre-installed image in this table.",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "serial",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 1024,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 512,
+  "nic": "virtio-net-pci",
+  "node_class": "host",
+  "role": "host",
+  "vendor": "openbsd"
+ }
+}

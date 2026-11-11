@@ -1,0 +1,22 @@
+{
+ "key": "srlinux",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "min_ram_mb": "Vendor minimum (Nokia's docs: 2GB+ RAM, 2 vCPU) - matches the launch-time\nfloor already enforced in docker_provider.py's _CONTAINER_NOS_LAUNCH so the\nLibrary/palette-shown default and the actually-enforced minimum agree."
+ },
+ "settings": {
+  "boot_timeout_sec": 120,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 2,
+  "default_ram_mb": 2048,
+  "emulator": "docker",
+  "image": "ghcr.io/nokia/srlinux:24.3.2",
+  "min_ram_mb": 2048,
+  "node_class": "switch",
+  "recommended_ram_mb": 4096,
+  "role": "switch",
+  "vendor": "nokia"
+ }
+}

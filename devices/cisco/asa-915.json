@@ -1,0 +1,32 @@
+{
+ "key": "asa-915",
+ "source": "netplex-tested",
+ "tested": "Cisco ASA 9.1.5 \"asa-915-k8\" build (NPX-303, root-caused 2026-09-23) - a SEPARATE,\nmore specific key so this image does not inherit the \"asa\" profile's 384 MB RAM\nceiling above. That ceiling is correct ONLY for the ancient 8.0.2 image (2.6.17\nkernel, GRUB-legacy initrd-placement bug - see the \"asa\" entry's own RAM CEILING\ncomment). This 9.1.5 build is a genuinely different kernel (2.6.29.6, direct\n`kernel`/`initrd` boot lines, no legacy-GRUB stage2) and does NOT hit that bug -\nlive-boot evidence (in-platform, rule #58): at the \"asa\" profile's 384 MB cap it\nunpacks its initramfs fine (\"Unpacking initramfs... done\", \"383MB LOWMEM available\")\nand reaches real ASA userland startup, but then the `lina` process itself fails to\nallocate its shared memory pool (\"mempool: error 22 creating global shared pool\")\nand segfaults (\"lina[499]: segfault at 0 ... in lina[8048000+273b000]\"), rebooting in\na loop - a plain RAM-shortage crash, not the earlier \"Timer not a leaf\" signature\nthis device's PLATFORM-AUDIT row previously reported (that symptom came from a run\nmade before the NPX-153/NPX-1339 NIC + tcg/icount/smbios-drift fixes landed; it does\nnot reproduce under the now-current clean KVM + i82559er config at all). Per rule\n59, EVE-NG's own asa.yml (single template, all classic-ASA versions) pins `ram:\n2048` - this key restores that EVE-NG-parity value for the 9.1.5 build specifically,\ninstead of carrying the 8.0.2-only 384 MB deviation onto an image it actively harms.",
+ "reasons": {
+  "kvm": "TIMER-SUBSYSTEM CRASH - ROOT-CAUSED AND FIXED (NPX-303, 2026-09-23). Once this\nimage had enough RAM to get past the mempool crash above, it hit a SEPARATE,\nlater crash in its own timer subsystem - \"(set_exptime) Timer not a leaf\" /\n\"mgd_timer_set_exptime: Not a leaf\" - soon after reaching a real login-capable\nstate. Live-tested in-platform (rule #58), narrowed by evidence, not guessed:\nreproduced IDENTICALLY at 1024 MB and 2048 MB (not a RAM question), and under\nBOTH plain KVM and per-node `kvm: False` (tcg) alone (not an accel question by\nitself either). The guest kernel's own boot log showed a live TSC-instability\nsymptom on every boot (\"Fast TSC calibration failed\", \"TSC: Unable to calibrate\nagainst PIT\", \"Marking TSC unstable\"). EVE-NG's real asa.yml runs the whole\nclassic-ASA family under `-icount 1` (deterministic virtual time, tcg-only -\nQEMU refuses -icount together with KVM) - tested directly in-platform via the\nper-node qemu_extra_args/kvm config keys (added `-icount` to qemu.py's SEC-24\nextra-args allowlist to allow it): the SAME image that previously crashed at\nthis exact point now boots all the way to a real `ciscoasa>` prompt\n(\"INFO: Power-On Self-Test complete.\" then the AnyConnect banner then the\nprompt), confirmed via the raw serial.log, not the API's own interpretation.\nPer rule #59, this is now the permanent, evidence-backed default for this\nprofile ONLY (asa-8.02 is untouched - it does not reach this code path at all,\nsince it panics on the RAM ceiling long before any timer code runs) - a plain\nper-node override still wins if a future, faster-booting build of this same\nimage ever ships and no longer needs it."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 2048,
+  "description": "Cisco ASA 9.1.5 (classic, modern kernel build).",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "kvm": false,
+  "machine": "pc",
+  "max_ram_mb": 2048,
+  "min_ram_mb": 1024,
+  "nic": "i82559er",
+  "node_class": "firewall",
+  "qemu_arch": "i386",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "recommended_ram_mb": 2048,
+  "role": "firewall",
+  "vendor": "cisco"
+ }
+}

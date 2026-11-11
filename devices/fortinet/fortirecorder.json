@@ -1,0 +1,17 @@
+{
+ "key": "fortirecorder",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "guest",
+  "console": "telnet",
+  "default_ram_mb": 2048,
+  "emulator": "qemu",
+  "interfaces": 10,
+  "min_ram_mb": 256,
+  "nic": "virtio-net-pci",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64",
+  "vendor": "fortinet"
+ }
+}

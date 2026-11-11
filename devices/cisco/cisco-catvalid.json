@@ -1,0 +1,31 @@
+{
+ "key": "cisco-catvalid",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\ncatvalid.yml (\"-cpu host\"), and qemu_version pinned to match EVE-NG and its sibling\ncisco-catcontrol (both 2.12.0) - this profile had no qemu_version at all, so it was\nsilently falling to the platform's un-pinned default instead of the vendor-verified build."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "host",
+  "default_ram_mb": 4096,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "Catalyst SD-WAN Validator requires minimum 2 GB RAM and 2 vCPUs",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "recommended_ram_mb": 4096,
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

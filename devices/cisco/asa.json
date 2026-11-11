@@ -1,0 +1,32 @@
+{
+ "key": "asa",
+ "source": "netplex-tested",
+ "tested": "Cisco ASA (legacy; ASAv is in the main list as cisco-asav)",
+ "reasons": {
+  "emulator": "qemu_version_default: EVE-NG's asa.yml pins `qemu_version: 4.1.0` - a\ndistinct pin from asav (2.12.0, see cisco-asav/asav above); this is the\nolder i386 physical-ASA-image platform, not ASAv.\nqemu_arch x86_64 -> i386 (NPX-303/NPX-460, 2026-09-11): NPX-460's EVE-NG\ntemplate re-audit found exactly one real qemu_arch disagreement across all 171\nmatched templates - this one (EVE-NG's real asa.yml pins i386; netplex shipped\nx86_64). Per netplex rule #33 (device_profiles.py must match the real EVE-NG\ntemplate, not be guessed), i386 is the correct permanent default regardless of\nany one image's own boot outcome. LIVE-TESTED, honestly reported: the one real\nclassic-ASA image reachable anywhere (asa 8.0.2, imported from <vendor-box>) hit\nan IDENTICAL kernel panic under BOTH x86_64 and this i386 setting, so the arch\nchange alone did not unblock it. SUPERSEDED 2026-09-22 (NPX-153): that panic was\nnever an arch problem and was NOT an external blocker - it was the RAM ceiling,\nroot-caused and fixed below (see the min/default/max_ram_mb comment). i386 stays\nbecause it is the verified-correct EVE-NG-parity value;\na per-node qemu_arch override (backend/node-manager/providers/qemu.py) now also\nexists if a future, non-broken classic-ASA image needs x86_64 instead.\nnic: e1000 -> i82559er (NPX-303/NPX-1113, found 2026-09-14 live-testing the\nasa 9.1.5 image): EVE-NG's real asa.yml (re-checked directly) pins\n`qemu_nic: i82559er`, not e1000 - this was the one field NPX-460's earlier\ntemplate audit didn't catch (it only flagged the qemu_arch mismatch, fixed\nseparately below). Live evidence: booting this profile's e1000 NIC, the\nASA's own boot log shows \"Driver not found for vid=0x8086 did=0x100e\"\n(0x100e is the e1000 PCI id) repeated for every configured interface, then\n\"Total NICs found: 0\" and a kernel segfault soon after - the classic-ASA\nfirmware's own NIC driver simply doesn't recognize the e1000 model QEMU\nwas emulating. i82559er (an Intel 8255x Fast Ethernet chip) is what EVE-NG\nverified works.",
+  "min_ram_mb": "rule #59 reason: ram 384 MB vs EVE-NG 2048 (initrd window, NPX-153) - RAM CEILING: THE ROOT CAUSE OF THE CLASSIC-ASA BOOT PANIC (NPX-153,\nroot-caused 2026-09-22). This is a deliberate, evidence-backed deviation from\nEVE-NG's asa.yml (`ram: 2048`) - rule #59 requires the reason in writing, here it\nis, with the guest kernel's own words.\nThe asa-8.02 disk boots via GRUB 0.91 on its MBR (stage1 -> /boot/grub/stage2 on\nhda2). Its menu.lst says:\nkernel /boot/vmlinuz root=/dev/hda1 ... initrd /boot/asa-single.gz\nhda1 is a VFAT partition (the ASA flash: lina_monitor, ln) and this kernel\n(2.6.17.8, 32-bit) has only ext3 + cramfs compiled in. The REAL root filesystem is\nthe initrd (`asa-single.gz`, a cpio initramfs containing /init), so `root=` is\nnever supposed to be reached at all.\nGRUB legacy always parks the initrd near the TOP of RAM, capped at its own\nLINUX_INITRD_MAX_ADDRESS (0x38000000 = 896 MB). This ASA kernel's low-memory\nwindow ends at 0x1a000000 (it reports \"416MB LOWMEM available\" for any RAM size\n>= 512 MB). So on any node with >= 512 MB the kernel prints, verbatim:\ninitrd extends beyond end of memory (0x1ffcf8af > 0x1a000000)\ndisabling initrd\n...then falls through to the VFAT hda1 it cannot mount:\nNo filesystem could mount root, tried:  ext3 cramfs\nKernel panic - not syncing: VFS: Unable to mount root fs on unknown-block(3,1)\nMeasured boundary (asa 8.0.2, qemu-system-i386, EVE-NG's own option set AND\nnetplex's KVM path - both behave identically, so this is the image, not the\nhypervisor flags): 256 MB and 384 MB load the initrd (\"Freeing initrd memory:\n1682k freed\") and reach the real `ciscoasa>` prompt with \"Total NICs found: 6\";\n512 MB, 1024 MB and 2048 MB all hit the panic above. 416 MB is the true hard\nceiling, but the UI RAM stepper moves in 128 MB steps, so 384 is the highest\nselectable safe value and is pinned as max_ram_mb - raising it past this does not\ngive the firewall more memory, it stops the box booting at all.\nThis is why the \"i386 vs x86_64\" and NIC-model fixes before it never helped: the\npanic happens before any of that matters. Nothing about -icount, -smbios\ntype=1,product=asa5520 or accel=tcg (all of which EVE-NG's asa.yml sets) is\nrequired - each was tested directly and the image boots to `ciscoasa>` without\nthem under plain KVM, so netplex deliberately does NOT carry that drift."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "default_ram_mb": 384,
+  "description": "Cisco ASA (legacy 8.x).",
+  "disk_bus": "ide",
+  "emulator": "qemu",
+  "machine": "pc",
+  "max_ram_mb": 384,
+  "min_ram_mb": 256,
+  "nic": "i82559er",
+  "node_class": "firewall",
+  "qemu_arch": "i386",
+  "qemu_version_compatible": [
+   "4.1.0"
+  ],
+  "qemu_version_default": "4.1.0",
+  "recommended_ram_mb": 384,
+  "role": "firewall",
+  "vendor": "cisco"
+ }
+}

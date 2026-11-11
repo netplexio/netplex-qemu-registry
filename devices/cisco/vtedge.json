@@ -1,0 +1,35 @@
+{
+ "key": "vtedge",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "NPX-893: boot timeout increased from 300 to 600s (Wave 21 U5 round 6: device was still reporting startup at 300s; needs more time to reach login prompt).\n2026-09-06 retest (Wave 21 U5, node d10a44f7): 600s was STILL not enough - the\nserial console produced literally zero bytes for the full window (opened\n13:32:23, still silent at 13:39:56, host otherwise idle at load 6.4/40 cores -\nruled out host contention). Doubled to 1200s rather than guessing a smaller\nbump, since 300->600 already proved once that this image's real boot time was\nbeing underestimated.",
+  "config_dialect": "NPX-818 (Wave 21 U3): Cisco's SD-WAN (Viptela) boxes carry vendor \"cisco\", which\nsent every one of them to VENDOR_CLI[\"cisco\"] - IOS verbs. Viptela is not IOS: it\nis a confd CLI whose configuration mode is entered with \"config\", committed with\n\"commit and-quit\" and paged off with \"paginate false\", and whose \"end\"/\"write\nmemory\" equivalents do not exist. VENDOR_CLI already carries the correct\n\"viptela\" dialect (authored and live-proved in an earlier wave); nothing ever\nreached it, because a dialect is only selected by the vendor string unless a\nprofile names it. This is the same shape as NPX-617 (IOS-XR reached the IOS\ndialect through vendor \"cisco\" and silently lost every config), so it is fixed\nthe same way and for the same reason.",
+  "emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\nvtedge.yml (\"-cpu host\") - no comment ever addressed this field.",
+  "nic": "e1000 is MANDATORY, not just this platform's generic-fallback default: virtio-net-pci\nsilently drops 802.1Q VLAN-tagged frames on vEdge's data-plane interfaces under\nQEMU/KVM (docs/platform/node-emulation.md \"Key SD-WAN Configuration Notes\"). Pinning\nit explicitly here so it stays correct even if GENERIC_KVM_PROFILE's own default\never changes - it must never silently drift onto virtio-net-pci for this device."
+ },
+ "settings": {
+  "boot_timeout_sec": 1200,
+  "config_dialect": "viptela",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 1024,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "Viptela vEdge Cloud requires minimum 1 GB RAM and 8 vCPUs",
+  "min_ram_mb": 1024,
+  "nic": "e1000",
+  "node_class": "router",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "recommended_ram_mb": 2048,
+  "role": "router",
+  "vendor": "cisco"
+ }
+}

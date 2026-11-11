@@ -1,0 +1,27 @@
+{
+ "key": "nethesis-nethsecurity",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "No EVE-NG template - sourced from GNS3's real nethsecurity.gns3a\n(catalog-diff/gns3-catalog.md row 174), which is the one entry in this\nwhole group to give a real, specific disk_interface (scsi, not the\nusual \"n/a\") - used directly.",
+  "emulator": "machine left at plain \"pc\" - qemu.py's own disk_bus heuristic already\nauto-upgrades a bare \"pc\" to \"q35\" for scsi/sata/nvme buses, so setting\nit explicitly here would be redundant with (and could silently diverge\nfrom) that existing code path.",
+  "description": "58): reaches the real OpenWrt-style 'Please press Enter to activate this console' banner with br-lan/eth0/eth1 up - this fix depended on NPX-1167's own virtio-scsi controller fix below (this profile's disk_bus is scsi). Wave 38.12/NPX-1167.\","
+ },
+ "settings": {
+  "boot_timeout_sec": 300,
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 1,
+  "cpu_model": "host",
+  "default_ram_mb": 1024,
+  "description": "Nethesis NethSecurity. Real image sourced 2026-09-17 from the project's own official S3 bucket (nethsecurity.ams3.digitaloceanspaces.com/stable/8.8.0/targets/x86/64/nethsecurity-8.8.0-x86-64-generic-squashfs-combined-efi.img.gz - found by reading NethSecurity's own public GitHub Actions build-image.yml, since its GitHub Releases page ships only a checksum file, not the image itself) - free/open-source, no vendor account needed. Live-boot-verified through netplex's real platform (rule #58): reaches the real OpenWrt-style 'Please press Enter to activate this console' banner with br-lan/eth0/eth1 up - this fix depended on NPX-1167's own virtio-scsi controller fix below (this profile's disk_bus is scsi). Wave 38.12/NPX-1167.",
+  "disk_bus": "scsi",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 1024,
+  "nic": "virtio-net-pci",
+  "node_class": "firewall",
+  "role": "firewall",
+  "vendor": "nethesis"
+ }
+}

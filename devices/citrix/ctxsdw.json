@@ -1,0 +1,33 @@
+{
+ "key": "ctxsdw",
+ "source": "netplex-tested",
+ "tested": "── Citrix SD-WAN ────────────────────────────────────────────────────────────",
+ "reasons": {
+  "emulator": "EVE template ctxsdw.yml: Citrix SD-WAN (CTX SD-WAN) appliance.\nVERIFIED 2026-08-29: boots to login prompt in 10.8s with this profile.\nKernel console type: telnet (serial).",
+  "config_console": "W177-G1 (2026-08-30): Citrix SD-WAN never presents a command line on its\nconsole - measured, not assumed. 25 minutes after a full boot the serial log\nended at kernel time 48.68s and the VGA framebuffer (read over RFB) showed the\nSAME frozen text, with none of the newlines/`admin`/`help` we sent appearing on\nit, i.e. the guest processed no input at all. EVE-NG agrees by omission: none of\nits 30 config_*.py scripts covers ctxsdw. The console itself stays \"telnet\" and\nstill works for watching the boot - only CONFIG read/write is refused, and it is\nrefused with this reason instead of a misleading \"no dialect for vendor citrix\"\n(the same vendor's nsvpx has a full working dialect). Delete these two keys if a\nfuture build offers a console login; nothing else has to change."
+ },
+ "settings": {
+  "boot_timeout_sec": 240,
+  "config_console": "none",
+  "config_console_reason": "Citrix SD-WAN is administered over its web UI; its console shows boot messages only and never offers a login.",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 4,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 4096,
+  "description": "Citrix SD-WAN Edge appliance.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 4096,
+  "nic": "virtio-net-pci",
+  "node_class": "router",
+  "qemu_arch": "x86_64",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "router",
+  "vendor": "citrix"
+ }
+}

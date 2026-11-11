@@ -1,0 +1,17 @@
+{
+ "key": "micro-core-linux",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "category": "guest",
+  "console": "telnet",
+  "default_ram_mb": 64,
+  "emulator": "qemu",
+  "interfaces": 1,
+  "min_ram_mb": 64,
+  "nic": "e1000",
+  "node_class": "imported-default",
+  "qemu_arch": "i386",
+  "vendor": "team-tiny-core"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "key": "nd",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "\r\n",
+  "cpu": 16,
+  "cpu_model": "host",
+  "default_ram_mb": 49152,
+  "description": "Cisco Nexus Dashboard (ND) - data-center fabric operations platform - not yet boot-verified (no netplex-held image); defaults from vendor-published specs.",
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 49152,
+  "nic": "e1000",
+  "node_class": "appliance",
+  "qemu_version_compatible": [
+   "5.2.0"
+  ],
+  "qemu_version_default": "5.2.0",
+  "role": "appliance",
+  "vendor": "cisco"
+ }
+}

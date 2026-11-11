@@ -1,0 +1,16 @@
+{
+ "key": "eve-dind",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "cpu": 1,
+  "default_ram_mb": 1024,
+  "description": "Docker-in-Docker utility container (nested container labs)",
+  "emulator": "docker",
+  "min_ram_mb": 1024,
+  "node_class": "container",
+  "role": "container",
+  "vendor": "netplex"
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "key": "catc8k",
+ "source": "community",
+ "tested": "",
+ "settings": {
+  "console": "telnet",
+  "cpu": 4,
+  "default_ram_mb": 8192,
+  "emulator": "qemu",
+  "interfaces": 8,
+  "machine": "pc",
+  "min_ram_mb": 256,
+  "nic": "vmxnet3",
+  "node_class": "imported-default",
+  "qemu_arch": "x86_64"
+ }
+}

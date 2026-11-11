@@ -1,0 +1,19 @@
+{
+ "key": "vpcs-host",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {},
+ "settings": {
+  "boot_timeout_sec": 2,
+  "console": "docker-exec",
+  "console_init": "",
+  "cpu": 1,
+  "default_ram_mb": 64,
+  "emulator": "docker",
+  "image": "alpine:latest",
+  "min_ram_mb": 16,
+  "node_class": "host",
+  "role": "host",
+  "vendor": "linux"
+ }
+}

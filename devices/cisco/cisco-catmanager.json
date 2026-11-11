@@ -1,0 +1,36 @@
+{
+ "key": "cisco-catmanager",
+ "source": "netplex-tested",
+ "tested": "",
+ "reasons": {
+  "vendor": "rule #59 reason: ram 32768 vs EVE 24756 - min_ram_mb 32768 is Cisco Catalyst Center vendor floor; EVE default is below it.",
+  "extra_disks": "NPX-1494: was the dead `\"multi_disk\": True` flag (never read anywhere), so the real\nsecond disk (virtiob.qcow2) was never attached. No image held for this platform yet\n(rule #13 external blocker) - re-verify live once one is imported."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 8,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 32768,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "extra_disks": [
+   {
+    "bus": "virtio",
+    "device": "disk",
+    "name": "virtiob.qcow2",
+    "readonly": false
+   }
+  ],
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "Catalyst SD-WAN Manager requires minimum 32 GB RAM and 8 vCPUs - this is a heavyweight management platform",
+  "min_ram_mb": 32768,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "recommended_ram_mb": 65536,
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

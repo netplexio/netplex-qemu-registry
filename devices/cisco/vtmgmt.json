@@ -1,0 +1,34 @@
+{
+ "key": "vtmgmt",
+ "source": "netplex-tested",
+ "tested": "NOTE: keyed bare as \"vtmgmt\" (not \"cisco-vtmgmt\") - see the \"vtmanage\"/\"vtmgmt\"\nalias block below the PROFILES dict for why the \"cisco-\" prefix made this profile\nunreachable for every real image name.",
+ "reasons": {
+  "config_dialect": "NPX-818 (Wave 21 U3): Cisco's SD-WAN (Viptela) boxes carry vendor \"cisco\", which\nsent every one of them to VENDOR_CLI[\"cisco\"] - IOS verbs. Viptela is not IOS: it\nis a confd CLI whose configuration mode is entered with \"config\", committed with\n\"commit and-quit\" and paged off with \"paginate false\", and whose \"end\"/\"write\nmemory\" equivalents do not exist. VENDOR_CLI already carries the correct\n\"viptela\" dialect (authored and live-proved in an earlier wave); nothing ever\nreached it, because a dialect is only selected by the vendor string unless a\nprofile names it. This is the same shape as NPX-617 (IOS-XR reached the IOS\ndialect through vendor \"cisco\" and silently lost every config), so it is fixed\nthe same way and for the same reason.",
+  "emulator": "rule #59 (NPX-1527 profiles review, 2026-09-24): cpu_model aligned to EVE-NG's\nvtmgmt.yml (\"-cpu host\") - no comment ever addressed this field.",
+  "min_enforcement": "NPX-1918: dead \"multi_disk\" flag removed - real image is a single qcow2 file."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "viptela",
+  "console": "vnc",
+  "console_init": "",
+  "cpu": 4,
+  "cpu_model": "host",
+  "default_ram_mb": 16384,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_enforcement": true,
+  "min_enforcement_msg": "vManage requires minimum 16 GB RAM and 4 vCPUs",
+  "min_ram_mb": 16384,
+  "nic": "virtio-net-pci",
+  "node_class": "server",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "recommended_ram_mb": 32768,
+  "role": "server",
+  "vendor": "cisco"
+ }
+}

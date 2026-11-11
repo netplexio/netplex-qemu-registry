@@ -1,0 +1,30 @@
+{
+ "key": "nsvpx",
+ "source": "netplex-tested",
+ "tested": "── Citrix ADC / NetScaler VPX ──────────────────────────────────────────────\nROOT CAUSE (2026-07-18): \"nsvpx\" has NO entry in this table (nor in taxonomy.py's\ndetector aliases beyond the vendor mapping), so get_profile(\"nsvpx-12.0.53.13\")\nmatched nothing and fell through to GENERIC_KVM_PROFILE (512MB RAM / 1 vCPU).\nLive-reproduced booting the real local image (nsvpx-12.0.53.13/virtioa.qcow2) at\nthat 512MB fallback: the FreeBSD-based loader gets all the way into the NetScaler\nkernel (ns_physmem_init reserves only ~38MB for NetScaler use out of the 512MB\ntotal) and then the kernel OOM-kills its own boot processes outright -\n\"pid 22 (pitboss), uid 0, was killed: out of swap space\" / same for pid 23 (sh) -\nboth within ~40s of power-on, confirmed via the real QEMU serial console, not a\nmock. docs/platform/node-emulation.md already documents Citrix's real minimum\n(2048MB RAM, 4 vCPU) from the vendor datasheet - it was simply never wired into\nthis table (DoD step 5, rule #14, was skipped for this device). RAM/CPU bumped to\nmatch; disk_bus kept at \"virtio\" (NOT the \"ide\" the doc footnote mentions for a\nfreshly-converted raw vendor image) because the actual locally-imported artifact\nis already named virtioa.qcow2 and the live boot confirms the virtio disk reads\nfine (loader loads the kernel/modules, kernel probes ATA/USB, gets to\n\"Trying to mount root from ufs:/dev/md0c\" - the failure is purely OOM, never a\ndisk/bus mismatch) - flipping the bus to ide would break a currently-working disk\npath to chase a doc footnote that predates this locally-converted image.",
+ "reasons": {
+  "emulator": "cpu_model \"qemu64\", not \"host\" (2026-09-12, Wave 21 close, netplex rule #43 - EVE-NG\nfirst, never guess): EVE-NG's own nsvpx.yml qemu_options has NO `-cpu` flag at all\n(`-machine type=pc,accel=kvm ... -rtc base=utc`) - it runs this OS on QEMU's plain\ndefault CPU model, not host-passthrough. `cpu_model_for()`'s own docstring already\ndocuments this exact failure class for another old-kernel appliance (AireOS/vWLC's\n3.10 kernel: \"can kernel-panic on host-passthrough's exposed feature/clock set;\npinning a conservative model avoids that\"). NetScaler's kernel here is an equally\nold FreeBSD derivative. Two things were tried and live-reproduced this session,\nin order, being honest about what did and didn't work (rule #22): (1) cpu 4->2\n(matching EVE-NG's vCPU count) did NOT change the symptom - reproduced identically\nwith cpu=2: SMP brings up fine (\"SMP: AP CPU #1 Launched!\"), reaches \"Trying to\nmount root from ufs:/dev/md0c\" / \"NS-KERN /dev/md0 for compatibilty\", then total\nserial silence for the rest of the 600s budget, byte-identical to the cpu=4 case.\nSo vCPU count is NOT the cause - ruled out with evidence, not assumed. (2) Not yet\nlive-verified this session: switching cpu_model to \"qemu64\" (matching EVE-NG's\nreal no-passthrough config) - the next thing to try before guessing further, since\nthe vCPU-count hypothesis is now ruled out and machine/cpu-model divergence is the\nnext real difference from EVE-NG's own working template.",
+  "config_dialect": "W177-G1 (2026-08-30): NetScaler's own CLI, proven live on this exact image\n(NetScaler NS12.0 Build 53.13.nc) - nsroot/nsroot, `set cli mode -page OFF`,\n`show ns runningConfig`, `save ns config`, and NO configuration mode at all.\nKeyed per-image rather than on the vendor string \"citrix\" because ctxsdw\n(Citrix SD-WAN) is the same vendor with a completely different console - see\nVENDOR_CLI[\"nsvpx\"] in node_config.py."
+ },
+ "settings": {
+  "boot_timeout_sec": 600,
+  "config_dialect": "nsvpx",
+  "console": "telnet",
+  "console_init": "\r\n",
+  "cpu": 2,
+  "cpu_model": "qemu64",
+  "default_ram_mb": 2048,
+  "disk_bus": "virtio",
+  "emulator": "qemu",
+  "machine": "pc",
+  "min_ram_mb": 2048,
+  "nic": "virtio-net-pci",
+  "node_class": "loadbalancer",
+  "qemu_version_compatible": [
+   "2.12.0"
+  ],
+  "qemu_version_default": "2.12.0",
+  "role": "load_balancer",
+  "vendor": "citrix"
+ }
+}
