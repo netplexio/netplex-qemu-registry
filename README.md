@@ -15,6 +15,10 @@ Anyone can **propose** a change (fork, edit one file, open a pull request — se
 | `netplex-tested` | netplex's own profile, reasoned against the vendor's documentation or EVE-NG, with the written evidence (`tested`, `reasons`) beside the field that deviates |
 | `community` | accepted from a pull request; a good default, not necessarily boot-verified |
 
+## Suggest a change from netplex
+
+In netplex, open a device's **Inspector → Settings** and press **Suggest these settings to the device database**: it prepares the file from your values, you copy it and propose it here. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## How netplex uses it
 
 1. **Every netplex release carries a snapshot** of this database (built from one pinned commit with `make device-db-sync`). It works forever, offline and air-gapped; nothing is fetched at start-up.
