@@ -2,6 +2,16 @@
 
 Thank you for helping! One device = one small file = one pull request.
 
+## Easiest way: from inside netplex
+
+On a device's node, open **Inspector → Settings** and press **Suggest these settings to the device database**. netplex shows the file for that device with *your* values (and what differs from today's database). Then:
+
+1. Press **Copy** (works with no internet; nothing is sent from your machine).
+2. Press **Open on GitHub** (or open the link from any computer that is online) and paste the text into the file it opens.
+3. Propose the change. A netplex maintainer checks every change before it reaches other users.
+
+You can also do it by hand:
+
 ## Change or add a device
 
 1. **Fork** this repo.
