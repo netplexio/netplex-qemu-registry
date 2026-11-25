@@ -4,7 +4,7 @@
  "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {
   "vendor": "Same as the common EVE-NG/GNS3 setting for this device.",
-  "qemu_version_default": "default_ram_mb bumped 2048->4096 (2026-08-19, LLA-074) - same real evidence as\n\"juniper-vsrx\" above (this is the alias actually reachable for a bare \"vsrx\"-\nnamed image, so it needs the same fix, not just its sibling entry).",
+  "qemu_version_default": "default_ram_mb bumped 2048->4096 (2026-08-19) - same real evidence as\n\"juniper-vsrx\" above (this is the alias actually reachable for a bare \"vsrx\"-\nnamed image, so it needs the same fix, not just its sibling entry).",
   "day0_channel": "How netplex hands this device its start-up configuration (a config disk or CD the device reads itself)."
  },
  "settings": {

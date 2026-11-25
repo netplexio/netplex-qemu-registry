@@ -26,7 +26,7 @@ TEXT_FIELDS = ("vendor", "role", "image", "description", "notes", "min_enforceme
 
 
 # Public text is for users (NPX-10537): no internal ticket/rule/wave ids, source-file or service names.
-INTERNAL_RE = re.compile(r"NPX-\d+|\b[Rr]ules?\s*#\s*\d+|\bWave\s*\d+|\b[\w/-]+\.(?:py|ts|tsx|sh|yml|yaml|md)\b"
+INTERNAL_RE = re.compile(r"NPX-\d+|\bW\d+(?:-[A-Za-z0-9]+)?\b|\bLLA-\d+|\b[Rr]ules?\s*#\s*\d+|\bWave\s*\d+|\b[\w/-]+\.(?:py|ts|tsx|sh|yml|yaml|md)\b"
                          r"|node-manager|orchestrator|image-manager|network-fabric|device_profiles|image_profiles"
                          r"|\b\w+Provider\b|\bshared/")
 

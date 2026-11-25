@@ -1,7 +1,7 @@
 {
  "key": "cisco-sourcefire",
  "source": "netplex-tested",
- "tested": "── Cisco Sourcefire NGIPS (acquired 2013; still shipped as its own EVE-NG image\nfamily, \"sourcefire-<ver>\") - had no profile at all, falling through to\nGENERIC_KVM_PROFILE. Sized like its sibling NGIPS product FTD above (same\ninspection-engine class of appliance) - W1 audit 2026-08-30.",
+ "tested": "── Cisco Sourcefire NGIPS (acquired 2013; still shipped as its own EVE-NG image\nfamily, \"sourcefire-<ver>\") - had no profile at all, falling through to\nGENERIC_KVM_PROFILE. Sized like its sibling NGIPS product FTD above (same\ninspection-engine class of appliance) - audit 2026-08-30.",
  "reasons": {},
  "settings": {
   "boot_timeout_sec": 480,
