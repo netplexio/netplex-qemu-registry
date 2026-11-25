@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "vendor": "EVE-NG c9800cl.yml: qemu 2.12.0 (already netplex's own most-common pin),\nvmxnet3 NIC, plain -serial mon:stdio (no VGA) - a genuinely simple,\ntelnet-console-only profile, unlike cat9kv's ISO-boot family above."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 480,

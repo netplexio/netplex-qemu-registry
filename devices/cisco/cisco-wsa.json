@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "vendor": "EVE-NG coeus.yml: qemu 2.12.0, no explicit -cpu flag (\"-machine\ntype=pc,accel=kvm -nographic -rtc base=utc\") - kept at qemu64 per\nrow 38.9's own rule, same reasoning as DCNM above."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 300,

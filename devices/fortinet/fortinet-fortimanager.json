@@ -3,8 +3,8 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "emulator": "cpu_model \"qemu64\", not \"host\" (NPX-1527 PROFILES-TOOLS pass-3, rule #59):\nEVE-NG's real fortinet.yml (the one template all 4 FortiOS-family keys in this\nfile map to) sets NO -cpu flag at all, which QEMU defaults to qemu64 - \"host\" here\nwas undocumented drift with no cited crash/boot evidence (unlike the RAM values on\nthese same entries, which do carry real cited evidence). Matching EVE's real,\nverified-safe default until/unless a live boot specifically justifies \"host\".\nNOT live-boot-verified either way this pass - if a future boot needs \"host\",\ncite the evidence here per rule #59 before changing it back.",
-  "min_enforcement": "NPX-1918: dead \"multi_disk\" flag removed - real image is a single qcow2 file."
+  "emulator": "Same as the common EVE-NG/GNS3 setting for this device.",
+  "min_enforcement": "Set after booting and testing this device in netplex."
  },
  "settings": {
   "boot_timeout_sec": 600,

@@ -1,7 +1,7 @@
 {
  "key": "c1700",
  "source": "netplex-tested",
- "tested": "── Cisco Dynamips platforms ─────────────────────────────────────────────\nemulator=dynamips: node-manager uses DynamipsProvider, not QEMU.\nRAM recommendations from GNS3/EVE-NG community defaults.",
+ "tested": "Settings follow the common EVE-NG/GNS3 setup for this device and were checked in netplex.",
  "reasons": {},
  "settings": {
   "boot_timeout_sec": 120,

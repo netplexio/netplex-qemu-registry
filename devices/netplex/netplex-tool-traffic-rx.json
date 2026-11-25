@@ -2,17 +2,20 @@
  "key": "netplex-tool-traffic-rx",
  "source": "netplex-tested",
  "tested": "",
- "reasons": {},
+ "reasons": {
+  "default_ram_mb": "The packet viewer needs about 80-150 MB; 192 MB was too tight and the tool was restarted mid-measurement.",
+  "min_ram_mb": "Lower than this the packet viewer runs out of memory."
+ },
  "settings": {
   "boot_timeout_sec": 10,
   "console": "docker-exec",
   "console_init": "",
   "cpu": 1,
-  "default_ram_mb": 192,
+  "default_ram_mb": 384,
   "emulator": "docker",
   "image": "netplex-tool-traffic-rx:latest",
   "interfaces": 2,
-  "min_ram_mb": 96,
+  "min_ram_mb": 256,
   "node_class": "host",
   "reserved_interfaces": [
    {

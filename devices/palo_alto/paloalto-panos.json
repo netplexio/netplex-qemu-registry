@@ -3,9 +3,9 @@
  "source": "netplex-tested",
  "tested": "── Palo Alto ────────────────────────────────────────────────────────────────",
  "reasons": {
-  "day0_channel": "NPX-4299 (rule #59, the project owner 30 Oct 2026): FAT config DISK as hdb holding ios_config.txt (GNS3 way, CVAC); EVE-NG has no boot-time vIOS config - see providers/day0_iso_channels.py FatConfigDiskChannel.",
-  "emulator": "NPX-1810 rule #59: EVE paloalto.yml pin (was unpinned); not boot-proven",
-  "min_ram_mb": "rule #59: cpu/ram = EVE-NG paloalto.yml (cpu 4, ram 8192). Real PAN-OS 11.2.5 imported + booted via the platform (NPX-4691)."
+  "day0_channel": "How netplex hands this device its start-up configuration (a config disk or CD the device reads itself).",
+  "emulator": "Same as the common EVE-NG/GNS3 setting for this device.",
+  "min_ram_mb": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 600,

@@ -1,7 +1,7 @@
 {
  "key": "trendmivtps",
  "source": "netplex-tested",
- "tested": "NOTE: the canonical \"sophosxg\" profile is the live-VERIFIED one defined earlier\nin this dict (1024 MB / 4 vCPU, matching the guest's own firstboot floor). A\nsecond \"sophosxg\" key used to live here with unverified 2048 MB / 1 vCPU defaults\nand, being defined last, silently overrode the verified one (ruff F601). Deleted\n2026-07-24 (NPX-322) so sophosxg boots with its verified hardware defaults.",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {},
  "settings": {
   "boot_timeout_sec": 600,

@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "nic": "rule #59 (2026-09-21, NPX-1266): nic reverted to EVE-NG 128t.yml (e1000); the old virtio value came from the 2026-07-22 bulk catalog fill with no boot evidence."
+  "nic": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 600,

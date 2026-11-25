@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "min_ram_mb": "Vendor minimum (Nokia's docs: 2GB+ RAM, 2 vCPU) - matches the launch-time\nfloor already enforced in docker_provider.py's _CONTAINER_NOS_LAUNCH so the\nLibrary/palette-shown default and the actually-enforced minimum agree."
+  "min_ram_mb": "Vendor default."
  },
  "settings": {
   "boot_timeout_sec": 120,

@@ -3,8 +3,8 @@
  "source": "netplex-tested",
  "tested": "── OpenWrt ──────────────────────────────────────────────────────────────────",
  "reasons": {
-  "emulator": "rule #59: no EVE template exists; nic/disk/RAM chosen by NPX-1769 (GNS3 openwrt.gns3a), no qemu pin.",
-  "nic": "NPX-1769: GNS3 openwrt.gns3a value (rule #59); LEDE kernel lacks virtio-blk"
+  "emulator": "Same as the common EVE-NG/GNS3 setting for this device.",
+  "nic": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 60,

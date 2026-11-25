@@ -3,8 +3,8 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "vendor": "EVE-NG has two templates for this product (firepower.yml, older, no\nqemu_version pin; firepower6.yml, newer, pins 4.1.0 + explicit -cpu\nhost) - this profile follows the newer/current one.",
-  "min_ram_mb": "rule #59 (2026-09-21, NPX-1266): RAM 8192 matches EVE-NG's newer firepower6.yml (ram 8192, cpu 4, qemu 4.1.0), which this profile follows; only the older firepower.yml says 4096."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device.",
+  "min_ram_mb": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 600,

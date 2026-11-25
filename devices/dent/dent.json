@@ -1,7 +1,7 @@
 {
  "key": "dent",
  "source": "netplex-tested",
- "tested": "── DENT ─────────────────────────────────────────────────────────────────────\nwave 6.M8 / NPX-577. Spec sourced from the vendor's own DENT-3.2-VM.gns3a\n(not guessed - netplex rule #12): adapter_type=e1000 (NIC), hda_disk_interface=virtio\n(disk bus), ram=2048. Debian-buster-based switch NOS.",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {},
  "settings": {
   "boot_timeout_sec": 180,

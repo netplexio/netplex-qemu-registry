@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "vendor": "EVE-NG panorama.yml (catalog-diff/eveng-catalog.md row 161): explicit\n-cpu host. Distinct from \"paloalto-panos\" above (the firewall itself,\nalready covered) - Panorama is the centralized management appliance."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 600,

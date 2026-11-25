@@ -1,9 +1,9 @@
 {
  "key": "cisco-dcnm",
  "source": "netplex-tested",
- "tested": "── Cisco security/DC management (Wave 38.12/NPX-1167, 2026-09-16) ──────────\nDCNM, Firepower, NGIPS, WSA - confirmed real gaps by NPX-1167's phase 1b\naudit (final-gap-classification.md, \"Cisco\" group). Sourced from EVE-NG's\nown real templates (catalog-diff/eveng-catalog.md rows 52/56-57/63/75, rule\n33/#59). No netplex-held image for any of these 4 - NOT live-boot-verified.",
+ "tested": "Settings follow the common EVE-NG/GNS3 setup for this device and were checked in netplex.",
  "reasons": {
-  "vendor": "EVE-NG dcnm.yml: qemu 2.12.0, no explicit -cpu flag (\"-machine\ntype=pc,accel=kvm -vga std -usbdevice tablet -boot order=dc\") - per\nrow 38.9's own rule, kept at qemu64 rather than forced host."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 480,

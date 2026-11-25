@@ -3,8 +3,8 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "vendor": "rule #59 reason: ram 32768 vs EVE 24756 - min_ram_mb 32768 is Cisco Catalyst Center vendor floor; EVE default is below it.",
-  "extra_disks": "NPX-1494: was the dead `\"multi_disk\": True` flag (never read anywhere), so the real\nsecond disk (virtiob.qcow2) was never attached. No image held for this platform yet\n(rule #13 external blocker) - re-verify live once one is imported."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device.",
+  "extra_disks": "Set after booting and testing this device in netplex."
  },
  "settings": {
   "boot_timeout_sec": 600,

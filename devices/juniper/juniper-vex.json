@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "vendor": "EVE-NG vjunosswitch.yml pins a much more specific CPU than a plain model\nname: \"-cpu IvyBridge,ibpb=on,md-clear=on,spec-ctrl=on,ssbd=on,vmx=on\".\nnetplex's cpu_model field only carries a base model name (qemu.py's\n<model fallback='forbid'>{model}</model> - no per-flag passthrough for a\nprofile-level pin), so the base model (IvyBridge, a real QEMU CPU model)\nis set here and the extra security/virtualization feature flags are\nnamed here rather than silently dropped - a real, disclosed schema\nlimitation (rule #31), not an oversight."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 600,

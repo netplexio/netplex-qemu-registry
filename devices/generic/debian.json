@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "boot_timeout_sec": "boot_timeout_sec 180 -> 400 (NPX-1527 PROFILES-TOOLS pass-3, rule #59/#60): same\nday0_channel=\"cloud-init\" mechanism as \"ubuntu\" above, which was already fixed from\n180 to 400 for this exact reason (live-reproduced: cloud-init's \"ready marker\nconfirmed\" line doesn't land within 180s) - this sibling used the identical\nmechanism and was left at the old, already-disproven value."
+  "boot_timeout_sec": "Set after booting and testing this device in netplex."
  },
  "settings": {
   "boot_timeout_sec": 400,
