@@ -3,8 +3,8 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "min_ram_mb": "default_ram_mb 512 -> 1024 (NPX-1527 PROFILES-TOOLS pass-3, rule #59): EVE-NG's\nreal iol.yml sets ram: 1024 with no separate default/floor split - the old 512\nhere had no written reason, matching EVE exactly now.",
-  "nic": "NPX-1527 review (Wave 38): IolProvider.get_console returns ConsoleType.SERIAL (raw PTY bridge), so the profile must say \"serial\" - not EVE's \"telnet\" label; verified in iol_provider.py get_console. No consumer treats the two differently today."
+  "min_ram_mb": "Same as the common EVE-NG/GNS3 setting for this device.",
+  "nic": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 60,

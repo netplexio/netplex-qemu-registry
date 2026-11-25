@@ -1,7 +1,7 @@
 {
  "key": "vpp",
  "source": "netplex-tested",
- "tested": "VPP (FD.io) - wave 6.M8 / NPX-577,579. Ligato's vpp-agent build. RAM floor set\nabove FRR's since VPP itself (not just an agent) runs inside - matches the same\nmin_ram_mb the launch-time floor in docker_provider.py's _CONTAINER_NOS_LAUNCH\nenforces for \"ligato/vpp-agent\" (see that file), so the Library-shown default and\nthe enforced minimum agree (same discipline as the srlinux entry above).",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {},
  "settings": {
   "boot_timeout_sec": 30,

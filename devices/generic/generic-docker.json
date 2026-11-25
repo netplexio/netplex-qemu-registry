@@ -1,7 +1,7 @@
 {
  "key": "generic-docker",
  "source": "netplex-tested",
- "tested": "── Generic-Docker fallback ─────────────────────────────────────────────────\nUsed for a locally-pulled Docker image with no curated profile (most user pulls -\nwireshark, a random tool, an in-house build). 512MB/1 vCPU matches NodeDefinition's\nown pre-existing default for a raw topology POST (docker_provider.py) - not a new\nnumber invented here, the same floor the runtime already falls back to.",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {},
  "settings": {
   "cpu": 1,

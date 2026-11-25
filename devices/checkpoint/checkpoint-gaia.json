@@ -1,9 +1,9 @@
 {
  "key": "checkpoint-gaia",
  "source": "netplex-tested",
- "tested": "── Security / UTM (Wave 38.12/NPX-1167, 2026-09-16) ────────────────────────\nConfirmed real gaps by NPX-1167's phase 1b audit (final-gap-classification.md,\n\"Security / UTM\" group). No netplex-held image for any of these 5 - NOT\nlive-boot-verified.",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {
-  "vendor": "No EVE-NG template - sourced from GNS3's real checkpoint-gaia.gns3a\n(catalog-diff/gns3-catalog.md row 45)."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 420,

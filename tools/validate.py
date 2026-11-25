@@ -25,6 +25,20 @@ TEXT_FIELDS = ("vendor", "role", "image", "description", "notes", "min_enforceme
                "config_console_reason", "category")
 
 
+# Public text is for users (NPX-10537): no internal ticket/rule/wave ids, source-file or service names.
+INTERNAL_RE = re.compile(r"NPX-\d+|\b[Rr]ules?\s*#\s*\d+|\bWave\s*\d+|\b[\w/-]+\.(?:py|ts|tsx|sh|yml|yaml|md)\b"
+                         r"|node-manager|orchestrator|image-manager|network-fabric|device_profiles|image_profiles"
+                         r"|\b\w+Provider\b|\bshared/")
+
+
+def internal_words(doc):
+    """Every text a user can read in one device file that carries an internal token."""
+    st = doc.get("settings") or {}
+    texts = [str(doc.get("tested") or "")] + [str(v) for v in (doc.get("reasons") or {}).values()]
+    texts += [str(v) for v in st.values() if isinstance(v, str)]
+    return sorted({m.group(0) for t in texts for m in INTERNAL_RE.finditer(t)})
+
+
 def rng(lo, hi):
     return lambda v: isinstance(v, int) and not isinstance(v, bool) and lo <= v <= hi
 
@@ -133,6 +147,10 @@ def check_tree(root=ROOT):
             lo, de, hi = st.get("min_ram_mb"), st.get("default_ram_mb"), st.get("max_ram_mb")
             if (lo and de and lo > de) or (de and hi and de > hi):
                 problems.append(f"{rel}: ram min/default/max out of order")
+            bad = internal_words(doc)
+            if bad:
+                problems.append(f"{rel}: notes are for users - remove internal words {bad} (say what the value is "
+                                "and where it comes from, in plain words)")
             for f in (doc.get("reasons") or {}):
                 if f not in st:
                     problems.append(f"{rel}: reason for a field the device does not set ({f})")

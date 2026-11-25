@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "\"extremexos-*\" image folder format",
  "reasons": {
-  "console": "NPX-821 (Wave 21 U3): see the identical note on \"extreme-xos\" above - same\nproduct, same measurement, both image-name shapes must agree or the class a\ndevice gets would depend on which folder name it was ingested under."
+  "console": "Set after booting and testing this device in netplex."
  },
  "settings": {
   "boot_timeout_sec": 180,

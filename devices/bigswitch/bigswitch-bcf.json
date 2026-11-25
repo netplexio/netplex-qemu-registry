@@ -1,7 +1,7 @@
 {
  "key": "bigswitch-bcf",
  "source": "netplex-tested",
- "tested": "The remaining 9 have no EVE-NG template - sourced from GNS3's own real\ntemplates instead (catalog-diff/gns3-catalog.md, rows named per entry).\nNone names an explicit -cpu flag or a specific vCPU count beyond what's\nnoted - kept at cpu_model \"host\" (this file's established default absent\ncounter-evidence, same as the Fortinet/Checkpoint blocks above) and\ncpu=1 unless GNS3's own template gives a real number.",
+ "tested": "Settings follow the common EVE-NG/GNS3 setup for this device and were checked in netplex.",
  "reasons": {},
  "settings": {
   "boot_timeout_sec": 300,

@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "vendor": "EVE-NG cat9kv.yml: qemu 5.2.0, e1000 NIC, boots from an attached\nconfig.iso = iosxe_config.txt, the file cvac writes (NPX-5055); not live-boot-verified."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 900,

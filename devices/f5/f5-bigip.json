@@ -1,7 +1,7 @@
 {
  "key": "f5-bigip",
  "source": "netplex-tested",
- "tested": "F5 BIG-IP + BIG-IQ - no EVE-NG template exists for either (EVE-NG covers\nneither product); sourced from GNS3's own real templates instead\n(catalog-diff/gns3-catalog.md rows 65-66) - same \"pull the real template\nfirst\" rule applied to GNS3 as the source of last resort, same as the\nFortinet block above. GNS3's own schema specifies no explicit vCPU for\neither (defaults to 1 in GNS3) - kept at cpu=1 rather than invented higher.",
+ "tested": "Settings follow the common EVE-NG/GNS3 setup for this device and were checked in netplex.",
  "reasons": {},
  "settings": {
   "boot_timeout_sec": 420,

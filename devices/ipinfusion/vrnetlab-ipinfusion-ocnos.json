@@ -12,7 +12,7 @@
   "console_init": "",
   "cpu": 2,
   "default_ram_mb": 4096,
-  "description": "IP Infusion OcNOS via vrnetlab (containerized QEMU wrapper). OcNOS is a full-featured disaggregated NOS (routing/MPLS/switching) with no native netplex profile of any kind (no taxonomy tile, no device_profiles entry, no community-registry fallback).",
+  "description": "IP Infusion OcNOS via vrnetlab (containerized QEMU wrapper). A full-featured disaggregated network OS (routing, MPLS, switching).",
   "emulator": "docker",
   "image": "vrnetlab/ipinfusion_ocnos:6.5.2-101",
   "min_ram_mb": 2048,

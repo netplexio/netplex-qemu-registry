@@ -1,10 +1,10 @@
 {
  "key": "l2-adventerprisek9",
  "source": "netplex-tested",
- "tested": "Some real IOL binaries in the wild are named without the \"i86bi\"/\"iou\" token at all -\nbare \"L2-ADVENTERPRISEK9-M\" / \"L3-ADVENTERPRISEK9-M\" (Cisco internal test-build names).\nWithout these, get_profile() found no match for them at all and they silently fell\nthrough to GENERIC_KVM_PROFILE (a QEMU-shaped profile - wrong emulator, wrong interface\nnaming) instead of the correct IOL router/switch profile. Found 2026-07-21 alongside the\nmatching frontend Library-badge gap (computeImageRoleKey in StudioHome.tsx).",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {
-  "min_ram_mb": "default_ram_mb 512 -> 1024 (NPX-1527 PROFILES-TOOLS pass-3, rule #59): EVE-NG's\nreal iol.yml sets ram: 1024 with no separate default/floor split - the old 512\nhere had no written reason, matching EVE exactly now.",
-  "nic": "NPX-1527 review (Wave 38): IolProvider.get_console returns ConsoleType.SERIAL (raw PTY bridge), so the profile must say \"serial\" - not EVE's \"telnet\" label; verified in iol_provider.py get_console. No consumer treats the two differently today."
+  "min_ram_mb": "Same as the common EVE-NG/GNS3 setting for this device.",
+  "nic": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 60,

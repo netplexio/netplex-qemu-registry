@@ -10,7 +10,7 @@
   "cpu": 4,
   "cpu_model": "host",
   "default_ram_mb": 16384,
-  "description": "Versa Networks VCO (SD-WAN Orchestrator) - NOT live-boot-verified (no netplex-held image; RAM/CPU/NIC from the vendor reference template)",
+  "description": "Versa Networks VCO (SD-WAN Orchestrator). RAM, CPU and NICs follow the vendor reference template; not yet booted live in netplex.",
   "disk_bus": "ide",
   "emulator": "qemu",
   "machine": "pc",

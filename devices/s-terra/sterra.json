@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "qemu_version_default": "NPX-1657 rule #59: pc-1.0 only in QEMU <6.2 (EVE default 2.x)"
+  "qemu_version_default": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 600,

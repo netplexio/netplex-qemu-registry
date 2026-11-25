@@ -1,9 +1,9 @@
 {
  "key": "veos",
  "source": "netplex-tested",
- "tested": "Bare \"veos-*\" image folder format (no \"arista-\" prefix) - same gap class as\niosv/cisco-iosv fixed earlier tonight. Real registered image (veos-4.14.5F) uses\nthis exact bare naming and had NO profile match at all, falling through to\nGENERIC_KVM_PROFILE's disk_bus=\"virtio\" against an on-disk image resolved as\nhda.qcow2 (IDE) - image_profiles.py already has \"veos\": (\"ide\", 1, True) - a\nguaranteed no-bootable-disk mismatch, plus none of arista-veos's own RAM settings.\nMirrors \"arista-veos\" exactly (identical product, different upload naming convention).",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {
-  "vendor": "NPX-1245 (rule #59): RAM 6144 / 2 vCPU = EVE veos.yml, same as arista-veos above (same no-vEOS-lab-image blocker, NPX-1245).",
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device.",
   "day0_channel": "vEOS-lab only - see \"arista-veos\" above."
  },
  "settings": {

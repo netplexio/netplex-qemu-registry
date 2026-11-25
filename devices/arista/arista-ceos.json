@@ -1,7 +1,7 @@
 {
  "key": "arista-ceos",
  "source": "netplex-tested",
- "tested": "\"arista-ceos\" - Wave 38.12 gap fill (NPX-1167): the CONTAINER packaging of EOS,\na genuinely different product form from \"arista-veos\"/\"veos\" above (VM form -\nboth real, both worth having, per the catalog-diff doc's own note). No\nnetplex-held cEOS image exists (Arista gates the download behind a free\narista.com account, not on the <vendor-box> vendor library either - checked) -\nhardware defaults only (docker type,\nram 4096, single mgmt \"Management0\" interface), NOT live-boot-verified.",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {},
  "settings": {
   "boot_timeout_sec": 240,

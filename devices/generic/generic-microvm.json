@@ -1,7 +1,7 @@
 {
  "key": "generic-microvm",
  "source": "netplex-tested",
- "tested": "── Generic-MicroVM fallback ────────────────────────────────────────────────\ninterfaces ties into W2's boot-time NIC count surface. microvm_engine is a closed\nenum (kata|firecracker|qemu) already recognised by shared/models.py's node-config\nallowlist and consumed by microvm.py - firecracker is the safe default (no nested\ndouble-governance quirk Kata has, see device_profiles module docstring D3 notes).",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {},
  "settings": {
   "console": "serial",

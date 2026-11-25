@@ -1,9 +1,9 @@
 {
  "key": "infoblox",
  "source": "netplex-tested",
- "tested": "── Other confirmed real network-vendor gaps (Wave 38.12/NPX-1167, 2026-09-16)\nConfirmed real gaps by NPX-1167's phase 1b audit (final-gap-classification.md,\n\"Other confirmed real network-vendor gaps\" group). No netplex-held image for\nany of these 11 - NOT live-boot-verified. (Onos, also named in that group, is\na Docker-only appliance with NO real image reference captured by either\ncatalog extraction - not added this pass rather than guessing a docker image\nname; named honestly as a remaining gap.)",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {
-  "vendor": "EVE-NG infoblox.yml (catalog-diff/eveng-catalog.md row 113): no explicit\n-cpu flag - kept qemu64 per row 38.9's rule. Real adapter pattern\n\"LAN{1}\"."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 300,

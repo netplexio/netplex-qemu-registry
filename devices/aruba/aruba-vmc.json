@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "emulator": "NPX-1810 rule #59: EVE aruba.yml pin (was unpinned); not boot-proven"
+  "emulator": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 240,

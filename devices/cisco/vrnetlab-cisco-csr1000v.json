@@ -9,7 +9,7 @@
   "console_init": "",
   "cpu": 1,
   "default_ram_mb": 4096,
-  "description": "Cisco CSR1000v via vrnetlab (containerized QEMU wrapper) - launched through DockerProvider; needs the full 4096 MB of the inner IOS-XE VM.",
+  "description": "Cisco CSR1000v via vrnetlab (containerized QEMU wrapper) - needs the full 4096 MB of the inner IOS-XE VM.",
   "emulator": "docker",
   "image": "vrnetlab/cisco_csr1000v:9.03.13",
   "min_ram_mb": 4096,

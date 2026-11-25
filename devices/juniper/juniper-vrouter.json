@@ -3,7 +3,7 @@
  "source": "netplex-tested",
  "tested": "",
  "reasons": {
-  "vendor": "Same IvyBridge base-model-only limitation as vEX above - EVE-NG's real\nvjunosrouter.yml pins the identical flag set."
+  "vendor": "Same as the common EVE-NG/GNS3 setting for this device."
  },
  "settings": {
   "boot_timeout_sec": 600,

@@ -1,9 +1,9 @@
 {
  "key": "csp-vpn-gate",
  "source": "netplex-tested",
- "tested": "── S-terra CSP VPN Gate ────────────────────────────────────────────────────────\nNo entry existed for \"csp-vpn-gate\" / \"sterra\" - same two-tables-drifted class as\nbarracuda/sonicwall above. image_profiles.py already carries a live-repro-confirmed\nnote (2026-07-18) that this specific product (RHEL5/CentOS 5.3 base, IDE-only\ninitrd) panics in initramfs (\"could not find filesystem '/dev/root'\") when attached\nover virtio - it must be \"ide\". Scoped to \"csp-vpn-gate\" only: the separate\n\"sterra-gate-4.x\" product genuinely ships virtioa.qcow2 and must keep the virtio\ndefault, so no generic \"sterra\" key is added here.\nNPX-309: live-booted 2026-09-01 (lab npx309-sterra, image sterra-csp-vpn-gate-3.1) -\nthe VM boots fine and reaches \"cspgate login:\", but this RHEL5-base image's\nGRUB/kernel sends console output to VGA (tty0), never to ttyS0. With console\nset to \"telnet\" (serial), node-manager's serial.log stayed empty forever (1\nbyte) while a `virsh screenshot` of the VNC framebuffer showed the real login\nprompt - so every operator connecting via netplex's console saw a silent\n\"hang\" that was actually a live, healthy VM on the wrong console. Must be\n\"vnc\", not \"telnet\".",
+ "tested": "Settings were checked by booting this device in netplex.",
  "reasons": {
-  "qemu_version_default": "NPX-1792 rule #59: pc-1.0 exists only in QEMU <6.2; live-booted to a login prompt through the platform 2026-09-25 (VM 701)"
+  "qemu_version_default": "Set after booting and testing this device in netplex."
  },
  "settings": {
   "boot_timeout_sec": 240,
